@@ -1,0 +1,25 @@
+{
+  "name": "babble-backend",
+  "version": "1.0.0",
+  "description": "Backend for Babble app (CS 35L Spring 2020 Project)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickroll35L/babble.git"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "rickroll35L",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rickroll35L/babble/issues"
+  },
+  "homepage": "https://github.com/rickroll35L/babble#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
