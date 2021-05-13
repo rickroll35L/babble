@@ -6,11 +6,17 @@ const Profile = () => {
     const goHome = () => {
         history.push(`/home`);
     }
+    const goLogin = () => {
+        history.push(`/`);
+    }
     return (
         <div>
             Profile
             <button onClick = {goHome}>
                 Home
+            </button>
+            <button onClick = {goLogin}>
+                Logout
             </button>
         </div>
     );
