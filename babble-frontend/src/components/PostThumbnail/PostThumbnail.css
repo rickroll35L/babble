@@ -1,0 +1,42 @@
+.Thumbnail {
+    position: relative;
+    width: 1160px;
+    height: 210px;
+    background-color: white;
+}
+
+.Title {
+    position: relative;
+    height: 41px; 
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+    line-height: 41px;
+    color: #000000;
+}
+
+.Content {
+    position: relative;
+    width: 1115px;
+    height: 75px;
+    
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 29px;
+    
+    color: #000000;
+}
+
+.Numbers {
+    position: relative;
+    width: 555px;
+    height: 32px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 29px;
+    
+    color: #000000;
+}
