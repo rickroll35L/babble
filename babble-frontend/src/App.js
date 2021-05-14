@@ -1,27 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-import './components/Feed/Feed';
-import Feed from './components/Feed/Feed';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import Home from "./pages/Home/Home.js";
+import Login from "./pages/Login/Login.js";
+import Post from "./pages/Post/Post.js";
+import Profile from "./pages/Profile/Profile.js";
+
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <Feed />
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login}></Route>
+          <Route exact path="/home" component={Home}></Route>
+          <Route exact path="/post/:postId" component={Post}></Route>
+          <Route exact path="/profile" component={Profile}></Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
