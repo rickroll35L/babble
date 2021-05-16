@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import Feed from "../../components/Feed/Feed.js";
 
 const Home = () => {
     const history = useHistory();
@@ -20,6 +21,7 @@ const Home = () => {
             <button onClick = {goProfile}>
                 Profile
             </button>
+            <Feed/>
             <button onClick = {() => goPost(1)}>
                 Post 1
             </button>
