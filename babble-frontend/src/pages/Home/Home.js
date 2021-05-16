@@ -1,9 +1,11 @@
-import React from "react";
+import React,{ useState } from "react";
 import { useHistory } from "react-router-dom";
+import MakePost from "../../components/MakePost/MakePost.js";
 import Feed from "../../components/Feed/Feed.js";
 
 const Home = () => {
     const history = useHistory();
+    const [makePost, setMakePost] = useState(false);
     const goProfile = () => {
         history.push(`/profile`);
     }
@@ -14,9 +16,14 @@ const Home = () => {
         history.push(`/`);
     }
 
+    const openDialog = () => {
+        setMakePost(true);
+    }
+
     
     return (
         <div>
+            <MakePost open={makePost} handleclose={() => setMakePost(false)} />
             Home
             <button onClick = {goProfile}>
                 Profile
@@ -30,6 +37,9 @@ const Home = () => {
             </button>
             <button onClick = {goLogin}>
                 Logout
+            </button>
+            <button onClick={openDialog}>
+                Make Post
             </button>
         </div>
         
