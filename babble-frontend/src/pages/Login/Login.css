@@ -1,0 +1,16 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 50px;
+}
+
+.right-column {
+    width: 50%;
+    font-size: 48px;
+}
+
+.left-column {
+    width: 50%;
+}
