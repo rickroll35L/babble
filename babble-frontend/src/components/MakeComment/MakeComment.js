@@ -31,9 +31,8 @@ const MakeComment = ({ open, handleclose }) => {
       return;
     }
     const comment = {
-        title,
-        content: description, 
-        uid: 1234,  
+      name: title,
+      comment: description, 
     }
     console.log(comment);
     clear();
