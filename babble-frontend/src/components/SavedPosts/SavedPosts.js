@@ -20,10 +20,12 @@ const SavedPosts = () => {
         comments: "11037",
     }
 
+    const savedPostsArray = [post5, post6];
+
     return (
-        <div>
-            <PostThumbnail {...post5} />
-            <PostThumbnail {...post6} />
+        <div className="saved-posts-container">
+            <div>Saved Posts</div>
+            {savedPostsArray.map(post => <PostThumbnail {...post} />)}
         </div>
     );
 }

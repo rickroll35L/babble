@@ -21,10 +21,12 @@ const UserPosts = () => {
         comments: "110",
     }
 
+    const userPostsArray = [post3, post4];
+
     return (
-        <div>
-            <PostThumbnail {...post3} />
-            <PostThumbnail {...post4} />
+        <div className="user-posts-container">
+            <div>User Posts</div>
+            {userPostsArray.map(post => <PostThumbnail {...post} />)}
         </div>
     );
 }
