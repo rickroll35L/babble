@@ -74,7 +74,7 @@ const initRoutes = (app, local) => {
 
     /**
      * @swagger
-     * /users/:uid:
+     * /users/{uid}:
      *  get:
      *    summary: Returns the user object specifed by uid.
      *    description: Returns the user object specifed by uid.
@@ -145,7 +145,7 @@ const initRoutes = (app, local) => {
 
     /**
      * @swagger
-     * /posts/:pid:
+     * /posts/{pid}:
      *  get:
      *    summary: Returns the post object specifed by pid.
      *    description: Returns the post object specifed by pid.

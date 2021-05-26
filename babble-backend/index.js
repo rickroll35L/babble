@@ -32,20 +32,20 @@ console.log("Press Ctrl-C to quit");
 // // // //   //
 const axios = require('axios');
 
-axios.get("http://localhost:8080/users/user1").then(res => {
-    console.log(res.data);
-}, res => {
-    console.log(res.response.data);
-});
+// axios.get("http://localhost:8080/users/user1").then(res => {
+//     console.log(res.data);
+// }, res => {
+//     console.log(res.response.data);
+// });
 
-// axios.post("http://localhost:8080/users/create-user", {
-//     id: "einar",
-// })
+// // axios.post("http://localhost:8080/users/create-user", {
+// //     id: "einar",
+// // })
 
-axios.get("http://localhost:8080/users/einar").then(res => {
-    console.log(res.data);
-});
+// axios.get("http://localhost:8080/users/einar").then(res => {
+//     console.log(res.data);
+// });
 
-axios.get("http://localhost:8080/posts/0").then(res => {
-    console.log(res.data);
-});
+// axios.get("http://localhost:8080/posts/0").then(res => {
+//     console.log(res.data);
+// });
