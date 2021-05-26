@@ -1,42 +1,17 @@
 .Thumbnail {
-    position: relative;
-    width: 1160px;
-    height: 210px;
-    background-color: white;
+    margin: 10px;
+    background-color: rgb(240, 240, 240);
 }
 
 .Title {
-    position: relative;
-    height: 41px; 
-    font-style: normal;
-    font-weight: normal;
-    font-size: 35px;
-    line-height: 41px;
-    color: #000000;
+    font-size: 28px;
 }
 
 .Content {
-    position: relative;
-    width: 1115px;
-    height: 75px;
-    
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    line-height: 29px;
-    
-    color: #000000;
+    font-size: 20px;
+    margin: 10px 0px 10px 0px;
 }
 
 .Numbers {
-    position: relative;
-    width: 555px;
-    height: 32px;
-
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    line-height: 29px;
-    
-    color: #000000;
+    font-size: 16px;
 }

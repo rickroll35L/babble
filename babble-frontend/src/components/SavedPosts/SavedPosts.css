@@ -1,4 +1,6 @@
 .saved-posts-container {
     margin: 10px;
     border: 2px solid gray;
+    overflow: auto;
+    width: 50%;
 }
