@@ -38,11 +38,11 @@ const axios = require('axios');
 //     console.log(res.response.data);
 // });
 
-// // axios.post("http://localhost:8080/users/create-user", {
-// //     id: "einar",
-// // })
+// axios.post("http://localhost:8080/users/signup", {
+//     id: "user1111",
+// })
 
-// axios.get("http://localhost:8080/users/einar").then(res => {
+// axios.get("http://localhost:8080/users/user1111").then(res => {
 //     console.log(res.data);
 // });
 

@@ -108,8 +108,13 @@ const initRoutes = (app, local) => {
         }
     });
 
-    //? add new user (TODO: auth) 
-    app.post("/users/create-user", (req, res) => {
+    //? login and user auth, req.body: email, password
+    app.post("/users/login", (req, res) => {
+        
+    })
+
+    //? add new user, req.body: email, password
+    app.post("/users/signup", (req, res) => {
         const body = req.body;
         if (!body.id) {
             res.status(400);
