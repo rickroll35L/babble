@@ -1,3 +1,5 @@
+const { signup } = require('./Auth_middlewares/auth');
+
 // // // // // //
 //* ROUTES    *//
 // // // // // //
@@ -111,29 +113,24 @@ const initRoutes = (app, local) => {
     //? login and user auth, req.body: email, password
     app.post("/users/login", (req, res) => {
         
-    })
+    });
 
     //? add new user, req.body: email, password
-    app.post("/users/signup", (req, res) => {
-        const body = req.body;
-        if (!body.id) {
-            res.status(400);
-            res.send("Error: incorrect parameters for add-user");
+    app.post("/users/signup", signup, (req, res) => {
+        if (res.locals.error !== undefined) {
+            console.log('Some error');
+            res.status(400).send();
         }
-        else if (local.users[body.id] !== undefined) {
-            res.status(409);
-            res.send("Error: uid taken");
-        }
-        else {
-            //TODO: firebase auth
-            local.users[body.id] = {
-                id: body.id,
+
+        const userData = res.locals.newUser;
+        local.users[userData.id] = 
+            {
+                password: userData.password,
                 posts: [],
-                saved: [],
-            }
-            local.writeUsers();
-            res.send("User was added");
-        }
+                saved: []
+            };
+        local.writeUsers();
+        res.send('User was added');
     });
 
     //? delete user account with id uid

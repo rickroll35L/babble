@@ -4,6 +4,7 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
 
 // on server start, populate db.js with persistent json
 const local = require('./data/db');
