@@ -21,7 +21,16 @@ const UserPosts = () => {
         comments: "110",
     }
 
-    const userPostsArray = [post3, post4];
+    const post7 = {
+        postId: 7,
+        title: "User made post",
+        content: "This post only exists to see if the vertical scrolling works",
+        likes: "987",
+        comments: "876",
+    }
+
+    const userPostsArray = [post3, post4, post7];
+    
 
     return (
         <div className="user-posts-container">

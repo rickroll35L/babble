@@ -4,7 +4,7 @@ import './UserProfile.css'
 const UserProfile = (props) => {
     
     return (
-        <div>
+        <div className="user-profile-container">
             <div>
                 <div>User ID: {props.userID}</div>
                 <div>Email: {props.email}</div>

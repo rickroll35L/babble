@@ -4,6 +4,7 @@ import UserProfile from '../../components/UserProfile/UserProfile';
 import UserPosts from '../../components/UserPosts/UserPosts';
 import SavedPosts from '../../components/SavedPosts/SavedPosts';
 import MakePost from '../../components/MakePost/MakePost';
+import './Profile.css';
 
 const Profile = () => {
     const history = useHistory();
@@ -26,14 +27,19 @@ const Profile = () => {
     }
 
     return (
-        <div className="profile-container">
-            <UserProfile {...userInfo}/>
-            <UserPosts />
-            <SavedPosts />
-            <MakePost open={makePost} handleclose={() => setMakePost(false)} />
-            <button onClick={openDialog}>Make Post</button>
-            <button onClick={goHome}>Home</button>
-            <button onClick={goLogin}>Logout</button>
+        <div className="profile-page-container">
+            <div className="profile-container">
+                <UserProfile {...userInfo}/>
+                <MakePost open={makePost} handleclose={() => setMakePost(false)} />
+                <button onClick={openDialog}>Make Post</button>
+                <button onClick={goHome}>Home</button>
+                <button onClick={goLogin}>Logout</button>
+            </div>
+
+            <div className="posts-container">
+                <UserPosts />
+                <SavedPosts />
+            </div>
         </div>
     );
 }
