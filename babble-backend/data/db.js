@@ -5,9 +5,12 @@ const loadData = () => {
         const userData = fs.readFileSync("./data/users.json", "utf8");
         const postData = fs.readFileSync("./data/posts.json", 'utf8');
         module.exports.users = JSON.parse(userData);
-        module.exports.posts = JSON.parse(postData);
+        module.exports.posts = JSON.parse(postData).posts;
+        
     } catch (err) {
-        console.log(err);
+        // if data files do not yet exist, create them.
+        writeUsers();
+        writePosts();      
     }
 }
 
@@ -45,13 +48,16 @@ users = {
     },
     */
 }
+
+//NOTE: for quick access, only store reference to post id (since id = index in array, access is O(1))
 posts = [
     /*
     {
-        id: 0,
+        id: 0, // id is equal to index in feed (quick access)
         time: "time posted",
         title: "Title",
         body: "body",
+        likes: 0,
         tags: [
             "tag1",
             "tag2",
