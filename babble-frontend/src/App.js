@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import Home from "./pages/Home/Home.js";
 import Login from "./pages/Login/Login.js";
 import Post from "./pages/Post/Post.js";
@@ -11,14 +11,10 @@ import axios from 'axios';
 //   "AuthToken",
 //   "Bearer FAKETOKEN#ASDOANSCOAOCBDIVB",
 // );
-const token = localStorage.getItem("AuthToken");
+let token = localStorage.getItem("AuthToken");
 const apiURL = "http://localhost:8080/";
 
-if (token) {
-
-}
-
-const authAxios = axios.create({
+let authAxios = axios.create({
   baseURL: apiURL,
   headers: {
     Authorization: token
@@ -27,18 +23,18 @@ const authAxios = axios.create({
 
 function App() {
 
-  const getUser = useCallback(async (uid) => {
+  const getUser = async (uid) => {
     try {
       const result = await authAxios.get(`/users/${uid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const createUser = useCallback(async (body) => {
+  const createUser = async (body) => {
     try {
-      const result = await authAxios.post(`/users/create-user`, body);
+      const result = await authAxios.post(`/users/signup`, body);
       if(result==="User was added"){
         return getUser(body.id) // need to put auth somewhere too
       }
@@ -48,97 +44,138 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const deleteUser = useCallback(async (uid) => {
+  const loginUser = async (body) => {
+    try {
+      const result = await authAxios.post(`/users/login`, body);
+      localStorage.setItem(
+        "AuthToken",
+        `Bearer ${result}`,
+      );
+      token = localStorage.getItem("AuthToken");
+      authAxios = axios.create({
+        baseURL: apiURL,
+        headers: {
+          Authorization: token
+        }
+      });
+      return getUser(body.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteUser = async (uid) => {
     try {
       const result = await authAxios.delete(`/users/${uid}/delete`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const getPosts = useCallback(async () => {
+  const getPosts = async () => {
     try {
       const result = await authAxios.get(`/posts`);
-      setPosts(result);
+      return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const getPost = useCallback(async (pid) => {
+  const getPost = async (pid) => {
     try {
       const result = await authAxios.get(`/posts/${pid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const createPost = useCallback(async (uid) => {
+  const createPost = async (uid) => {
     try {
       const result = await authAxios.post(`/users/${uid}/create-post`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const deletePost = useCallback(async (pid) => {
+  const deletePost = async (pid) => {
     try {
       const result = await authAxios.delete(`/posts/${pid}/delete`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const makeComment = useCallback(async (props) => {
+  const makeComment = async (props) => {
     try {
       const result = await authAxios.post(`/users/${props.uid}/comment/${props.pid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const likePost = useCallback(async (props) => {
+  const likePost = async (props) => {
     try {
       const result = await authAxios.post(`/users/${props.uid}/like/${props.pid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const savePost = useCallback(async (props) => {
+  const savePost = async (props) => {
     try {
       const result = await authAxios.post(`/users/${props.uid}/save/${props.pid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
-  const searchPost = useCallback(async (query) => {
+  const searchPost = async (query) => {
     try {
       const result = await authAxios.get(`/posts/search/${query}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  });
+  };
 
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/" component={Login}></Route>
-          <Route exact path="/home" component={Home}></Route>
-          <Route exact path="/post/:postId" component={Post}></Route>
-          <Route exact path="/profile" component={Profile}></Route>
+          <Route 
+            exact path="/"
+            render={(props) => (
+              <Login {...props} getUser={getUser} createUser={createUser} loginUser={loginUser}/>
+            )}
+          
+          />
+          <Route 
+            exact path="/home"
+            render={(props) => (
+              <Home {...props} createPost={createPost} getPosts={getPosts} searchPost={searchPost}/>
+            )}
+          />
+          <Route 
+            exact path="/post/:postId" 
+            render={(props) => (
+              <Post {...props} makeComment={makeComment} getPost={getPost} savePost={savePost} likePost={likePost}/>
+            )}
+          />
+          <Route 
+            exact path="/profile"
+            render={(props) => (
+              <Profile {...props} getPosts={getPosts} deletePost={deletePost} deleteUser={deleteUser}/>
+            )}
+          />
         </Switch>
       </Router>
     </div>
