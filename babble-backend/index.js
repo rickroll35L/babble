@@ -4,7 +4,6 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-//app.use(express.urlencoded({ extended: true }));
 
 // on server start, populate db.js with persistent json
 const local = require('./database/db');
@@ -18,11 +17,6 @@ initRoutes(app, local);
 const swaggerDoc = require('./swaggerDoc');
 swaggerDoc(app);
 
-/* For debugging
-for (const id in local.users) {
-    console.log(id + ':' + local.users[id].posts)
-}
-*/
 
 // // // //  //
 //* DEPLOY  *//

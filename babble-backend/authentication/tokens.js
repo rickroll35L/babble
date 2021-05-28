@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { sign, verify } = require('jsonwebtoken');
+const { sign } = require('jsonwebtoken');
 const crypto = require('crypto')
 const { writeFileSync } = require('fs');
 
