@@ -2,8 +2,8 @@ const fs = require('fs');
 
 const loadData = () => {
     try {
-        const userData = fs.readFileSync("./data/users.json", "utf8");
-        const postData = fs.readFileSync("./data/posts.json", 'utf8');
+        const userData = fs.readFileSync("./database/users.json", "utf8");
+        const postData = fs.readFileSync("./database/posts.json", 'utf8');
         module.exports.users = JSON.parse(userData);
         module.exports.posts = JSON.parse(postData).posts;
         

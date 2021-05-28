@@ -2,6 +2,8 @@ module.exports = {
     errorHandler
 }
 
+/* This handles the status' of the responses and sends back the 
+   appropriate message */
 async function errorHandler (req, res, next) {
     if (res.locals.error !== undefined) {
         message = res.locals.error.message;

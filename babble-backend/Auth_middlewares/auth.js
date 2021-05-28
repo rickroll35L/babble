@@ -1,7 +1,7 @@
 const argon2 = require('argon2');
 const { sign } = require('jsonwebtoken')
 
-const local = require('../data/db');
+const local = require('../database/db');
 //import * as argon2 from 'argon2';
 
 module.exports = {
@@ -9,6 +9,8 @@ module.exports = {
     login
 }
 
+/* Logs an existing user in. Requires the log in email and password
+   to be send in a json object in the body of the request */
 async function login (req, res, next) {
     local.loadData();
     const email = req.body.email;
@@ -20,7 +22,7 @@ async function login (req, res, next) {
         if (password === undefined || password === "") throw new Error('Need to enter a password');
 
         // Check that there is a user with this email
-        const user = undefined;
+        let user = undefined;
         let userid = undefined;
         for (const id in local.users) {
             const emailExists = await argon2.verify(id, email);
@@ -33,7 +35,7 @@ async function login (req, res, next) {
 
         // if user exists, check that passwords match
         const passwordMatches = await argon2.verify(user.password, password);
-        if (passwordMatches === undefined) throw new Error('Password incorrect');
+        if (!passwordMatches) throw new Error('Password incorrect');
 
         // TODO: generate JWT
 
@@ -53,6 +55,8 @@ async function login (req, res, next) {
     }
 }
 
+/* Sign a new user in. Requires the email and password to be sent
+   in a json object in the body of the request */
 async function signup (req, res, next) {
     local.loadData();
     const email = req.body.email;
