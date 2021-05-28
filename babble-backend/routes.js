@@ -1,4 +1,4 @@
-const { signup } = require('./Auth_middlewares/auth');
+const { signup, login } = require('./Auth_middlewares/auth');
 const { errorHandler } = require('./Auth_middlewares/auth-errorhandler');
 
 // // // // // //
@@ -112,8 +112,10 @@ const initRoutes = (app, local) => {
     });
 
     //? login and user auth, req.body: email, password
-    app.post("/users/login", (req, res) => {
-        
+    app.post("/users/login", login, errorHandler, (req, res) => {
+        const loggedInUser = res.locals.loggedInUser;
+        console.log(loggedInUser);
+        res.send('User has been logged in.');
     });
 
     //? add new user, req.body: email, password

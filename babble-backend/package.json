@@ -24,6 +24,7 @@
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "firebase": "^8.6.1",
+    "jsonwebtoken": "^8.5.1",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.1.6"
   }
