@@ -1,5 +1,5 @@
-const { signup, login } = require('./Auth_middlewares/auth');
-const { errorHandler } = require('./Auth_middlewares/auth-errorhandler');
+const { signup, login } = require('./authentication/auth');
+const { errorHandler } = require('./authentication/auth-errorhandler');
 
 // // // // // //
 //* ROUTES    *//

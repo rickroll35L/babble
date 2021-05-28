@@ -1,7 +1,6 @@
 const argon2 = require('argon2');
-const { sign } = require('jsonwebtoken')
-
 const local = require('../database/db');
+require('./tokens');
 
 module.exports = {
     signup,
