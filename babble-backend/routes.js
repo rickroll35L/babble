@@ -1,4 +1,5 @@
 const { signup } = require('./Auth_middlewares/auth');
+const { errorHandler } = require('./Auth_middlewares/auth-errorhandler');
 
 // // // // // //
 //* ROUTES    *//
@@ -116,12 +117,7 @@ const initRoutes = (app, local) => {
     });
 
     //? add new user, req.body: email, password
-    app.post("/users/signup", signup, (req, res) => {
-        if (res.locals.error !== undefined) {
-            console.log('Some error');
-            res.status(400).send();
-        }
-
+    app.post("/users/signup", signup, errorHandler, (req, res) => {
         const userData = res.locals.newUser;
         local.users[userData.id] = 
             {

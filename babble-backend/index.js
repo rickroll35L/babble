@@ -18,6 +18,12 @@ initRoutes(app, local);
 const swaggerDoc = require('./swaggerDoc');
 swaggerDoc(app);
 
+/* For debugging
+for (const id in local.users) {
+    console.log(id + ':' + local.users[id].posts)
+}
+*/
+
 // // // //  //
 //* DEPLOY  *//
 // // // //  //
