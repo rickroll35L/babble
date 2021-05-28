@@ -5,9 +5,35 @@ const { createAccessToken } = require('./tokens');
 module.exports = {
     signup,
     login,
-    isAuth
+    isAuth,
+    logout
 }
 
+/* Logs the user out. Assumes that the request has 
+   already been authenticated */
+async function logout (req, res, next) {
+    local.loadData();
+
+    try {
+        // get authentication from request header (assumes it's correct)
+        const headers = req.headers;
+        const auth = JSON.parse(headers.authentication);
+
+        // pass back id to remove the authentication from auth
+        const id_to_remove = auth.hash_id
+        res.locals.id_to_remove = id_to_remove;
+        next();
+    }
+    catch (err) {
+        res.locals.error = err; 
+        next();
+    }
+}
+
+/* Authenticates a user whenever the get/post deals 
+   with sensitive data (posts, user data, etc...). 
+   Passing in the token (obtained at login) in the request
+   header will authenticate the action */
 async function isAuth (req, res, next) {
     local.loadData();
     

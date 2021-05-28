@@ -1,4 +1,4 @@
-const { signup, login, isAuth } = require('./authentication/auth');
+const { signup, login, isAuth, logout } = require('./authentication/auth');
 const { errorHandler } = require('./authentication/auth-errorhandler');
 
 // // // // // //
@@ -114,6 +114,8 @@ const initRoutes = (app, local) => {
     //? login and user auth, req.body: email, password
     app.post("/users/login", login, errorHandler, (req, res) => {
         const loggedInUser = res.locals.loggedInUser;
+
+        // add the appropriate user/token to auth
         local.auth[loggedInUser.hash_id] = loggedInUser.token;
         local.writeAuth();
         res.status(200).send(JSON.stringify(loggedInUser));
@@ -122,6 +124,8 @@ const initRoutes = (app, local) => {
     //? add new user, req.body: email, password
     app.post("/users/signup", signup, errorHandler, (req, res) => {
         const userData = res.locals.newUser;
+
+        // add the appropriate user to users
         local.users[userData.id] = 
             {
                 password: userData.password,
@@ -135,6 +139,20 @@ const initRoutes = (app, local) => {
     //? Testing/debugging purposes
     app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
         res.status(200).send('Request verified');
+    });
+
+    //? Testing/debugging purposes
+    app.post("/users/logout", isAuth, logout, errorHandler, (req, res) => {
+        const id_to_remove = res.locals.id_to_remove;
+
+        // remove the appropriate entry in auth
+        for (const id in local.auth) {
+            if (id === id_to_remove) {
+                delete local.auth[id];
+            }
+        }
+        local.writeAuth();
+        res.status(200).send('User has logged out');
     });
 
     //? delete user account with id uid
