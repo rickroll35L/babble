@@ -130,7 +130,10 @@ async function signup (req, res, next) {
         if (password === undefined || password === "") throw new Error('Need to enter a password');
         if (password.length < 6) throw new Error('Password must be more than 6 characters');
 
-        // TODO: verfiy that email is a valid ucla email
+        // Verfiy that email fits format of a ucla email address
+        const ucla_email_1 = /^[a-z]+@ucla\.edu$/;
+        const ucla_email_2 = /^[a-z]+@g\.ucla\.edu$/;
+        if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
         let user = undefined;
