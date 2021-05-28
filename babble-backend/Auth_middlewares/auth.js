@@ -2,7 +2,6 @@ const argon2 = require('argon2');
 const { sign } = require('jsonwebtoken')
 
 const local = require('../database/db');
-//import * as argon2 from 'argon2';
 
 module.exports = {
     signup,
@@ -40,8 +39,9 @@ async function login (req, res, next) {
         // TODO: generate JWT
 
         const auth_token = 
-            {
-                token: [userid, "JWT_token"]
+            { 
+                hash_id: userid,
+                token: "JWT_token"
             };
         // TOOO: add id and token to auth.json
         
