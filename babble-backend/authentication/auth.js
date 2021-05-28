@@ -1,6 +1,6 @@
 const argon2 = require('argon2');
 const local = require('../database/db');
-require('./tokens');
+const { createAccessToken } = require('./tokens');
 
 module.exports = {
     signup,
@@ -35,14 +35,16 @@ async function login (req, res, next) {
         const passwordMatches = await argon2.verify(user.password, password);
         if (!passwordMatches) throw new Error('Password incorrect');
 
-        // TODO: generate JWT
-
+        // generate token
         const auth_token = 
             { 
                 hash_id: userid,
-                token: "JWT_token"
+                token: await createAccessToken()
             };
-        // TOOO: add id and token to auth.json
+
+        // add id and token to auth.json
+        local.auth[auth_token.hash_id] = local.auth.token;
+        local.writeAuth();
         
         // log the user in by sending back the authentication token
         res.locals.loggedInUser = auth_token;

@@ -114,9 +114,9 @@ const initRoutes = (app, local) => {
     //? login and user auth, req.body: email, password
     app.post("/users/login", login, errorHandler, (req, res) => {
         const loggedInUser = res.locals.loggedInUser;
-        local.auth[loggedInUser.hash_id] = loggedInUser.token;
-        local.writeAuth();
-        res.send('User has been logged in.');
+        //local.auth[loggedInUser.hash_id] = loggedInUser.token;
+        //local.writeAuth();
+        res.status(200).send(loggedInUser);
     });
 
     //? add new user, req.body: email, password
