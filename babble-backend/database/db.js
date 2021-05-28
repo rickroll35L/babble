@@ -49,7 +49,6 @@ const writeAuth = () => {
 
 users = {
     /*
-    {
     hashed_id_of_user1: {
         password: "***", // hashed password
         posts: [ //array of post ids created by user1
@@ -62,7 +61,7 @@ users = {
             1,
         ],
     }
-}   
+   
     */
 }
 

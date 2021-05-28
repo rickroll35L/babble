@@ -1,5 +1,5 @@
-const { signup, login, isAuth, logout } = require('./authentication/auth');
-const { errorHandler } = require('./authentication/auth-errorhandler');
+const { signup, login, isAuth, logout } = require('../authentication/auth');
+const { errorHandler } = require('../authentication/auth-errorhandler');
 
 // // // // // //
 //* ROUTES    *//
@@ -75,6 +75,34 @@ const initRoutes = (app, local) => {
      *                    example: ""
     */
 
+    //? login and user auth, req.body: email, password
+    app.post("/users/login", login, errorHandler, (req, res) => {
+        const loggedInUser = res.locals.loggedInUser; 
+
+        // add the appropriate user/token to auth
+        local.auth[loggedInUser.hash_id] = loggedInUser.token;
+        local.writeAuth();
+        res.status(200).send(JSON.stringify(loggedInUser));
+        //! suggestion: res.status(200).json(loggedInUser);
+    });
+
+    //? add new user, req.body: email, password
+    app.post("/users/signup", signup, errorHandler, (req, res) => {
+        const userData = res.locals.newUser;
+
+        // add the appropriate user to users
+        local.users[userData.id] = 
+            {
+                password: userData.password,
+                posts: [],
+                saved: []
+            };
+        local.writeUsers();
+        res.send('User was added');
+    });
+
+    //TODO: middleware
+
     /**
      * @swagger
      * /users/{uid}:
@@ -111,31 +139,6 @@ const initRoutes = (app, local) => {
         }
     });
 
-    //? login and user auth, req.body: email, password
-    app.post("/users/login", login, errorHandler, (req, res) => {
-        const loggedInUser = res.locals.loggedInUser;
-
-        // add the appropriate user/token to auth
-        local.auth[loggedInUser.hash_id] = loggedInUser.token;
-        local.writeAuth();
-        res.status(200).send(JSON.stringify(loggedInUser));
-    });
-
-    //? add new user, req.body: email, password
-    app.post("/users/signup", signup, errorHandler, (req, res) => {
-        const userData = res.locals.newUser;
-
-        // add the appropriate user to users
-        local.users[userData.id] = 
-            {
-                password: userData.password,
-                posts: [],
-                saved: []
-            };
-        local.writeUsers();
-        res.send('User was added');
-    });
-
     //? Testing/debugging purposes
     app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
         res.status(200).send('Request verified');
@@ -160,6 +163,7 @@ const initRoutes = (app, local) => {
 
     });
 
+    //TODO: edit username and password routes
 
     //* POSTS___________
     //? get feed (all posts)
@@ -238,8 +242,8 @@ const initRoutes = (app, local) => {
 
     })
 
-    // Catch invalid endpoints
-    /* Commented out to allow documentation page to run
+    // Catch invalid endpoints //! not sure if this is necessary
+    /*Commented out to allow documentation page to run
        during development period 
     app.get('*', (req, res) => {
         let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;

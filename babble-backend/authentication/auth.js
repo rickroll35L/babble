@@ -38,7 +38,7 @@ async function logout (req, res, next) {
    Passing in the token (obtained at login) in the request
    header will authenticate the action */
 async function isAuth (req, res, next) {
-    local.loadData();
+    local.loadData(); //! not sure if this is necessary
     
     // get authentication from request header
     const headers = req.headers;
