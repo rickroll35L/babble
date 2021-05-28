@@ -10,27 +10,6 @@ module.exports = {
 /*  create new secret for generating the JWTtokens */
 generateSecret();
 
-/* For testing purposes
-/* // For testing if the authentication token in request is valid 
-/* // by verifying the JWT section  
-async function checkVerification(auth_in_database, auth_token) {
-    const token = await createAccessToken();
-    let payload = undefined;
-    try {
-        payload = await verify(token, '${process.env.ACCESS_TOKEN_SECRET}');
-        if (payload !== undefined) {
-            console.log(token);
-        }
-        else {
-            throw new Error ('Verification failed');
-        }
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
-*/
-
 function getRandomString() {
     const max = Number.MAX_SAFE_INTEGER;
     return (Math.floor(Math.random() * max)).toString();

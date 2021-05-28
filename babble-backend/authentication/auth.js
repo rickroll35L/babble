@@ -1,7 +1,11 @@
-const argon2 = require('argon2');
-const crypto = require('crypto')
 const local = require('../database/db');
 const { createAccessToken } = require('./tokens');
+const {
+    encryptEmail,
+    encryptPassword,
+    userWithEmail,
+    passwordMatchesUser
+} = require('./manage-user-info');
 
 module.exports = {
     signup,
@@ -13,8 +17,6 @@ module.exports = {
 /* Logs the user out. Assumes that the request has 
    already been authenticated */
 async function logout (req, res, next) {
-    local.loadData();
-
     try {
         // get authentication from request header (assumes it's correct)
         const headers = req.headers;
@@ -66,8 +68,6 @@ async function isAuth (req, res, next) {
 /* Logs an existing user in. Requires the log in email and password
    to be send in a json object in the body of the request */
 async function login (req, res, next) {
-    local.loadData();
-
     // get login data from request body
     const email = req.body.email;
     const password = req.body.password;
@@ -78,25 +78,19 @@ async function login (req, res, next) {
         if (password === undefined || password === "") throw new Error('Need to enter a password');
 
         // Check that there is a user with this email
-        const hash_email = await crypto.createHash('sha256').update(email).digest('base64');;
-        const user = local.users[hash_email];
+        const user = await userWithEmail(email);
         if (user === undefined) throw new Error('No user with this email exists');
 
         // if user exists, check that passwords match
-        const passwordMatches = await argon2.verify(user.password, password);
+        const passwordMatches = await passwordMatchesUser(user, password);
         if (!passwordMatches) throw new Error('Password incorrect');
 
         // generate token
         const auth_token = 
             { 
-                hash_id: hash_email,
+                hash_id: await encryptEmail(email),
                 token: await createAccessToken()
             };
-
-        // add id and token to auth.json
-        //local.auth[auth_token.hash_id] = local.auth.token;
-        //local.writeAuth();
-        //console.log('hithere');
         
         // log the user in by sending back the authentication token
         // This will also add id and token to auth.json
@@ -112,8 +106,6 @@ async function login (req, res, next) {
 /* Sign a new user in. Requires the email and password to be sent
    in a json object in the body of the request */
 async function signup (req, res, next) {
-    local.loadData();
-
     // get signup data from request body
     const email = req.body.email;
     const password = req.body.password;
@@ -130,13 +122,12 @@ async function signup (req, res, next) {
         if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
-        const hash_email = await crypto.createHash('sha256').update(email).digest('base64');
-        const user = local.users[hash_email];
+        const user = userWithEmail(email);
         if (user !== undefined) throw new Error('There is already an account with this email');
         
         // Add the user to the database
-        const hashed_id = await crypto.createHash('sha256').update(email).digest('base64');
-        const hashed_password = await argon2.hash(password, 32);
+        const hashed_id = await encryptEmail(email);
+        const hashed_password = await encryptPassword(password);
         res.locals.newUser = 
             {
                 id: hashed_id,
