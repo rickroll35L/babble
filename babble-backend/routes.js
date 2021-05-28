@@ -239,13 +239,18 @@ const initRoutes = (app, local) => {
     })
 
     // Catch invalid endpoints
+    /* Commented out to allow documentation page to run
+       during development period 
     app.get('*', (req, res) => {
+        let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+        console.log(fullUrl + ' is an invalid address');
         res.status(404).send('Your page was not found');
     })
 
     app.post('*', (req, res) => {
         res.status(404).send('Your page was not found');
     })
+    */
 }
 
 module.exports = initRoutes;
