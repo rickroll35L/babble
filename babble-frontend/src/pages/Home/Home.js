@@ -23,7 +23,7 @@ const Home = ({ createPost, getPosts, searchPost}) => {
 
     useEffect(() => {
         getPosts(setPostList);
-    }, [getPosts]);
+    }, []);
 
     
     return (

@@ -13,7 +13,7 @@ import axios from 'axios';
 //   "Bearer FAKETOKEN#ASDOANSCOAOCBDIVB",
 // );
 let token = localStorage.getItem("AuthToken");
-const apiURL = "http://localhost:8080/";
+const apiURL = "";
 
 let authAxios = axios.create({
   baseURL: apiURL,
@@ -28,8 +28,10 @@ function App() {
 
   const getUser = useCallback( async (uid) => {
     try {
-      const result = await authAxios.get(`/users/${uid}`);
+      const result = await authAxios.get(`/users/${uid}`, {uid: uid});
       setUser(result);
+      console.log(user);
+      console.log(result);
       return result;
     } catch (err) {
       console.log(err);
@@ -48,9 +50,10 @@ function App() {
   const loginUser = useCallback( async (body) => {
     try {
       const result = await axios.post(`/users/login`, body);
+      console.log(result);
       localStorage.setItem(
         "AuthToken",
-        `Bearer ${result}`,
+        `Bearer ${result.data.token}`,
       );
       token = localStorage.getItem("AuthToken");
       authAxios = axios.create({
@@ -59,7 +62,7 @@ function App() {
           Authorization: token
         }
       });
-      getUser(body.id);
+      getUser(result.data.hash_id);
       if(user){
         history.push(`/home`);
       }
