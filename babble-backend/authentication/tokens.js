@@ -11,7 +11,8 @@ module.exports = {
 generateSecret();
 
 /* For testing purposes
-/* //For testing if the authentication token in request is valid 
+/* // For testing if the authentication token in request is valid 
+/* // by verifying the JWT section  
 async function checkVerification(auth_in_database, auth_token) {
     const token = await createAccessToken();
     let payload = undefined;
@@ -27,10 +28,8 @@ async function checkVerification(auth_in_database, auth_token) {
     catch (err) {
         console.log(err);
     }
-    
 }
 */
-
 
 function getRandomString() {
     const max = Number.MAX_SAFE_INTEGER;

@@ -1,4 +1,5 @@
 const argon2 = require('argon2');
+const crypto = require('crypto')
 const local = require('../database/db');
 const { createAccessToken } = require('./tokens');
 
@@ -53,7 +54,7 @@ async function isAuth (req, res, next) {
         // Check that the authentication is valid
         const auth_in_database = local.auth[auth_id];
         if (auth_in_database === undefined) throw new Error('Invalid credentials');
-        if (auth_token !== auth_in_database) throw new Error('Invalid credentials');
+        if (auth_in_database !== auth_token) throw new Error('Invalid credentials');
         next();
     }
     catch (err) {
@@ -77,15 +78,8 @@ async function login (req, res, next) {
         if (password === undefined || password === "") throw new Error('Need to enter a password');
 
         // Check that there is a user with this email
-        let user = undefined;
-        let userid = undefined;
-        for (const id in local.users) {
-            const emailExists = await argon2.verify(id, email);
-            if (emailExists) {
-                user = local.users[id];
-                userid = id;
-            }
-        }
+        const hash_email = await crypto.createHash('sha256').update(email).digest('base64');;
+        const user = local.users[hash_email];
         if (user === undefined) throw new Error('No user with this email exists');
 
         // if user exists, check that passwords match
@@ -95,7 +89,7 @@ async function login (req, res, next) {
         // generate token
         const auth_token = 
             { 
-                hash_id: userid,
+                hash_id: hash_email,
                 token: await createAccessToken()
             };
 
@@ -136,17 +130,12 @@ async function signup (req, res, next) {
         if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
-        let user = undefined;
-        for (const id in local.users) {
-            const emailExists = await argon2.verify(id, email);
-            if (emailExists) {
-                user = local.users[id];
-            }
-        }
+        const hash_email = await crypto.createHash('sha256').update(email).digest('base64');
+        const user = local.users[hash_email];
         if (user !== undefined) throw new Error('There is already an account with this email');
         
         // Add the user to the database
-        const hashed_id = await argon2.hash(email, 32);
+        const hashed_id = await crypto.createHash('sha256').update(email).digest('base64');
         const hashed_password = await argon2.hash(password, 32);
         res.locals.newUser = 
             {
