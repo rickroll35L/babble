@@ -234,8 +234,17 @@ const initRoutes = (app, local) => {
     });
 
     //? search for posts that match query
-    app.get("/posts/search/:query", (req, rest) => {
+    app.get("/posts/search/:query", (req, res) => {
 
+    })
+
+    // Catch invalid endpoints
+    app.get('*', (req, res) => {
+        res.status(404).send('Your page was not found');
+    })
+
+    app.post('*', (req, res) => {
+        res.status(404).send('Your page was not found');
     })
 }
 

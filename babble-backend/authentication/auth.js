@@ -47,8 +47,8 @@ async function isAuth (req, res, next) {
         if (auth === undefined) throw new Error('Missing authentication token');
         const auth_id = auth.hash_id;
         const auth_token = auth.token;
-        if (auth_id === undefined || auth_id === "") throw new Error('Invalid credentials');
-        if (auth_token === undefined || auth_token === "") throw new Error('Invalid credentials');
+        if (auth_id === undefined || auth_id === "") throw new Error('Incomplete authentication token');
+        if (auth_token === undefined || auth_token === "") throw new Error('Incomplete authentication token');
 
         // Check that the authentication is valid
         const auth_in_database = local.auth[auth_id];
