@@ -20,13 +20,18 @@ const Profile = ({getPostsFromIds, deletePost, deleteUser, user}) => {
     }
 
     return (
-        <div className="profile-container">
-            <UserProfile {...userInfo} deleteUser={deleteUser}/>
-            {/*<UserProfile {...user} deleteUser={deleteUser}/>*/}
+        <div className="profile-page-container">
+            <div className="profile-container">
+                <UserProfile {...userInfo} deleteUser={deleteUser}/>
+                {/*<UserProfile {...user} deleteUser={deleteUser}/>*/}
+                <button onClick={goHome}>Home</button>
+                <button onClick={goLogin}>Logout</button>
+            </div>
+
+            <div className="posts-container">
             <UserPosts posts={user.posts} deletePost={deletePost} getPostsFromIds={getPostsFromIds}/>
             <SavedPosts posts={user.saved} getPostsFromIds={getPostsFromIds}/>
-            <button onClick={goHome}>Home</button>
-            <button onClick={goLogin}>Logout</button>
+            </div>
         </div>
     );
 }

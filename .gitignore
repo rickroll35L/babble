@@ -24,4 +24,5 @@ yarn-error.log*
 
 # sensitive 
 keys.js
+.env
 *.json
