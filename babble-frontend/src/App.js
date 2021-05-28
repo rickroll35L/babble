@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Home from "./pages/Home/Home.js";
 import Login from "./pages/Login/Login.js";
 import Post from "./pages/Post/Post.js";
@@ -26,7 +26,7 @@ function App() {
   const [ user, setUser ] = useState({});
   const history = useHistory();
 
-  const getUser = async (uid) => {
+  const getUser = useCallback( async (uid) => {
     try {
       const result = await authAxios.get(`/users/${uid}`);
       setUser(result);
@@ -34,18 +34,18 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const createUser = async (body) => {
+  const createUser = useCallback( async (body) => {
     try {
       const result = await axios.post(`/users/signup`, body);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const loginUser = async (body) => {
+  const loginUser = useCallback( async (body) => {
     try {
       const result = await axios.post(`/users/login`, body);
       localStorage.setItem(
@@ -66,36 +66,36 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const deleteUser = async () => {
+  const deleteUser = useCallback( async () => {
     try {
       const result = await authAxios.delete(`/users/${user.id}/delete`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const getPosts = async (callback) => {
+  const getPosts = useCallback( async (callback) => {
     try {
       const result = await authAxios.get(`/posts`);
       callback(result);
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const getPost = async ({set, pid}) => {
+  const getPost = useCallback( async ({set, pid}) => {
     try {
       const result = await authAxios.get(`/posts/${pid}`);
       set(result);
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const getPostsFromIds = async ({set, ids}) => {
+  const getPostsFromIds = useCallback( async ({set, ids}) => {
     try {
       if(!ids){
         console.log("No id: getPostsFromIds")
@@ -113,27 +113,27 @@ function App() {
       console.log(err);
     }
 
-  }
+  });
 
-  const createPost = async (post) => {
+  const createPost = useCallback( async (post) => {
     try {
       const result = await authAxios.post(`/users/${user.id}/create-post`, post);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const deletePost = async (pid) => {
+  const deletePost = useCallback( async (pid) => {
     try {
       const result = await authAxios.delete(`/posts/${pid}/delete`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const createComment = async (props) => {
+  const createComment = useCallback( async (props) => {
     try {
       const result = await authAxios.post(`/users/${user.id}/comment/${props.pid}`, props.body);
       alert("Comment posted! Please refresh if you do not see it.")
@@ -141,34 +141,34 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const likePost = async (pid) => {
+  const likePost = useCallback( async (pid) => {
     try {
       const result = await authAxios.post(`/users/${user.id}/like/${pid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const savePost = async (pid) => {
+  const savePost = useCallback( async (pid) => {
     try {
       const result = await authAxios.post(`/users/${user.id}/save/${pid}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
-  const searchPost = async (query) => {
+  const searchPost = useCallback( async (query) => {
     try {
       const result = await authAxios.get(`/posts/search/${query}`);
       return result;
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
   return (
     <div className="App">
