@@ -1,3 +1,6 @@
+const { signup, login, isAuth, logout } = require('./authentication/auth');
+const { errorHandler } = require('./authentication/auth-errorhandler');
+
 // // // // // //
 //* ROUTES    *//
 // // // // // //
@@ -109,31 +112,47 @@ const initRoutes = (app, local) => {
     });
 
     //? login and user auth, req.body: email, password
-    app.post("/users/login", (req, res) => {
-        
-    })
+    app.post("/users/login", login, errorHandler, (req, res) => {
+        const loggedInUser = res.locals.loggedInUser;
+
+        // add the appropriate user/token to auth
+        local.auth[loggedInUser.hash_id] = loggedInUser.token;
+        local.writeAuth();
+        res.status(200).send(JSON.stringify(loggedInUser));
+    });
 
     //? add new user, req.body: email, password
-    app.post("/users/signup", (req, res) => {
-        const body = req.body;
-        if (!body.id) {
-            res.status(400);
-            res.send("Error: incorrect parameters for add-user");
-        }
-        else if (local.users[body.id] !== undefined) {
-            res.status(409);
-            res.send("Error: uid taken");
-        }
-        else {
-            //TODO: firebase auth
-            local.users[body.id] = {
-                id: body.id,
+    app.post("/users/signup", signup, errorHandler, (req, res) => {
+        const userData = res.locals.newUser;
+
+        // add the appropriate user to users
+        local.users[userData.id] = 
+            {
+                password: userData.password,
                 posts: [],
-                saved: [],
+                saved: []
+            };
+        local.writeUsers();
+        res.send('User was added');
+    });
+
+    //? Testing/debugging purposes
+    app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
+        res.status(200).send('Request verified');
+    });
+
+    //? Testing/debugging purposes
+    app.post("/users/logout", isAuth, logout, errorHandler, (req, res) => {
+        const id_to_remove = res.locals.id_to_remove;
+
+        // remove the appropriate entry in auth
+        for (const id in local.auth) {
+            if (id === id_to_remove) {
+                delete local.auth[id];
             }
-            local.writeUsers();
-            res.send("User was added");
         }
+        local.writeAuth();
+        res.status(200).send('User has logged out');
     });
 
     //? delete user account with id uid
@@ -215,9 +234,23 @@ const initRoutes = (app, local) => {
     });
 
     //? search for posts that match query
-    app.get("/posts/search/:query", (req, rest) => {
+    app.get("/posts/search/:query", (req, res) => {
 
     })
+
+    // Catch invalid endpoints
+    /* Commented out to allow documentation page to run
+       during development period 
+    app.get('*', (req, res) => {
+        let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+        console.log(fullUrl + ' is an invalid address');
+        res.status(404).send('Your page was not found');
+    })
+
+    app.post('*', (req, res) => {
+        res.status(404).send('Your page was not found');
+    })
+    */
 }
 
 module.exports = initRoutes;

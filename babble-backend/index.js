@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 // on server start, populate db.js with persistent json
-const local = require('./data/db');
+const local = require('./database/db');
 local.loadData();
 
 // initialize routes
@@ -16,6 +16,7 @@ initRoutes(app, local);
 // API documentation generation
 const swaggerDoc = require('./swaggerDoc');
 swaggerDoc(app);
+
 
 // // // //  //
 //* DEPLOY  *//
