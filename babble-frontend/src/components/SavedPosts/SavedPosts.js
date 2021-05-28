@@ -1,8 +1,16 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PostThumbnail from '../PostThumbnail/PostThumbnail'
 import './SavedPosts.css'
 
-const SavedPosts = () => {
+const SavedPosts = ({posts, getPostsFromIds}) => {
+    const [savedPosts, setSavedPosts] = useState([]);
+    useEffect(() => {
+        const req = {
+            ids: posts,
+            set: setSavedPosts
+        };
+        getPostsFromIds(req);
+    },[posts, getPostsFromIds]);
 
     const post5 = {
         postId: 5,
@@ -25,7 +33,8 @@ const SavedPosts = () => {
     return (
         <div className="saved-posts-container">
             <div>Saved Posts</div>
-            {savedPostsArray.map(post => <PostThumbnail {...post} />)}
+            {savedPostsArray.map(post => <PostThumbnail {...post} key={post.postId}/>)}
+            {savedPosts ? savedPosts.map(post => <PostThumbnail {...post} />) : <></>}
         </div>
     );
 }

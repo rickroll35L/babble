@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import "./MakePost.css";
 
-const MakePost = ({ open, handleclose }) => {
+const MakePost = ({ open, handleclose, createPost }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -21,7 +21,7 @@ const MakePost = ({ open, handleclose }) => {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (title && title.length > 100) {
       alert("Title is too long! Please limit to <100 characters");
       return;
@@ -31,16 +31,15 @@ const MakePost = ({ open, handleclose }) => {
       return;
     }
     const post = {
-        title,
-        content: description, 
-        uid: 1234,  
+      title,
+      content: description, 
     }
-    console.log(post);
+    createPost(post);
     clear();
   };
 
   const clear = () => {
-      handleclose();
+    handleclose();
   }
 
   return (

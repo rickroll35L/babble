@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './LoginForm.css'
 
-const LoginForm = () => {
+const LoginForm = ({ loginUser }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +16,11 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const body = {
+            email,
+            password
+        };
+        loginUser(body);
         setEmail("");
         setPassword("");
     }

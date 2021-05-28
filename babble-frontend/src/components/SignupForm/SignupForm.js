@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './SignupForm.css'
 
-const SignupForm = () => {
+const SignupForm = ({ createUser }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -25,6 +25,13 @@ const SignupForm = () => {
             alert("Passwords do not match");
         }
         else {
+            const body = {
+                email,
+                password
+            };
+            if(createUser(body)==="User was added"){
+                alert("Account created! Please login.")
+            }
             setEmail("");
             setPassword("");
             setConfirmPassword("");

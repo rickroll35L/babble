@@ -1,9 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PostThumbnail from '../PostThumbnail/PostThumbnail'
 import './UserPosts.css'
 
 
-const UserPosts = () => {
+const UserPosts = ({posts,deletePost,getPostsFromIds}) => {
+    const [userPosts, setUserPosts] = useState([]);
+    useEffect(() => {
+        const req = {
+            ids: posts,
+            set: setUserPosts
+        };
+        getPostsFromIds(req);
+    },[posts, getPostsFromIds]);
 
     const post3 = {
         postId: 3,
@@ -26,7 +34,8 @@ const UserPosts = () => {
     return (
         <div className="user-posts-container">
             <div>User Posts</div>
-            {userPostsArray.map(post => <PostThumbnail {...post} />)}
+            {userPostsArray.map(post => <PostThumbnail {...post} deletePost={deletePost} key={post.postId}/>)}
+            {userPosts ? userPosts.map(post => <PostThumbnail {...post} key={post.id}/>) : <></>}
         </div>
     );
 }

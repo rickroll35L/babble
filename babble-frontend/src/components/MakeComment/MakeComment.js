@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import "./MakeComment.css";
 
-const MakeComment = ({ open, handleclose }) => {
+const MakeComment = ({ open, handleclose, createComment, postId }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -34,7 +34,12 @@ const MakeComment = ({ open, handleclose }) => {
       name: title,
       comment: description, 
     }
-    console.log(comment);
+    const payload = {
+      pid: postId,
+      body: comment,
+    }
+    console.log(payload);
+    createComment(payload);
     clear();
   };
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useHistory, useParams } from "react-router-dom";
 import MakeComment from "../../components/MakeComment/MakeComment.js";
 import "./Post.css"
@@ -43,7 +43,7 @@ const tPost2 = {
 }
 
 //replace with async method in future
-const getPost = (postId) => {
+const testPost = (postId) => {
     if(postId === "1"){
         return tPost1;
     }
@@ -52,13 +52,20 @@ const getPost = (postId) => {
     }
 }
 
-const Post = () => {
+const Post = ({getPost, savePost, createComment, likePost}) => {
     const history = useHistory();
     const goHome = () => {
         history.push(`/home`);
     }
     const postId = useParams().postId;
-    const [currPost,setCurrPost] = useState(getPost(postId));//will need to become asynchronous js at somepoint
+    const [currPost,setCurrPost] = useState(testPost(postId));//will need to become asynchronous js at somepoint
+    useEffect(() => {
+        const req = {
+            pid: postId,
+            set: setCurrPost
+        };
+        getPost(req);
+    },[postId, getPost])
 
     const [makeComment, setMakeComment] = useState(false);
     const openDialog = () => {
@@ -67,12 +74,11 @@ const Post = () => {
 
     const handleClose = () => {
         setMakeComment(false);
-        setCurrPost(getPost(postId));
     }
 
     return (
         <div id = "main">
-            <MakeComment open={makeComment} handleclose={handleClose}/>
+            <MakeComment open={makeComment} handleclose={handleClose} createComment={createComment} postId={postId}/>
             <div id="titleheader">
                 <br></br>
                 <div id = "title">
@@ -97,10 +103,10 @@ const Post = () => {
                 <div id = "likes">
                     liked by {currPost.likes} people
                 </div>
-                <button id = "likeButton" onClick={() => console.log("liked!")}>
+                <button id = "likeButton" onClick={() => likePost(postId)}>
                     Like
                 </button>
-                <button id = "savePostButton" onClick={() => console.log("saved!")}>
+                <button id = "savePostButton" onClick={() => savePost(postId)}>
                     Save Post
                 </button>
             </div>

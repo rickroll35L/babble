@@ -16,12 +16,18 @@ const tProfile2 = {
     comments: "10",
 }
 
-function Feed() {
+function Feed({ posts, searchPost }) {
+    const search = () => {
+        searchPost("einar"); //replace with search string
+    }
     return (
         <div>
             <div className="Navigation">
-
+                <button onClick={search}>search</button>
             </div>
+            {posts.map((p) => 
+                <PostThumbnail {...p} key={p.id}/>
+            )}
             <PostThumbnail {...tProfile1}/>
             <PostThumbnail {...tProfile2}/>
         </div>

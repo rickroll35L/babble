@@ -11,7 +11,7 @@ const UserProfile = (props) => {
                 <div>Password: {props.password}</div>
             </div>
 
-            <button>Delete account</button>
+            <button onClick={props.deleteUser}>Delete account</button>
         </div>
     );
 }
