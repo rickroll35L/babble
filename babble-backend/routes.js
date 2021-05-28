@@ -1,4 +1,4 @@
-const { signup, login } = require('./authentication/auth');
+const { signup, login, isAuth } = require('./authentication/auth');
 const { errorHandler } = require('./authentication/auth-errorhandler');
 
 // // // // // //
@@ -114,9 +114,9 @@ const initRoutes = (app, local) => {
     //? login and user auth, req.body: email, password
     app.post("/users/login", login, errorHandler, (req, res) => {
         const loggedInUser = res.locals.loggedInUser;
-        //local.auth[loggedInUser.hash_id] = loggedInUser.token;
-        //local.writeAuth();
-        res.status(200).send(loggedInUser);
+        local.auth[loggedInUser.hash_id] = loggedInUser.token;
+        local.writeAuth();
+        res.status(200).send(JSON.stringify(loggedInUser));
     });
 
     //? add new user, req.body: email, password
@@ -130,6 +130,11 @@ const initRoutes = (app, local) => {
             };
         local.writeUsers();
         res.send('User was added');
+    });
+
+    //? Testing/debugging purposes
+    app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
+        res.status(200).send('Request verified');
     });
 
     //? delete user account with id uid

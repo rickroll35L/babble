@@ -4,13 +4,44 @@ const { createAccessToken } = require('./tokens');
 
 module.exports = {
     signup,
-    login
+    login,
+    isAuth
+}
+
+async function isAuth (req, res, next) {
+    local.loadData();
+    
+    // get authentication from request header
+    const headers = req.headers;
+    const auth = JSON.parse(headers.authentication);
+    
+    // Check if the authentication is correct
+    try {
+        // check that authentication is present
+        if (auth === undefined) throw new Error('Missing authentication token');
+        const auth_id = auth.hash_id;
+        const auth_token = auth.token;
+        if (auth_id === undefined || auth_id === "") throw new Error('Invalid credentials');
+        if (auth_token === undefined || auth_token === "") throw new Error('Invalid credentials');
+
+        // Check that the authentication is valid
+        const auth_in_database = local.auth[auth_id];
+        if (auth_in_database === undefined) throw new Error('Invalid credentials');
+        if (auth_token !== auth_in_database) throw new Error('Invalid credentials');
+        next();
+    }
+    catch (err) {
+        res.locals.error = err; 
+        next();
+    }
 }
 
 /* Logs an existing user in. Requires the log in email and password
    to be send in a json object in the body of the request */
 async function login (req, res, next) {
     local.loadData();
+
+    // get login data from request body
     const email = req.body.email;
     const password = req.body.password;
 
@@ -43,10 +74,12 @@ async function login (req, res, next) {
             };
 
         // add id and token to auth.json
-        local.auth[auth_token.hash_id] = local.auth.token;
-        local.writeAuth();
+        //local.auth[auth_token.hash_id] = local.auth.token;
+        //local.writeAuth();
+        //console.log('hithere');
         
         // log the user in by sending back the authentication token
+        // This will also add id and token to auth.json
         res.locals.loggedInUser = auth_token;
         next();
     }
@@ -60,6 +93,8 @@ async function login (req, res, next) {
    in a json object in the body of the request */
 async function signup (req, res, next) {
     local.loadData();
+
+    // get signup data from request body
     const email = req.body.email;
     const password = req.body.password;
 
