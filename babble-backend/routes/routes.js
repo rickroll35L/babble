@@ -6,78 +6,9 @@ const { errorHandler } = require('../authentication/auth-errorhandler');
 // // // // // //
 const initRoutes = (app, local) => {
     //* USERS___________
-    /**
-     * @swagger
-     * components:
-     *    schemas:
-     *      User:
-     *        type: object
-     *        properties:
-     *          id:
-     *            type: string
-     *            description: The user ID.
-     *            example: "user1"
-     *          posts:
-     *            type: array
-     *            items: 
-     *                type: integer
-     *          saved:
-     *            type: array
-     *            items: 
-     *                type: integer
-     *      Post:
-     *        type: object
-     *        properties:
-     *          body:
-     *            type: string
-     *            description: The body of the post.
-     *            example: "This is the body of the post."
-     *          title:
-     *            type: string
-     *            description: The title of the post.
-     *            example: "This is the title of the post."
-     *          id:
-     *            type: integer
-     *            description: The ID of the post. ID's are generated in chronological order, so the first post ever posted will have ID 0, the second 1, and so on.
-     *            example: 0
-     *          likes:
-     *            type: integer
-     *            description: The number of likes the post received.
-     *            example: 0
-     *          comments:
-     *            type: array
-     *            items: 
-     *                type: object
-     *                properties:
-     *                  body:
-     *                    type: string
-     *                    description: The body of the comment.
-     *                    example: "This is the body of the comment."
-     *                  id:
-     *                    type: int
-     *                    description: The ID of the comment. ID's are generated in chronological order, so the first comment on this post will have ID 0, the second 1, and so on.
-     *                    example: 0
-     *                  poster:
-     *                    type: string
-     *                    description: The chosen name of the user who posted this comment.
-     *                    example: "user1"
-     *                  time:
-     *                    type: string
-     *                    description: The time this comment was posted.
-     *                    example: ""
-     *          tags:
-     *            type: array
-     *            items: 
-     *                type: string
-     *          time:
-     *                    type: string
-     *                    description: The time this comment was posted.
-     *                    example: ""
-    */
-
     //? login and user auth, req.body: email, password
     app.post("/users/login", login, errorHandler, (req, res) => {
-        const loggedInUser = res.locals.loggedInUser; 
+        const loggedInUser = res.locals.loggedInUser;
 
         // add the appropriate user/token to auth
         local.auth[loggedInUser.hash_id] = loggedInUser.token;
@@ -91,39 +22,19 @@ const initRoutes = (app, local) => {
         const userData = res.locals.newUser;
 
         // add the appropriate user to users
-        local.users[userData.id] = 
-            {
-                password: userData.password,
-                posts: [],
-                saved: []
-            };
+        local.users[userData.id] =
+        {
+            password: userData.password,
+            posts: [],
+            saved: []
+        };
         local.writeUsers();
         res.send('User was added');
     });
 
     //TODO: middleware
 
-    /**
-     * @swagger
-     * /users/{uid}:
-     *  get:
-     *    summary: Returns the user object specifed by uid.
-     *    description: Returns the user object specifed by uid.
-     *    parameters:
-     *      - in: path
-     *        name: uid
-     *        required: true
-     *        description: ID of the user to retrieve.
-     *        schema:
-     *          type: string 
-     *    responses: 
-     *      200:
-     *        description: A user object.
-     *        content:
-     *          application/json:
-     *            schema:
-     *              $ref: '#/components/schemas/User'
-    */
+    //? Returns the user object specifed by uid.
     app.get("/users/:uid", (req, res) => {
         const uid = req.params.uid;
         if (!uid) {
@@ -172,27 +83,6 @@ const initRoutes = (app, local) => {
         res.json(local.posts.feed.filter(post => !post.isDeleted));
     });
 
-    /**
-     * @swagger
-     * /posts/{pid}:
-     *  get:
-     *    summary: Returns the post object specifed by pid.
-     *    description: Returns the post object specifed by pid.
-     *    parameters:
-     *      - in: path
-     *        name: pid
-     *        required: true
-     *        description: ID of the post to retrieve.
-     *        schema:
-     *          type: integer 
-     *    responses: 
-     *      200:
-     *        description: A post object.
-     *        content:
-     *          application/json:
-     *            schema:
-     *              $ref: '#/components/schemas/Post'
-    */
     app.get("/posts/:pid", (req, res) => {
         const pid = parseInt(req.params.pid, 10);
         if (!req.params.pid) {
@@ -261,19 +151,20 @@ const initRoutes = (app, local) => {
 
     })
 
-    // Catch invalid endpoints //! not sure if this is necessary
-    /*Commented out to allow documentation page to run
-       during development period 
+    // Catch invalid endpoints
     app.get('*', (req, res) => {
         let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         console.log(fullUrl + ' is an invalid address');
-        res.status(404).send('Your page was not found');
+        res.status(404).send('Your endpoint was not found');
     })
 
-    app.post('*', (req, res) => {
-        res.status(404).send('Your page was not found');
+    app.post('*', (_req, res) => {
+        res.status(404).send('Your endpoint was not found');
     })
-    */
+
+    app.delete('*', (_req, res) => {
+        res.status(404).send('Your endpoint was not found');
+    })
 }
 
 module.exports = initRoutes;
