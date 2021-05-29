@@ -14,31 +14,31 @@ module.exports = {
 /*************************************** */
 
 /* change user password, req.body: email, oldPassword, newPassword */
-async function changePassword (req, res) {
+function changePassword (req, res) {
     // TODO
     res.send('change password');
 }
 
 /* change user email, req.body: oldEmail, newEmail, password */
-async function changeEmail (req, res) {
+function changeEmail (req, res) {
     // TODO
     res.send('change email');
 }
 
 /* delete account, req.body: email, password */
-async function deleteAccount (req, res) {
+function deleteAccount (req, res) {
     // TODO
     res.send('delete account');
 }
 
 /* get saved posts */
-async function getSavedPosts (req, res) {
+function getSavedPosts (req, res) {
     // TODO
     res.send('got saved posts');
 }
 
 /* get posts the user made */
-async function getMyPosts (req, res) {
+function getMyPosts (req, res) {
     // TODO
     res.send('got my posts');
 }
@@ -48,7 +48,7 @@ async function getMyPosts (req, res) {
                 maybe there should be no error
    suggestion: maybe you should only be allowed to delete if this
                post was made by this specific user */
-async function deletePost (req, res) {
+function deletePost (req, res) {
     const pid = parseInt(req.params.pid, 10);
     if (!req.params.pid) {
         res.status(400);
