@@ -53,9 +53,10 @@ function App() {
       console.log(result);
       localStorage.setItem(
         "AuthToken",
-        `Bearer ${result.data.token}`,
+        JSON.stringify(result.data),
       );
       token = localStorage.getItem("AuthToken");
+      console.log(token);
       authAxios = axios.create({
         baseURL: apiURL,
         headers: {
