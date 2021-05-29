@@ -55,6 +55,9 @@ async function isAuth (req, res, next) {
         const auth_in_database = local.auth[auth_id];
         if (auth_in_database === undefined) throw new Error('Invalid credentials');
         if (auth_in_database !== auth_token) throw new Error('Invalid credentials');
+
+        // Pass userid to future middleware functions
+        res.locals.userid = auth_id;
         next();
     }
     catch (err) {

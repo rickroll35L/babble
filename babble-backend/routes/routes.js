@@ -51,6 +51,7 @@ const initRoutes = (app, local) => {
 
     //? Testing/debugging purposes
     app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
+        // console.log(res.locals.userid); // check that future middlewares have ID if needbe
         res.status(200).send('Request verified');
     });
 
