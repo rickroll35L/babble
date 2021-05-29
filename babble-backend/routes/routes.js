@@ -1,5 +1,5 @@
 const { signup, login, isAuth, logout } = require('../authentication/auth');
-const { errorHandler } = require('../authentication/auth-errorhandler');
+const { auth_errorHandler } = require('../authentication/auth-errorhandler');
 
 // // // // // //
 //* ROUTES    *//
@@ -7,10 +7,10 @@ const { errorHandler } = require('../authentication/auth-errorhandler');
 const initRoutes = (app, local) => {
     //* USERS___________
     //? login and user auth, req.body: email, password
-    app.post("/users/login", login, errorHandler, (req, res) => {});
+    app.post("/users/login", login, auth_errorHandler, (req, res) => {});
 
     //? add new user, req.body: email, password
-    app.post("/users/signup", signup, errorHandler, (req, res) => {});
+    app.post("/users/signup", signup, auth_errorHandler, (req, res) => {});
 
     //TODO: middleware
 
@@ -31,13 +31,13 @@ const initRoutes = (app, local) => {
     });
 
     //? Testing/debugging purposes
-    app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
+    app.post("/users/tryauth", isAuth, auth_errorHandler, (req, res) => {
         // console.log(res.locals.userid); // check that future middlewares have ID if needbe
         res.status(200).send('Request verified');
     });
 
     //? Testing/debugging purposes
-    app.post("/users/logout", isAuth, logout, errorHandler, (req, res) => {});
+    app.post("/users/logout", isAuth, logout, auth_errorHandler, (req, res) => {});
 
     //? delete user account with id uid
     app.delete("/users/:uid/delete", (req, res) => {
