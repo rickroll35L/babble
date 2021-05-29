@@ -1,4 +1,4 @@
-const local = require('../database/db');
+const db = require('../database/db');
 const { createAccessToken } = require('./tokens');
 const {
     encryptEmail,
@@ -26,12 +26,12 @@ async function logout (req, res, next) {
         const id_to_remove = auth.hash_id;
 
         // remove the appropriate entry in auth
-        for (const id in local.auth) {
+        for (const id in db.auth) {
             if (id === id_to_remove) {
-                delete local.auth[id];
+                delete db.auth[id];
             }
         }
-        local.writeAuth();
+        db.writeAuth();
         res.status(200).send('User has logged out');
     }
     catch (err) {
@@ -59,7 +59,7 @@ async function isAuth (req, res, next) {
         if (auth_token === undefined || auth_token === "") throw new Error('Incomplete authentication token');
 
         // Check that the authentication is valid
-        const auth_in_database = local.auth[auth_id];
+        const auth_in_database = db.auth[auth_id];
         if (auth_in_database === undefined) throw new Error('Invalid credentials');
         if (auth_in_database !== auth_token) throw new Error('Invalid credentials');
 
@@ -102,8 +102,8 @@ async function login (req, res, next) {
         
         /* log the user in by sending back the authentication token
            and add the appropriate user/token to auth */
-        local.auth[auth_token.hash_id] = auth_token.token;
-        local.writeAuth();
+        db.auth[auth_token.hash_id] = auth_token.token;
+        db.writeAuth();
         console.log('User has logged in');
         res.status(200).send(JSON.stringify(auth_token));
     }
@@ -145,13 +145,13 @@ async function signup (req, res, next) {
             }
 
         // add the appropriate user to users
-        local.users[userData.id] =
+        db.users[userData.id] =
         {
             password: userData.password,
             posts: [],
             saved: []
         };
-        local.writeUsers();
+        db.writeUsers();
         res.status(200).send('User was added');
     }
     catch (err) {

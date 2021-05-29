@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 
 // on server start, populate db.js with persistent json
-const local = require('./database/db');
-local.loadData();
+const db = require('./database/db');
+db.loadData();
 
 // routers
 const enter_router = require('./routes/enter');
