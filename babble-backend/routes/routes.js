@@ -7,29 +7,10 @@ const { errorHandler } = require('../authentication/auth-errorhandler');
 const initRoutes = (app, local) => {
     //* USERS___________
     //? login and user auth, req.body: email, password
-    app.post("/users/login", login, errorHandler, (req, res) => {
-        const loggedInUser = res.locals.loggedInUser;
-
-        // add the appropriate user/token to auth
-        local.auth[loggedInUser.hash_id] = loggedInUser.token;
-        local.writeAuth();
-        res.status(200).send(JSON.stringify(loggedInUser));
-    });
+    app.post("/users/login", login, errorHandler, (req, res) => {});
 
     //? add new user, req.body: email, password
-    app.post("/users/signup", signup, errorHandler, (req, res) => {
-        const userData = res.locals.newUser;
-
-        // add the appropriate user to users
-        local.users[userData.id] =
-        {
-            password: userData.password,
-            posts: [],
-            saved: []
-        };
-        local.writeUsers();
-        res.send('User was added');
-    });
+    app.post("/users/signup", signup, errorHandler, (req, res) => {});
 
     //TODO: middleware
 
@@ -56,18 +37,7 @@ const initRoutes = (app, local) => {
     });
 
     //? Testing/debugging purposes
-    app.post("/users/logout", isAuth, logout, errorHandler, (req, res) => {
-        const id_to_remove = res.locals.id_to_remove;
-
-        // remove the appropriate entry in auth
-        for (const id in local.auth) {
-            if (id === id_to_remove) {
-                delete local.auth[id];
-            }
-        }
-        local.writeAuth();
-        res.status(200).send('User has logged out');
-    });
+    app.post("/users/logout", isAuth, logout, errorHandler, (req, res) => {});
 
     //? delete user account with id uid
     app.delete("/users/:uid/delete", (req, res) => {

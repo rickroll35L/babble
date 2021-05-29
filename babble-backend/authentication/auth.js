@@ -22,10 +22,17 @@ async function logout (req, res, next) {
         const headers = req.headers;
         const auth = JSON.parse(headers.authentication);
 
-        // pass back id to remove the authentication from auth
-        const id_to_remove = auth.hash_id
-        res.locals.id_to_remove = id_to_remove;
-        next();
+        // id to remove the authentication from auth
+        const id_to_remove = auth.hash_id;
+
+        // remove the appropriate entry in auth
+        for (const id in local.auth) {
+            if (id === id_to_remove) {
+                delete local.auth[id];
+            }
+        }
+        local.writeAuth();
+        res.status(200).send('User has logged out');
     }
     catch (err) {
         res.locals.error = err; 
@@ -93,10 +100,12 @@ async function login (req, res, next) {
                 token: await createAccessToken()
             };
         
-        // log the user in by sending back the authentication token
-        // This will also add id and token to auth.json
-        res.locals.loggedInUser = auth_token;
-        next();
+        /* log the user in by sending back the authentication token
+           and add the appropriate user/token to auth */
+        local.auth[auth_token.hash_id] = auth_token.token;
+        local.writeAuth();
+        console.log('User has logged in');
+        res.status(200).send(JSON.stringify(auth_token));
     }
     catch (err) {
         res.locals.error = err; 
@@ -129,12 +138,21 @@ async function signup (req, res, next) {
         // Add the user to the database
         const hashed_id = await encryptEmail(email);
         const hashed_password = await encryptPassword(password);
-        res.locals.newUser = 
+        const userData = 
             {
                 id: hashed_id,
                 password: hashed_password
             }
-        next();
+
+        // add the appropriate user to users
+        local.users[userData.id] =
+        {
+            password: userData.password,
+            posts: [],
+            saved: []
+        };
+        local.writeUsers();
+        res.status(200).send('User was added');
     }
     catch (err) {
         res.locals.error = err; 
