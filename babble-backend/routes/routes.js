@@ -14,7 +14,6 @@ const initRoutes = (app, local) => {
         local.auth[loggedInUser.hash_id] = loggedInUser.token;
         local.writeAuth();
         res.status(200).send(JSON.stringify(loggedInUser));
-        //! suggestion: res.status(200).json(loggedInUser);
     });
 
     //? add new user, req.body: email, password
