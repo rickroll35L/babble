@@ -11,7 +11,10 @@ local.loadData();
 
 // routers
 const enter_router = require('./routes/enter');
+const user_router = require('./routes/user');
+
 app.use('/enter', enter_router);
+app.use('/user', user_router);
 
 // initialize routes
 //const initRoutes = require('./routes/routes');

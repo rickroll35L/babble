@@ -1,0 +1,31 @@
+Informal notes on the routes
+
+******************************** need email/pasword in body ********************************
+
+Pass in email/password (key-value pairs in json format) in the BODY
+
+/enter/login
+    - pass in email/password (see top of section)
+    - get back: auth-token (store this)
+
+/enter/signup
+    - pass in email/password (see top of section)
+
+******************************** need auth-token (get from login) in header ********************************
+
+Pass in auth-token (get it from login) as a key-value pair like so ----> Authentication: <the token>
+in json format in the HEADER
+
+/user/change-password
+    - pass in auth-token (see top of section)
+    - req.body: email, oldPassword, newPassword (key-value json format)
+    - ask user to log back in
+
+/user/change-email
+    - pass in auth-token (see top of section)
+    - req.body: oldEmail, newEmail, password (key-value json format)
+    - ask user to log back in
+
+/user/delete-account
+    - pass in auth-token (see top of section)
+    - req.body: email, password (key-value json format)

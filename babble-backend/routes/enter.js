@@ -5,8 +5,10 @@ const { auth_errorHandler } = require('../authentication/auth-errorhandler');
 
 module.exports = enter_router;
 
-// login and user auth, req.body: email, password
-enter_router.post("/login", login, auth_errorHandler, (req, res) => {});
+/************************************** routes **************************************/
 
-// add new user, req.body: email, password
-enter_router.post("/signup", signup, auth_errorHandler, (req, res) => {});
+/* login and user auth, req.body: email, password */
+enter_router.post('/login', login, auth_errorHandler, (req, res) => {});
+
+/* add new user, req.body: email, password */
+enter_router.post('/signup', signup, auth_errorHandler, (req, res) => {});
