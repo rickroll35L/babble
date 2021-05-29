@@ -33,7 +33,7 @@ DELETE /user/delete-account
         - req.body: email, password (key-value json format)
         - call logout route immediately after (if successful change)
 
-POST /user/saved-posts
+GET /user/saved-posts
         - pass in auth-token (see top of section)
         - get back: array of post objects
 
@@ -43,9 +43,9 @@ GET /user/my-posts
 
 DELETE /user/delete-post/:pid   
         - pass in auth-token (see top of section)
-        - query: post id (pid)
+        - req.params: post id (pid)
 
-GET /user/logout
+POST /user/logout
         - pass in auth-token (see top of section)
 
 GET /posts/feed
@@ -57,22 +57,22 @@ POST /posts/create-post
 
 POST /posts/comment/:pid
         - pass in auth-token (see top of section)
-        - req.body: comment
-        - query: post id (pid)
+        - req.body: body, poster
+        - req.params: post id (pid)
 
 POST /posts/like/:pid
         - pass in auth-token (see top of section)
-        - query: post id (pid)
+        - req.params: post id (pid)
 
 POST /posts/save-post/:pid
         - pass in auth-token (see top of section)
-        - query: post id (pid) 
+        - req.params: post id (pid) 
 
-GET /posts/search/:query
+GET /posts/search/:req.params
         - pass in auth-token (see top of section)
-        - query: query (what to search by)
+        - req.params: query (what to search by)
 
         //front end shouldn't need to use this, it's for backend debugging
 GET /posts/get-post/:pid
         - pass in auth-token (see top of section)
-        - query: post id (pid)
+        - req.params: post id (pid)
