@@ -122,7 +122,7 @@ async function signup (req, res, next) {
         if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
-        const user = userWithEmail(email);
+        const user = await userWithEmail(email);
         if (user !== undefined) throw new Error('There is already an account with this email');
         
         // Add the user to the database
