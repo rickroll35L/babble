@@ -13,10 +13,6 @@ local.loadData();
 const initRoutes = require('./routes/routes');
 initRoutes(app, local);
 
-// API documentation generation
-const initDocs = require('./routes/documentation');
-initDocs(app);
-
 // // // //  //
 //* DEPLOY  *//
 // // // //  //
@@ -24,7 +20,6 @@ const port = 8080;
 
 app.listen(port);
 console.log(`listening on http://localhost:${port}/`);
-console.log(`API Docs at http://localhost:8080/docs`)
 console.log("Press Ctrl-C to quit");
 
 // // // //   //
