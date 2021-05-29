@@ -10,13 +10,12 @@ const local = require('./database/db');
 local.loadData();
 
 // initialize routes
-const initRoutes = require('./routes');
+const initRoutes = require('./routes/routes');
 initRoutes(app, local);
 
 // API documentation generation
-const swaggerDoc = require('./swaggerDoc');
-swaggerDoc(app);
-
+const initDocs = require('./routes/documentation');
+initDocs(app);
 
 // // // //  //
 //* DEPLOY  *//
