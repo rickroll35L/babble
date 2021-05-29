@@ -7,7 +7,8 @@ const {
     changeEmail,
     deleteAccount,
     getSavedPosts,
-    getMyPosts
+    getMyPosts,
+    deletePost
 } = require('../controllers/user-controller');
 
 module.exports = user_router;
@@ -32,6 +33,9 @@ user_router.get('/saved-posts', getSavedPosts);
 
 /* get posts the user made */
 user_router.get('/my-posts', getMyPosts);
+
+/* delete a post made the user, query: post id (pid) */
+user_router.delete('/delete-post/:pid', deletePost);
 
 /* log out */
 user_router.post('/logout', logout, (req, res) => {});

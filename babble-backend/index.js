@@ -12,9 +12,11 @@ db.loadData();
 // routers
 const enter_router = require('./routes/enter');
 const user_router = require('./routes/user');
+const posts_router = require('./routes/posts');
 
 app.use('/enter', enter_router);
 app.use('/user', user_router);
+app.use('/posts', posts_router);
 
 // initialize routes
 //const initRoutes = require('./routes/routes');

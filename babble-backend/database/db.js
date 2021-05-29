@@ -111,3 +111,6 @@ module.exports = {
     writePosts,
     writeAuth
 }
+
+/* Load data whenever database is required */
+loadData();

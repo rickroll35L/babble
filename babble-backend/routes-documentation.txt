@@ -1,6 +1,6 @@
-Informal notes on the routes
+Notes on the routes
 
-******************************** need email/pasword in body ********************************
+**************************************** need email/pasword in body ****************************************
 
 Pass in email/password (key-value pairs in json format) in the BODY
 
@@ -41,5 +41,38 @@ GET /user/my-posts
         - pass in auth-token (see top of section)
         - get back: array of post objects
 
+DELETE /user/delete-post/:pid   
+        - pass in auth-token (see top of section)
+        - query: post id (pid)
+
 GET /user/logout
         - pass in auth-token (see top of section)
+
+GET /posts/feed
+        - pass in auth-token (see top of section)
+
+POST /posts/create-post 
+        - pass in auth-token (see top of section)
+        - req.body: title, body, tags (array of tags)
+
+POST /posts/comment/:pid
+        - pass in auth-token (see top of section)
+        - req.body: comment
+        - query: post id (pid)
+
+POST /posts/like/:pid
+        - pass in auth-token (see top of section)
+        - query: post id (pid)
+
+POST /posts/save-post/:pid
+        - pass in auth-token (see top of section)
+        - query: post id (pid) 
+
+GET /posts/search/:query
+        - pass in auth-token (see top of section)
+        - query: query (what to search by)
+
+        //front end shouldn't need to use this, it's for backend debugging
+GET /posts/get-post/:pid
+        - pass in auth-token (see top of section)
+        - query: post id (pid)
