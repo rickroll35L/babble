@@ -14,7 +14,6 @@ const initRoutes = (app, local) => {
         local.auth[loggedInUser.hash_id] = loggedInUser.token;
         local.writeAuth();
         res.status(200).send(JSON.stringify(loggedInUser));
-        //! suggestion: res.status(200).json(loggedInUser);
     });
 
     //? add new user, req.body: email, password
@@ -52,6 +51,7 @@ const initRoutes = (app, local) => {
 
     //? Testing/debugging purposes
     app.post("/users/tryauth", isAuth, errorHandler, (req, res) => {
+        // console.log(res.locals.userid); // check that future middlewares have ID if needbe
         res.status(200).send('Request verified');
     });
 

@@ -38,8 +38,6 @@ async function logout (req, res, next) {
    Passing in the token (obtained at login) in the request
    header will authenticate the action */
 async function isAuth (req, res, next) {
-    local.loadData(); //! not sure if this is necessary
-    
     // get authentication from request header
     const headers = req.headers;
     const auth = JSON.parse(headers.authentication);
@@ -57,6 +55,9 @@ async function isAuth (req, res, next) {
         const auth_in_database = local.auth[auth_id];
         if (auth_in_database === undefined) throw new Error('Invalid credentials');
         if (auth_in_database !== auth_token) throw new Error('Invalid credentials');
+
+        // Pass userid to future middleware functions
+        res.locals.userid = auth_id;
         next();
     }
     catch (err) {
@@ -122,7 +123,7 @@ async function signup (req, res, next) {
         if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
-        const user = userWithEmail(email);
+        const user = await userWithEmail(email);
         if (user !== undefined) throw new Error('There is already an account with this email');
         
         // Add the user to the database
