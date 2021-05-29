@@ -167,8 +167,9 @@ const initRoutes = (app, local) => {
 
     //* POSTS___________
     //? get feed (all posts)
-    app.get("/posts", (req, res) => {
-
+    app.get("/posts", (_req, res) => {
+        res.status(200);
+        res.json(local.posts.feed.filter(post => !post.isDeleted));
     });
 
     /**
@@ -198,40 +199,58 @@ const initRoutes = (app, local) => {
             res.status(400);
             res.send("Error: Missing parameter 'pid'");
         }
-        else if (!local.posts[pid]) {
+        else if (!local.posts[pid] || local.posts[pid].isDeleted) {
             console.log(local.posts[pid]);
             res.status(404);
             res.send("Error: Post not found");
         }
         else {
+            res.status(200);
             res.json(local.posts[pid]);
         }
     });
 
-    //? create new post (req.body: post object)
+    //? create new post (req.body: post object) MARK
     app.post("/users/:uid/create-post", (req, res) => {
         const body = req.body;
 
     });
 
-    //? delete post
-    app.delete("/posts/:pid/delete", (req, res) => {
-
+    //? delete post MARK
+    app.delete("/posts/:pid", (req, res) => {
+        const pid = parseInt(req.params.pid, 10);
+        if (!req.params.pid) {
+            res.status(400);
+            res.send("Error: Missing parameter 'pid'");
+        }
+        else if (!local.posts.feed[pid] || local.posts.feed[pid].isDeleted) {
+            res.status(404);
+            res.send("Error: Post not found");
+        }
+        else {
+            local.posts.feed[pid].isDeleted = true;
+            local.writePosts();
+            res.status(200);
+            res.send(`Post ${pid} was deleted`);
+        }
     });
 
-    //? comment on post w/ id pid (req.body: comment object)
+    //TODO: get user posts (array of objects)
+    //TODO: get user saved posts (array of objects)
+
+    //? comment on post w/ id pid (req.body: comment object) MARK
     app.post("users/:uid/comment/:pid", (req, res) => {
         const body = req.body;
 
     });
 
-    //? like post w/ id pid
+    //? like post w/ id pid MARK
     app.post("/users/:uid/like/:pid", (req, res) => {
         const body = req.body;
 
     });
 
-    //? save post w/ id pid
+    //? save post w/ id pid MARK
     app.post("/users/:uid/save/:pid", (req, res) => {
         const body = req.body;
 

@@ -10,7 +10,8 @@ module.exports = {
 }
 
 async function encryptEmail(email) {
-    return await crypto.createHash('sha256').update(email).digest('base64');
+    const hash_email = await crypto.createHash('sha256').update(email).digest('base64');
+    return encodeURIComponent(hash_email);
 }
 
 async function userWithEmail(email) {

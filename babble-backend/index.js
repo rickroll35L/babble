@@ -17,7 +17,6 @@ initRoutes(app, local);
 const initDocs = require('./routes/documentation');
 initDocs(app);
 
-
 // // // //  //
 //* DEPLOY  *//
 // // // //  //
