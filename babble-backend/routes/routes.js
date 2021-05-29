@@ -6,11 +6,6 @@ const { auth_errorHandler } = require('../authentication/auth-errorhandler');
 // // // // // //
 const initRoutes = (app, local) => {
     //* USERS___________
-    //? login and user auth, req.body: email, password
-    app.post("/users/login", login, auth_errorHandler, (req, res) => {});
-
-    //? add new user, req.body: email, password
-    app.post("/users/signup", signup, auth_errorHandler, (req, res) => {});
 
     //TODO: middleware
 

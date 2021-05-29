@@ -9,9 +9,13 @@ app.use(express.json());
 const local = require('./database/db');
 local.loadData();
 
+// routers
+const enter_router = require('./routes/enter');
+app.use('/enter', enter_router);
+
 // initialize routes
-const initRoutes = require('./routes/routes');
-initRoutes(app, local);
+//const initRoutes = require('./routes/routes');
+//initRoutes(app, local);
 
 // // // //  //
 //* DEPLOY  *//
