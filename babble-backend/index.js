@@ -18,6 +18,21 @@ app.use('/enter', enter_router);
 app.use('/user', user_router);
 app.use('/posts', posts_router);
 
+// Catch invalid endpoints
+app.get('*', (req, res) => {
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    console.log(fullUrl + ' is an invalid address');
+    res.status(404).send('Your endpoint was not found');
+})
+
+app.post('*', (_req, res) => {
+    res.status(404).send('Your endpoint was not found');
+})
+
+app.delete('*', (_req, res) => {
+    res.status(404).send('Your endpoint was not found');
+})
+
 // initialize routes
 //const initRoutes = require('./routes/routes');
 //initRoutes(app, local);
