@@ -96,9 +96,32 @@ async function changeEmail(req, res) {
 }
 
 /* delete account, req.body: email, password */
-function deleteAccount(req, res) {
-    // TODO
-    res.send('delete account');
+async function deleteAccount(req, res) {
+    /* check for needed values */
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (!email || !password)
+        return res.status(401).send('Need to enter email, and password');
+
+    /* check that values are valid */
+    const user_id = await encryptEmail(email);
+    const user = await userWithEmail(email);
+    if (user === undefined || user_id != res.locals.userid) 
+        return res.status(401).send('Incorrect email');
+
+    // if user exists, check that passwords match
+    const passwordMatches = await passwordMatchesUser(user, password);
+    if (!passwordMatches) 
+        return res.status(401).send('Incorrect password');
+
+    // if everything is valid, remove the user and auth token
+    delete db.users[user_id];
+    db.writeUsers();
+    delete db.auth[user_id];
+    db.writeAuth();
+
+    res.status(200).send('Account deleted.');
 }
 
 /* helper function: get all nondeleted posts of type 'saved'
