@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import React, { useState, useCallback } from "react";
 import Home from "./pages/Home/Home.js";
 import Login from "./pages/Login/Login.js";
