@@ -56,7 +56,7 @@ function getMyPosts(_req, res) {
     res.status(200).json(posts);
 }
 
-/* delete a post made the user, query: post id (pid) */
+/* delete a post made the user, req.params: post id (pid) */
 function deletePost(req, res) {
     shared.verifyPID(req, res, () => {
         const post = db.posts.feed[req.params.pid];
