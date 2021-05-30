@@ -1,0 +1,78 @@
+Notes on the routes
+
+**************************************** need email/pasword in body ****************************************
+
+Pass in email/password (key-value pairs in json format) in the BODY
+
+POST /enter/login
+        - pass in email/password (see top of section)
+        - get back: auth-token (store this)
+
+POST /enter/signup
+        - pass in email/password (see top of section)
+
+******************************** need auth-token (get from login) in header ********************************
+
+Pass in auth-token (get it from login) as a key-value pair like so ----> Authentication: <the token>
+in json format in the HEADER
+
+POST /user/change-password
+        - pass in auth-token (see top of section)
+        - req.body: email, oldPassword, newPassword (key-value json format)
+        - call logout route immediately after (if successful change)
+        - ask user to log back in
+
+POST /user/change-email
+        - pass in auth-token (see top of section)
+        - req.body: oldEmail, newEmail, password (key-value json format)
+        - call logout route immediately after (if successful change)
+        - ask user to log back in
+
+DELETE /user/delete-account
+        - pass in auth-token (see top of section)
+        - req.body: email, password (key-value json format)
+        - call logout route immediately after (if successful change)
+
+GET /user/saved-posts
+        - pass in auth-token (see top of section)
+        - get back: array of post objects
+
+GET /user/my-posts
+        - pass in auth-token (see top of section)
+        - get back: array of post objects
+
+DELETE /user/delete-post/:pid   
+        - pass in auth-token (see top of section)
+        - req.params: post id (pid)
+
+POST /user/logout
+        - pass in auth-token (see top of section)
+
+GET /posts/feed
+        - pass in auth-token (see top of section)
+
+POST /posts/create-post 
+        - pass in auth-token (see top of section)
+        - req.body: title, body, tags (array of tags)
+
+POST /posts/comment/:pid
+        - pass in auth-token (see top of section)
+        - req.body: body, poster
+        - req.params: post id (pid)
+
+POST /posts/like/:pid
+        - pass in auth-token (see top of section)
+        - req.params: post id (pid)
+
+POST /posts/save-post/:pid
+        - pass in auth-token (see top of section)
+        - req.params: post id (pid) 
+
+GET /posts/search/:req.params
+        - pass in auth-token (see top of section)
+        - req.params: query (what to search by)
+
+        //front end shouldn't need to use this, it's for backend debugging
+GET /posts/get-post/:pid
+        - pass in auth-token (see top of section)
+        - req.params: post id (pid)
