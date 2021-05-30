@@ -21,16 +21,33 @@ function getFeed(_req, res) {
     res.json(db.posts.feed.filter(post => !post.isDeleted));
 }
 
+/* helper function to parse tags from body of post */
+function parseTags(body) {
+    const tagIndex = body.indexOf("#");
+    let tags = [];
+    if (tagIndex >= 0) {
+        tags = body.substring(tagIndex, body.length).split("#");
+        tags = tags.reduce((result, tag) => {
+            tag = tag.trim();
+            if (tag.length > 0) 
+                result.push(tag);
+            return result;
+        }, []);
+    }
+    return tags;
+}
+
 /* Create a post, req.body: title, body, tags (array of tags) */
 function createPost(req, res) {
-    const { title, body, tags } = req.body;
+    let { title, body } = req.body;
     const user = db.users[res.locals.userid];
 
-    if (!title || !body || !tags) {
-        res.status(400).send("Error: Improperly formed request. Missing title, body, or tags.");
+    if (!title || !body ) {
+        res.status(400).send("Error: Improperly formed request. Missing title or body.");
     }
     else {
         const feed = db.posts.feed;
+        const tags = parseTags(body);
         const post = {
             id: feed.length,
             time: Date(),
@@ -100,6 +117,6 @@ function search(req, res) {
 function getPost(req, res) {
     const pid = parseInt(req.params.pid, 10);
     shared.verifyPID(req, res, () => {
-        res.json(db.posts[pid]);
+        res.json(db.posts.feed[pid]);
     });
 }

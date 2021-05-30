@@ -53,7 +53,7 @@ GET /posts/feed
 
 POST /posts/create-post 
         - pass in auth-token (see top of section)
-        - req.body: title, body, tags (array of tags)
+        - req.body: title, body
 
 POST /posts/comment/:pid
         - pass in auth-token (see top of section)
