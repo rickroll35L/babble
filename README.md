@@ -2,20 +2,12 @@
 An anonymous chat app for UCLA students.
 
 ## Development Setup
-First, clone the repository and install the required dependencies as follows.
+Clone the repository, move into the front-end directory, and launch babble
 
 ```sh
 git clone https://github.com/rickroll35L/babble.git
-cd babble/babble-backend
-yarn install
-cd ../babble-frontend
-yarn install
-```
-
-To start the app, you need to run both the frontend and the backend. Luckily, we've provided a script to make this easy. Navigate to babble-frontend and run `yarn dev`.
-
-```sh
-~/.../babble/babble-frontend$ yarn dev
+cd babble/babble-frontend
+yarn babble
 ```
 
 Now you're ready to start exploring the app!
