@@ -4,7 +4,8 @@ const {
     encryptEmail,
     encryptPassword,
     userWithEmail,
-    passwordMatchesUser
+    passwordMatchesUser,
+    isUCLAemail
 } = require('./manage-user-info');
 
 module.exports = {
@@ -127,9 +128,7 @@ async function signup (req, res, next) {
         if (password.length < 6) throw new Error('Password must be more than 6 characters');
 
         // Verfiy that email fits format of a ucla email address
-        const ucla_email_1 = /^[a-z]+@ucla\.edu$/;
-        const ucla_email_2 = /^[a-z]+@g\.ucla\.edu$/;
-        if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
+        if (isUCLAemail(email) == false) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
         const user = await userWithEmail(email);
