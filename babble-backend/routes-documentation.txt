@@ -68,9 +68,26 @@ POST /posts/save-post/:pid
         - pass in auth-token (see top of section)
         - req.params: post id (pid) 
 
-GET /posts/search/:req.params
+GET /posts/search/:query
         - pass in auth-token (see top of section)
         - req.params: query (what to search by)
+
+     ------------------------------------------------------------------------------------------------------------------------------------------------------
+        MUST pass the query in as a variable to account for whitespace that user may have put in the query. See example below:
+
+        const my_headers = {
+                'Authentication': <the token you got>
+                };
+
+        const query = 'May 30';
+        axios.get(`http://localhost:${port}/posts/search/${query}`, {
+                headers: my_headers
+                })
+        .then(res => {
+                console.log(res.data);
+                })
+        .catch((err) => {});
+     ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 GET /posts/get-post/:pid
         - pass in auth-token (see top of section)
