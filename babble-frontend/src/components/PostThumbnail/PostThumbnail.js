@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 function PostThumbnail(props) {
     const history = useHistory();
     const goPost = (postId) => {
-        history.push(`/post/${postId}`);
+        history.push(`/post/${postId}`, props);
     }
 
     return (

@@ -12,13 +12,13 @@ const tPost1 = {
     comments: [
         {
             id: 0,
-            name: "Anonboy",
-            comment: "omg i hate u so much"
+            poster: "Anonboy",
+            body: "omg i hate u so much"
         },
         {
             id: 1,
             name: "Anongirl",
-            comment: "wow what an absolute girlboss"
+            body: "wow what an absolute girlboss"
         },
     ],
     time: "April 20, 1969"
@@ -35,12 +35,12 @@ const tPost2 = {
         {
             id: 0,
             poster: "Anonboy",
-            comment: "omg i hate u so much"
+            body: "omg i hate u so much"
         },
         {
             id: 1,
             poster: "Anongirl",
-            comment: "wow what an absolute girlboss"
+            body: "wow what an absolute girlboss"
         },
     ],
     time: "April 20, 1969"
@@ -56,7 +56,7 @@ const testPost = (postId) => {
     }
 }
 
-const Post = ({getPost, savePost, createComment, likePost}) => {
+const Post = ({getPost, savePost, createComment, likePost, post}) => {
     const history = useHistory();
     const goHome = () => {
         history.push(`/home`);
@@ -64,14 +64,14 @@ const Post = ({getPost, savePost, createComment, likePost}) => {
     const postId = useParams().postId;
     const [currPost,setCurrPost] = useState(testPost(postId));//will need to become asynchronous js at somepoint
     useEffect(() => {
-        console.log("postId")
+        if(post.id){
+            setCurrPost(post);
+        }
         const req = {
             pid: postId,
             set: setCurrPost
         };
         getPost(req);
-        console.log("hi");
-        console.log(currPost);
     },[postId, getPost])
 
     const [makeComment, setMakeComment] = useState(false);

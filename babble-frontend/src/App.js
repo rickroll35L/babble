@@ -244,7 +244,7 @@ function App() {
           <Route 
             exact path="/post/:postId" 
             render={(props) => (
-              <Post {...props} 
+              <Post post={props}
                 createComment={createComment} 
                 getPost={getPost} 
                 savePost={savePost} 
