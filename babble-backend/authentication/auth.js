@@ -1,4 +1,4 @@
-const local = require('../database/db');
+const db = require('../database/db');
 const { createAccessToken } = require('./tokens');
 const {
     encryptEmail,
@@ -22,10 +22,17 @@ async function logout (req, res, next) {
         const headers = req.headers;
         const auth = JSON.parse(headers.authentication);
 
-        // pass back id to remove the authentication from auth
-        const id_to_remove = auth.hash_id
-        res.locals.id_to_remove = id_to_remove;
-        next();
+        // id to remove the authentication from auth
+        const id_to_remove = auth.hash_id;
+
+        // remove the appropriate entry in auth
+        for (const id in db.auth) {
+            if (id === id_to_remove) {
+                delete db.auth[id];
+            }
+        }
+        db.writeAuth();
+        res.status(200).send('User has logged out');
     }
     catch (err) {
         res.locals.error = err; 
@@ -38,8 +45,6 @@ async function logout (req, res, next) {
    Passing in the token (obtained at login) in the request
    header will authenticate the action */
 async function isAuth (req, res, next) {
-    local.loadData();
-    
     // get authentication from request header
     const headers = req.headers;
     const auth = JSON.parse(headers.authentication);
@@ -54,9 +59,12 @@ async function isAuth (req, res, next) {
         if (auth_token === undefined || auth_token === "") throw new Error('Incomplete authentication token');
 
         // Check that the authentication is valid
-        const auth_in_database = local.auth[auth_id];
+        const auth_in_database = db.auth[auth_id];
         if (auth_in_database === undefined) throw new Error('Invalid credentials');
         if (auth_in_database !== auth_token) throw new Error('Invalid credentials');
+
+        // Pass userid to future middleware functions
+        res.locals.userid = auth_id;
         next();
     }
     catch (err) {
@@ -92,10 +100,12 @@ async function login (req, res, next) {
                 token: await createAccessToken()
             };
         
-        // log the user in by sending back the authentication token
-        // This will also add id and token to auth.json
-        res.locals.loggedInUser = auth_token;
-        next();
+        /* log the user in by sending back the authentication token
+           and add the appropriate user/token to auth */
+        db.auth[auth_token.hash_id] = auth_token.token;
+        db.writeAuth();
+        console.log('User has logged in');
+        res.status(200).send(JSON.stringify(auth_token));
     }
     catch (err) {
         res.locals.error = err; 
@@ -122,18 +132,27 @@ async function signup (req, res, next) {
         if (!ucla_email_1.test(email) && !(ucla_email_2.test(email))) throw new Error('Not a valid UCLA email address');
         
         // Check if there is already an account with this email
-        const user = userWithEmail(email);
+        const user = await userWithEmail(email);
         if (user !== undefined) throw new Error('There is already an account with this email');
         
         // Add the user to the database
         const hashed_id = await encryptEmail(email);
         const hashed_password = await encryptPassword(password);
-        res.locals.newUser = 
+        const userData = 
             {
                 id: hashed_id,
                 password: hashed_password
             }
-        next();
+
+        // add the appropriate user to users
+        db.users[userData.id] =
+        {
+            password: userData.password,
+            posts: [],
+            saved: []
+        };
+        db.writeUsers();
+        res.status(200).send('User was added');
     }
     catch (err) {
         res.locals.error = err; 
