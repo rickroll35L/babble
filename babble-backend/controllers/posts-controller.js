@@ -113,7 +113,7 @@ function search(req, res) {
     res.send('searched posts');
 }
 
-/* Get a post, req.params: post id (pid), for debugging purposes */
+/* Get a post, req.params: post id (pid) */
 function getPost(req, res) {
     const pid = parseInt(req.params.pid, 10);
     shared.verifyPID(req, res, () => {

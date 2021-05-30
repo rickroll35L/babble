@@ -1,5 +1,11 @@
 const db = require('../database/db');
 const shared = require('./shared');
+const {
+    encryptEmail,
+    encryptPassword,
+    userWithEmail,
+    passwordMatchesUser
+} = require('../authentication/manage-user-info');
 
 module.exports = {
     changePassword,
@@ -14,10 +20,35 @@ module.exports = {
 /* Get the userid with res.locals.userid */
 /*************************************** */
 
-/* change user password, req.body: email, oldPassword, newPassword */
-function changePassword(req, res) {
-    // TODO
-    res.send('change password');
+/* change user password, req.body: email, currentPassword, newPassword */
+async function changePassword(req, res) {
+    /* check for needed values */
+    const email = req.body.email;
+    const currentPassword = req.body.currentPassword;
+    const newPassword = req.body.newPassword;
+
+    if (!email || !currentPassword || !newPassword) 
+        return res.status(401).send('Need to enter email, old password, and new password');
+
+    /* check that values are valid */
+    const user_id = await encryptEmail(email);
+    const user = await userWithEmail(email);
+    if (user === undefined || user_id != res.locals.userid) 
+        return res.status(401).send('Incorrect Email');
+
+    // if user exists, check that passwords match
+    const passwordMatches = await passwordMatchesUser(user, currentPassword);
+    if (!passwordMatches) 
+        return res.status(401).send('Incorrect current password');
+
+    // new password should be valid
+    if (newPassword.length < 6) 
+        return res.status(401).send('New password must be at least 6 characters');
+
+    // if everything is valid, change the password
+    db.users[user_id].password = await encryptPassword(newPassword);
+    db.writeUsers();
+    res.status(200).send('Password updated');
 }
 
 /* change user email, req.body: oldEmail, newEmail, password */
