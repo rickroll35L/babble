@@ -76,6 +76,7 @@ posts = {
             body: "body",
             likes: 0,
             isDeleted: false,
+            poster: "hashed_id_of_poster"
             tags: [
                 "tag1",
                 "tag2",
