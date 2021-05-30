@@ -102,7 +102,6 @@ async function deleteAccount(req, res) {
     const password = req.headers.password;
 
     if (!email || !password){
-        console.log(email);
         return res.status(401).send('Need to enter email, and password');
     }
 
@@ -110,13 +109,11 @@ async function deleteAccount(req, res) {
     const user_id = await encryptEmail(email);
     const user = await userWithEmail(email);
     if (user === undefined || user_id != res.locals.userid) {
-        console.log(1);
         return res.status(401).send('Incorrect email');
     }
     // if user exists, check that passwords match
     const passwordMatches = await passwordMatchesUser(user, password);
     if (!passwordMatches) {
-        console.log(2);
         return res.status(401).send('Incorrect password');
     }
 

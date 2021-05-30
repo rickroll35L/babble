@@ -33,6 +33,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
@@ -65,7 +66,7 @@ function App() {
       callback();
     } catch (err) {
       console.log(err);
-      alert("Invalid Login")
+      alert("Invalid Login: " + err);
     }
   });
 
@@ -120,6 +121,7 @@ function App() {
       return logoutUser();
     } catch (err) {
       console.log(err);
+      alert(err);
     }
   });
 
@@ -134,6 +136,7 @@ function App() {
       return logoutUser();
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
@@ -143,6 +146,7 @@ function App() {
       const result = await authAxios.get(`/user/saved-posts`);
       callback(result.data);
     } catch (err) {
+      alert(err);
       console.log(err);
     }
   });
@@ -152,6 +156,7 @@ function App() {
       const result = await authAxios.get(`/user/my-posts`);
       callback(result.data);
     } catch (err) {
+      alert(err);
       console.log(err);
     }
   });
@@ -163,6 +168,7 @@ function App() {
       callback(result.data);
     } catch (err) {
       console.log(err);
+      alert(err);
     }
   });
 
@@ -172,6 +178,7 @@ function App() {
       set(result.data);
     } catch (err) {
       console.log(err);
+      alert(err);
     }
   });
 
@@ -182,6 +189,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
@@ -193,6 +201,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
@@ -203,6 +212,7 @@ function App() {
       callback(result.data);
     } catch (err) {
       console.log(err);
+      alert(err);
     }
   });
 
@@ -215,6 +225,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
@@ -226,6 +237,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
@@ -237,6 +249,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
+      alert(err);
       return false;
     }
   });
