@@ -46,17 +46,17 @@ const axios = require('axios');
 //     password: "123456789",
 // });
 
-axios.post(`http://localhost:${port}/enter/login`, {
-    email: "user@g.ucla.edu",
-    password: "123456789",
-}).then(res => {
-    const token = JSON.stringify(res.data);
-    const header = {
-        headers: {
-            Authentication: token,
-        }
-    };
+// axios.post(`http://localhost:${port}/enter/login`, {
+//     email: "user@g.ucla.edu",
+//     password: "123456789",
+// }).then(res => {
+//     const token = JSON.stringify(res.data);
+//     const header = {
+//         headers: {
+//             Authentication: token,
+//         }
+//     };
 
-    //put HTTP requests here (pass in header for auth)
-})
+//     //put HTTP requests here (pass in header for auth)
+// })
 

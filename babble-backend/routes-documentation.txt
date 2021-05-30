@@ -18,7 +18,7 @@ in json format in the HEADER
 
 POST /user/change-password
         - pass in auth-token (see top of section)
-        - req.body: email, oldPassword, newPassword (key-value json format)
+        - req.body: email, currentPassword, newPassword (key-value json format)
         - call logout route immediately after (if successful change)
         - ask user to log back in
 
@@ -72,7 +72,6 @@ GET /posts/search/:req.params
         - pass in auth-token (see top of section)
         - req.params: query (what to search by)
 
-        //front end shouldn't need to use this, it's for backend debugging
 GET /posts/get-post/:pid
         - pass in auth-token (see top of section)
         - req.params: post id (pid)
