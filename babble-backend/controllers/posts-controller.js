@@ -125,6 +125,9 @@ function search(req, res) {
         let inComments = false;
         const comments = post.comments;
         for (i = 0; i < comments.length; i++) {
+            if(!comments[i].body || !comments[i].time){
+                continue;
+            }
             if (query.exec(comments[i].body.toLowerCase())
                 || query.exec(comments[i].time.toLowerCase())) {
                 inComments = true;
@@ -133,7 +136,7 @@ function search(req, res) {
         }
 
         if ( inTitle || inTime || inBody || inComments)
-            result.push(post);
+            if(!post.isDeleted)result.push(post);
         return result;
     }, []);
 

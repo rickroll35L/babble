@@ -43,7 +43,7 @@ const UserPosts = ({getMyPosts,deletePost}) => {
             {userPosts ? userPosts.map((post) => {
                 return (<div key={post.id + "mypost"}>
                     <PostThumbnail {...post} />
-                    <button onClick={deletePost}>Delete Post</button>
+                    <button onClick={() => deletePost(post.id)}>Delete Post</button>
                 </div>);
             }) : <></>}
         </div>

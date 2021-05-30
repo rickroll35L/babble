@@ -41,7 +41,7 @@ const tProfile2 = {
 function Feed({ posts, searchPost, setPostList }) {
     const search = () => {
         const req = {
-            query: "einar", //replace with search string
+            query: "hi again", //replace with search string
             callback: setPostList
 
         };

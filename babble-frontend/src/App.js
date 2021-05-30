@@ -82,7 +82,25 @@ function App() {
   // user info calls
   const deleteUser = useCallback( async () => {
     try {
-      const result = await authAxios.delete(`/user/delete-account`, loginInfo);
+      const body = {
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("pswd"),
+      };
+      console.log(body);
+      const delAxios = axios.create({
+        baseURL: apiURL,
+        headers: {
+          authentication: localStorage.getItem("AuthToken"),
+          email: body.email,
+          password: body.password,
+        },
+      });
+      const result = await delAxios.delete(`/user/delete-account`);
+      if(result.status===200){
+        alert("Deleted!")
+      }else{
+        alert("Deletion invalid")
+      }
       return logoutUser();
     } catch (err) {
       console.log(err);
@@ -94,10 +112,11 @@ function App() {
     try {
       const body = {
         email: localStorage.getItem("email"),
-        oldPassword: localStorage.getItem("pswd"),
+        currentPassword: localStorage.getItem("pswd"),
         newPassword: newP
       }
-      const result = await authAxios.post(`/users/change-password`, body);
+      const result = await authAxios.post(`/user/change-password`, body);
+      console.log(result);
       return logoutUser();
     } catch (err) {
       console.log(err);
@@ -107,11 +126,11 @@ function App() {
   const changeEmail = useCallback( async (newE) => {
     try {
       const body = {
-        oldEmail: localStorage.getItem("email"),
+        currentEmail: localStorage.getItem("email"),
         newEmail: newE,
         password: localStorage.getItem("pswd"),
       }
-      const result = await authAxios.post(`/users/change-email`, body);
+      const result = await authAxios.post(`/user/change-email`, body);
       return logoutUser();
     } catch (err) {
       console.log(err);
@@ -170,6 +189,7 @@ function App() {
   const deletePost = useCallback( async (pid) => {
     try {
       const result = await authAxios.delete(`/user/delete-post/${pid}`);
+      alert("Post deleted! Please refresh to update.")
       return true;
     } catch (err) {
       console.log(err);

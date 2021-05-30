@@ -98,22 +98,27 @@ async function changeEmail(req, res) {
 /* delete account, req.body: email, password */
 async function deleteAccount(req, res) {
     /* check for needed values */
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.headers.email;
+    const password = req.headers.password;
 
-    if (!email || !password)
+    if (!email || !password){
+        console.log(email);
         return res.status(401).send('Need to enter email, and password');
+    }
 
     /* check that values are valid */
     const user_id = await encryptEmail(email);
     const user = await userWithEmail(email);
-    if (user === undefined || user_id != res.locals.userid) 
+    if (user === undefined || user_id != res.locals.userid) {
+        console.log(1);
         return res.status(401).send('Incorrect email');
-
+    }
     // if user exists, check that passwords match
     const passwordMatches = await passwordMatchesUser(user, password);
-    if (!passwordMatches) 
+    if (!passwordMatches) {
+        console.log(2);
         return res.status(401).send('Incorrect password');
+    }
 
     // if everything is valid, remove the user and auth token
     delete db.users[user_id];
