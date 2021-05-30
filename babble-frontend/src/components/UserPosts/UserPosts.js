@@ -5,16 +5,9 @@ import './UserPosts.css'
 
 const UserPosts = ({getMyPosts,deletePost}) => {
     const [userPosts, setUserPosts] = useState([]);
-    const [load, setLoad] = useState(false);
     useEffect(() => {
         getMyPosts(setUserPosts);
     },[]);
-
-    useEffect(()=>{
-        if(userPosts.length!==0){
-            setLoad(true);
-        }
-    },[userPosts]);
 
     const post3 = {
         id: 3,
@@ -48,10 +41,10 @@ const UserPosts = ({getMyPosts,deletePost}) => {
             <div>User Posts</div>
             {userPostsArray.map(post => <PostThumbnail {...post} key={post.id + "usertest"}/>)}
             {userPosts ? userPosts.map((post) => {
-                <div key={post.id + "mypost"}>
+                return (<div key={post.id + "mypost"}>
                     <PostThumbnail {...post} />
                     <button onClick={deletePost}>Delete Post</button>
-                </div>
+                </div>);
             }) : <></>}
         </div>
     );
