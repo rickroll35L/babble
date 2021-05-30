@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import MakePost from "../../components/MakePost/MakePost.js";
 import Feed from "../../components/Feed/Feed.js";
 
-const Home = ({ createPost, getPosts, searchPost}) => {
+const Home = ({ createPost, getPosts, searchPost, logoutUser}) => {
     const history = useHistory();
     const [makePost, setMakePost] = useState(false);
     const [postList, setPostList] = useState([]);
@@ -14,6 +14,7 @@ const Home = ({ createPost, getPosts, searchPost}) => {
         history.push(`/post/${postId}`);
     }
     const goLogin = () => {
+        logoutUser();
         history.push(`/`);
     }
 
@@ -33,7 +34,7 @@ const Home = ({ createPost, getPosts, searchPost}) => {
             <button onClick = {goProfile}>
                 Profile
             </button>
-            <Feed posts={postList} searchPost={searchPost}/>
+            <Feed posts={postList} searchPost={searchPost} setPostList={setPostList}/>
             <button onClick = {() => goPost(1)}>
                 Post 1
             </button>

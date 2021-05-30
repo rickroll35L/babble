@@ -29,9 +29,7 @@ const SignupForm = ({ createUser }) => {
                 email,
                 password
             };
-            if(createUser(body)==="User was added"){
-                alert("Account created! Please login.")
-            }
+            createUser(body);
             setEmail("");
             setPassword("");
             setConfirmPassword("");

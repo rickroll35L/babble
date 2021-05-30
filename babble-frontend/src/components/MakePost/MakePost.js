@@ -32,7 +32,8 @@ const MakePost = ({ open, handleclose, createPost }) => {
     }
     const post = {
       title,
-      content: description, 
+      body: description, 
+      tags: []
     }
     createPost(post);
     clear();

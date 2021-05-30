@@ -25,7 +25,7 @@ const Login = ({ createUser, loginUser }) => {
                 Welcome to Babble!
             </div>
             <div className="left-column">
-                {signinBool? <LoginForm loginUser={loginUser}/> : <SignupForm createUser={createUser}/>}
+                {signinBool? <LoginForm loginUser={loginUser} goHome={goHome}/> : <SignupForm createUser={createUser}/>}
                 <button onClick = {setSignin}>{signinPhrase}</button>
 
                 <br></br>

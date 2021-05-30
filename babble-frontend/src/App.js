@@ -18,38 +18,29 @@ const apiURL = "";
 let authAxios = axios.create({
   baseURL: apiURL,
   headers: {
-    Authorization: token
+    authentication: token
   }
 });
 
 function App() {
-  const [ user, setUser ] = useState({});
-  const history = useHistory();
+  const [loginInfo, setLoginInfo] = useState({});
 
-  const getUser = useCallback( async (uid) => {
-    try {
-      const result = await authAxios.get(`/users/${uid}`, {uid: uid});
-      setUser(result);
-      console.log(user);
-      console.log(result);
-      return result;
-    } catch (err) {
-      console.log(err);
-    }
-  });
-
+  // authentication calls
   const createUser = useCallback( async (body) => {
     try {
-      const result = await axios.post(`/users/signup`, body);
-      return result;
+      const result = await axios.post(`/enter/signup`, body);
+      console.log(result);
+      alert("Account created! Please go to login.");
+      return true;
     } catch (err) {
       console.log(err);
+      return false;
     }
   });
 
-  const loginUser = useCallback( async (body) => {
+  const loginUser = useCallback( async ({body, callback}) => {
     try {
-      const result = await axios.post(`/users/login`, body);
+      const result = await axios.post(`/enter/login`, body);
       console.log(result);
       localStorage.setItem(
         "AuthToken",
@@ -60,31 +51,90 @@ function App() {
       authAxios = axios.create({
         baseURL: apiURL,
         headers: {
-          Authorization: token
+          authentication: token
         }
       });
-      getUser(result.data.hash_id);
-      if(user){
-        history.push(`/home`);
-      }
+      setLoginInfo(body);
+      callback();
     } catch (err) {
       console.log(err);
+      alert("Invalid Login")
     }
   });
 
+  const logoutUser = useCallback( async () => {
+    try {
+      const result = await authAxios.post(`/user/logout`);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  });
+
+  // user info calls
   const deleteUser = useCallback( async () => {
     try {
-      const result = await authAxios.delete(`/users/${user.id}/delete`);
-      return result;
+      const result = await authAxios.delete(`/user/delete-account`, loginInfo);
+      return logoutUser();
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  });
+
+  const changePassword = useCallback( async (newP) => {
+    try {
+      const body = {
+        email: loginInfo.email,
+        oldPassword: loginInfo.password,
+        newPassword: newP
+      }
+      const result = await authAxios.post(`/users/change-password`, body);
+      return logoutUser();
     } catch (err) {
       console.log(err);
     }
   });
 
+  const changeEmail = useCallback( async (newE) => {
+    try {
+      const body = {
+        oldEmail: loginInfo.email,
+        newEmail: newE,
+        password: loginInfo.password,
+      }
+      const result = await authAxios.post(`/users/change-email`, body);
+      return logoutUser();
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  });
+
+  const getSavedPosts = useCallback( async (callback) => {
+    try {
+      const result = await authAxios.get(`/user/saved-posts`);
+      callback(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  const getMyPosts = useCallback( async (callback) => {
+    try {
+      const result = await authAxios.get(`/user/my-posts`);
+      callback(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  // posts controls
   const getPosts = useCallback( async (callback) => {
     try {
-      const result = await authAxios.get(`/posts`);
-      callback(result);
+      const result = await authAxios.get(`/posts/feed`);
+      callback(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -92,85 +142,77 @@ function App() {
 
   const getPost = useCallback( async ({set, pid}) => {
     try {
-      const result = await authAxios.get(`/posts/${pid}`);
-      set(result);
+      const result = await authAxios.get(`/posts/get-post/${pid}`);
+      console.log("call");
+      console.log(result);
+      set(result.data);
     } catch (err) {
       console.log(err);
     }
-  });
-
-  const getPostsFromIds = useCallback( async ({set, ids}) => {
-    try {
-      if(!ids){
-        console.log("No id: getPostsFromIds")
-        return;
-      }
-      let promises = [];
-      for (let i = 0; i < ids.length; i++) {
-        promises.push(
-          authAxios.get(`/posts/${ids[i]}`)
-        );
-      }
-      const res = await Promise.all(promises);
-      set(res);
-    } catch (err) {
-      console.log(err);
-    }
-
   });
 
   const createPost = useCallback( async (post) => {
     try {
-      const result = await authAxios.post(`/users/${user.id}/create-post`, post);
-      return result;
+      const result = await authAxios.post(`/posts/create-post`, post);
+      alert("Posted! Please reload page.")
+      return true;
     } catch (err) {
       console.log(err);
+      return false;
     }
   });
 
   const deletePost = useCallback( async (pid) => {
     try {
-      const result = await authAxios.delete(`/posts/${pid}/delete`);
-      return result;
+      const result = await authAxios.delete(`/user/delete-post/${pid}`);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  });
+
+  const searchPost = useCallback( async ({query, callback}) => {
+    try {
+      const result = await authAxios.get(`/posts/search/${query}`);
+      callback(result.data);
     } catch (err) {
       console.log(err);
     }
   });
 
-  const createComment = useCallback( async (props) => {
+  // post interaction
+
+  const createComment = useCallback( async ({pid, body}) => {
     try {
-      const result = await authAxios.post(`/users/${user.id}/comment/${props.pid}`, props.body);
-      alert("Comment posted! Please refresh if you do not see it.")
-      return result;
+      const result = await authAxios.post(`/posts/comment/${pid}`, body);
+      alert("Comment posted! Please refresh if you do not see it.");
+      return true;
     } catch (err) {
       console.log(err);
+      return false;
     }
   });
 
   const likePost = useCallback( async (pid) => {
     try {
-      const result = await authAxios.post(`/users/${user.id}/like/${pid}`);
-      return result;
+      const result = await authAxios.post(`/posts/like/${pid}`);
+      alert("Post liked! Please refresh if not seen");
+      return true;
     } catch (err) {
       console.log(err);
+      return false;
     }
   });
 
   const savePost = useCallback( async (pid) => {
     try {
-      const result = await authAxios.post(`/users/${user.id}/save/${pid}`);
-      return result;
+      const result = await authAxios.post(`/posts/save-post/${pid}`);
+      alert("Post saved!")
+      return true;
     } catch (err) {
       console.log(err);
-    }
-  });
-
-  const searchPost = useCallback( async (query) => {
-    try {
-      const result = await authAxios.get(`/posts/search/${query}`);
-      return result;
-    } catch (err) {
-      console.log(err);
+      return false;
     }
   });
 
@@ -181,26 +223,48 @@ function App() {
           <Route 
             exact path="/"
             render={(props) => (
-              <Login {...props} getUser={getUser} createUser={createUser} loginUser={loginUser}/>
+              <Login {...props} 
+                createUser={createUser} 
+                loginUser={loginUser}
+              />
             )}
           
           />
           <Route 
             exact path="/home"
             render={(props) => (
-              <Home {...props} createPost={createPost} getPosts={getPosts} searchPost={searchPost}/>
+              <Home {...props} 
+                createPost={createPost} 
+                getPosts={getPosts} 
+                searchPost={searchPost}
+                logoutUser={logoutUser}
+              />
             )}
           />
           <Route 
             exact path="/post/:postId" 
             render={(props) => (
-              <Post {...props} createComment={createComment} getPost={getPost} savePost={savePost} likePost={likePost}/>
+              <Post {...props} 
+                createComment={createComment} 
+                getPost={getPost} 
+                savePost={savePost} 
+                likePost={likePost}
+              />
             )}
           />
           <Route 
             exact path="/profile"
             render={(props) => (
-              <Profile {...props} getPostsFromIds={getPostsFromIds} deletePost={deletePost} deleteUser={deleteUser} user={user}/>
+              <Profile {...props} 
+                loginInfo={loginInfo}
+                deletePost={deletePost} 
+                deleteUser={deleteUser} 
+                changePassword={changePassword}
+                changeEmail={changeEmail}
+                getSavedPosts={getSavedPosts}
+                getMyPosts={getMyPosts}
+                logoutUser={logoutUser}
+              />
             )}
           />
         </Switch>

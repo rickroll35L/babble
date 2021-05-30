@@ -4,42 +4,46 @@ import MakeComment from "../../components/MakeComment/MakeComment.js";
 import "./Post.css"
 
 const tPost1 = {
-    postId: "1",
+    id: 1,
     title: "What's up1",
-    content: "srfghalhbvaihfbvaiabfvasd aposufdhvpausifv apiufvap iuasipduvbaspiu vasiufvb aipsuvbapsuovbapsuvbaspuvbapfuvbapiufvbaifudbvaipufvbapiuvbasipudvbpasudvb adasduipvba spiduvbq[9ufvp9auwrfbvasdivubaslfhv apsu poushdpiv pi sdivabsdipub piasuvb aiubpisubvipus bosufv baiasb piusb piausfb pausb piuabfp iuasbf ipasufb pasifduvbpiaub pisbpviubwdp ivuapiuebv apiubfvpiaubf vp iubfipvub apisbfv iapubwripyv piasdfbvapwi ur bpaud bvpiuawbrvpiuasb fvpiauwbp iruvbapisufdbv apiufdvbq ipwruvb apiusrbv ipquerbv piaeurbgpi qbwrpiugb vqpifvieprubvq iprub vqiperuvbqe iprvuqbripvqurbvqpiuwrb v ipwubv q #sad #lonely #rip #sad #lonely",
+    body: "srfghalhbvaihfbvaiabfvasd aposufdhvpausifv apiufvap iuasipduvbaspiu vasiufvb aipsuvbapsuovbapsuvbaspuvbapfuvbapiufvbaifudbvaipufvbapiuvbasipudvbpasudvb adasduipvba spiduvbq[9ufvp9auwrfbvasdivubaslfhv apsu poushdpiv pi sdivabsdipub piasuvb aiubpisubvipus bosufv baiasb piusb piausfb pausb piuabfp iuasbf ipasufb pasifduvbpiaub pisbpviubwdp ivuapiuebv apiubfvpiaubf vp iubfipvub apisbfv iapubwripyv piasdfbvapwi ur bpaud bvpiuawbrvpiuasb fvpiauwbp iruvbapisufdbv apiufdvbq ipwruvb apiusrbv ipquerbv piaeurbgpi qbwrpiugb vqpifvieprubvq iprub vqiperuvbqe iprvuqbripvqurbvqpiuwrb v ipwubv q #sad #lonely #rip #sad #lonely",
     tags: ["sad", "lonely"],
     likes: 20,
     comments: [
         {
+            id: 0,
             name: "Anonboy",
             comment: "omg i hate u so much"
         },
         {
+            id: 1,
             name: "Anongirl",
             comment: "wow what an absolute girlboss"
         },
     ],
-    date: "April 20, 1969"
+    time: "April 20, 1969"
 
 }
 
 const tPost2 = {
-    postId: "2",
+    id: 2,
     title: "What's up1",
-    content: "Content1, content, content, content, content, content, content, content #sad #lonely",
+    body: "Content1, content, content, content, content, content, content, content #sad #lonely",
     tags: ["sad", "lonely"],
     likes: 20000,
     comments: [
         {
-            name: "Anonboy",
+            id: 0,
+            poster: "Anonboy",
             comment: "omg i hate u so much"
         },
         {
-            name: "Anongirl",
+            id: 1,
+            poster: "Anongirl",
             comment: "wow what an absolute girlboss"
         },
     ],
-    date: "April 20, 1969"
+    time: "April 20, 1969"
 }
 
 //replace with async method in future
@@ -60,11 +64,14 @@ const Post = ({getPost, savePost, createComment, likePost}) => {
     const postId = useParams().postId;
     const [currPost,setCurrPost] = useState(testPost(postId));//will need to become asynchronous js at somepoint
     useEffect(() => {
+        console.log("postId")
         const req = {
             pid: postId,
             set: setCurrPost
         };
         getPost(req);
+        console.log("hi");
+        console.log(currPost);
     },[postId, getPost])
 
     const [makeComment, setMakeComment] = useState(false);
@@ -82,23 +89,23 @@ const Post = ({getPost, savePost, createComment, likePost}) => {
             <div id="titleheader">
                 <br></br>
                 <div id = "title">
-                    {currPost.title}
+                    {currPost.title  ? currPost.title : ""}
                 </div>
                 <div id = "date">
-                    {currPost.date}
+                    {currPost.time}
                 </div>
                 <br></br>
             </div>
             <div id = "content">
-                {currPost.content}
+                {currPost.body}
             </div>
             <div id = "metaInfo">
                 <ul id = "tags">
-                    {currPost.tags.map((t) => {
+                    {currPost.tags ? currPost.tags.map((t) => {
                         return (
                             <li key={t + "key"}>{t}</li>
                         );
-                    })}
+                    }) : <></>}
                 </ul>
                 <div id = "likes">
                     liked by {currPost.likes} people
@@ -114,18 +121,18 @@ const Post = ({getPost, savePost, createComment, likePost}) => {
                 Make Comment
             </button>
             <div id = "comments">
-                {currPost.comments.map((c) => {
+                {currPost.comments ? currPost.comments.map((c) => {
                     return (
-                        <div id = "comment" key={c.name + "key"}>
+                        <div id = "comment" key={c.id + "commentkey"}>
                             <div className="boldtext">
-                                {c.name}
+                                {c.poster}
                             </div>
                             <div>
-                                {c.comment}
+                                {c.body}
                             </div>
                         </div>
                     );
-                })}
+                }) : <></>}
             </div>
             <button onClick = {goHome}>
                 Home

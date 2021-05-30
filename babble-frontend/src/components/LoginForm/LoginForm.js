@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './LoginForm.css'
 
-const LoginForm = ({ loginUser }) => {
+const LoginForm = ({ loginUser, goHome }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,7 +20,11 @@ const LoginForm = ({ loginUser }) => {
             email,
             password
         };
-        loginUser(body);
+        const req = {
+            body,
+            callback: goHome
+        }
+        loginUser(req);
         setEmail("");
         setPassword("");
     }
