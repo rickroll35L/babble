@@ -4,7 +4,8 @@ const {
     encryptEmail,
     encryptPassword,
     userWithEmail,
-    passwordMatchesUser
+    passwordMatchesUser,
+    isUCLAemail
 } = require('../authentication/manage-user-info');
 
 module.exports = {
@@ -34,7 +35,7 @@ async function changePassword(req, res) {
     const user_id = await encryptEmail(email);
     const user = await userWithEmail(email);
     if (user === undefined || user_id != res.locals.userid) 
-        return res.status(401).send('Incorrect Email');
+        return res.status(401).send('Incorrect email');
 
     // if user exists, check that passwords match
     const passwordMatches = await passwordMatchesUser(user, currentPassword);
@@ -45,16 +46,53 @@ async function changePassword(req, res) {
     if (newPassword.length < 6) 
         return res.status(401).send('New password must be at least 6 characters');
 
-    // if everything is valid, change the password
+    // if everything is valid, change the password and delete current auth token
     db.users[user_id].password = await encryptPassword(newPassword);
     db.writeUsers();
-    res.status(200).send('Password updated');
+    delete db.auth[user_id];
+    db.writeAuth();
+
+    res.status(200).send('Password changed. Login again to proceed');
 }
 
-/* change user email, req.body: oldEmail, newEmail, password */
-function changeEmail(req, res) {
-    // TODO
-    res.send('change email');
+/* change user email, req.body: currentEmail, newEmail, password */
+async function changeEmail(req, res) {
+    /* check for needed values */
+    const currentEmail = req.body.currentEmail;
+    const newEmail = req.body.newEmail;
+    const password = req.body.password;
+
+    if (!currentEmail || !newEmail|| !password) 
+        return res.status(401).send('Need to enter current email, new email, and password');
+
+    /* check that values are valid */
+    const user_id = await encryptEmail(currentEmail);
+    const user = await userWithEmail(currentEmail);
+    if (user === undefined || user_id != res.locals.userid) 
+        return res.status(401).send('Incorrect curent email');
+
+    // if user exists, check that passwords match
+    const passwordMatches = await passwordMatchesUser(user, password);
+    if (!passwordMatches) 
+        return res.status(401).send('Incorrect password');
+
+    // new email should be UCLA email
+    if (!isUCLAemail(newEmail))
+        return res.status(401).send('New email must be a valid UCLA email');
+
+    // if everything is valid, change the email, delete old user email, and auth token
+    db.users[await encryptEmail(newEmail)] =
+    {
+        password: user.password,
+        posts: user.posts,
+        saved: user.saved
+    };
+    delete db.users[user_id];
+    db.writeUsers();
+    delete db.auth[user_id];
+    db.writeAuth();
+
+    res.status(200).send('Email updated. Login again to proceed');
 }
 
 /* delete account, req.body: email, password */
@@ -63,7 +101,8 @@ function deleteAccount(req, res) {
     res.send('delete account');
 }
 
-/* helper function: get all nondeleted posts as array of objects */
+/* helper function: get all nondeleted posts of type 'saved'
+   or 'my posts', or another type from the user as array of objects */
 function getPosts(res, posts) {
     const user = db.users[res.locals.userid];
     const feed = db.posts.feed;

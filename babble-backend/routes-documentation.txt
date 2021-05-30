@@ -24,7 +24,7 @@ POST /user/change-password
 
 POST /user/change-email
         - pass in auth-token (see top of section)
-        - req.body: oldEmail, newEmail, password (key-value json format)
+        - req.body: currentEmail, newEmail, password (key-value json format)
         - call logout route immediately after (if successful change)
         - ask user to log back in
 
