@@ -117,6 +117,6 @@ function search(req, res) {
 function getPost(req, res) {
     const pid = parseInt(req.params.pid, 10);
     shared.verifyPID(req, res, () => {
-        res.json(db.posts[pid]);
+        res.json(db.posts.feed[pid]);
     });
 }
