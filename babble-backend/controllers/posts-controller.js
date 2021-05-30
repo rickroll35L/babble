@@ -48,7 +48,6 @@ function createPost(req, res) {
     else {
         const feed = db.posts.feed;
         const tags = parseTags(body);
-        body = body.substring(0, body.indexOf("#")).trim();
         const post = {
             id: feed.length,
             time: Date(),
