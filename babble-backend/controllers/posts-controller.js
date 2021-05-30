@@ -37,7 +37,7 @@ function parseTags(body) {
     return tags;
 }
 
-/* Create a post, req.body: title, body, tags (array of tags) */
+/* Create a post, req.body: title, body  */
 function createPost(req, res) {
     let { title, body } = req.body;
     const user = db.users[res.locals.userid];
@@ -109,11 +109,38 @@ function savePost(req, res) {
 
 /* Search for posts, req.params: query (what to search by) */
 function search(req, res) {
-    // TODO
-    res.send('searched posts');
+    if (req.params.query === undefined || req.params.query === '')
+        res.status(401).send('Missing query');
+
+    /* get all posts that have the query
+       search in post's time, title, body (which includes tags), and comment
+       bodies and times */
+    const query = new RegExp(req.params.query.toString().toLowerCase());
+    const feed = db.posts.feed;
+    const search_result = feed.reduce((result, post) => {
+        const inTitle = query.exec(post.title.toLowerCase());
+        const inTime = query.exec(post.time.toLowerCase());
+        const inBody = query.exec(post.body.toLowerCase());
+
+        let inComments = false;
+        const comments = post.comments;
+        for (i = 0; i < comments.length; i++) {
+            if (query.exec(comments[i].body.toLowerCase())
+                || query.exec(comments[i].time.toLowerCase())) {
+                inComments = true;
+                break;
+            }
+        }
+
+        if ( inTitle || inTime || inBody || inComments)
+            result.push(post);
+        return result;
+    }, []);
+
+    res.status(200).json(search_result);
 }
 
-/* Get a post, req.params: post id (pid), for debugging purposes */
+/* Get a post, req.params: post id (pid) */
 function getPost(req, res) {
     const pid = parseInt(req.params.pid, 10);
     shared.verifyPID(req, res, () => {

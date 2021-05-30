@@ -19,10 +19,10 @@ user_router.use(isAuth, auth_errorHandler);
 
 /************************************** routes **************************************/
 
-/* change user password, req.body: email, oldPassword, newPassword */
+/* change user password, req.body: email, currentPassword, newPassword */
 user_router.post('/change-password', changePassword);
 
-/* change user email, req.body: oldEmail, newEmail, password */
+/* change user email, req.body: currentEmail, newEmail, password */
 user_router.post('/change-email', changeEmail);
 
 /* delete account, req.body: email, password */

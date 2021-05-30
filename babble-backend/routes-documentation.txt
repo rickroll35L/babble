@@ -18,13 +18,13 @@ in json format in the HEADER
 
 POST /user/change-password
         - pass in auth-token (see top of section)
-        - req.body: email, oldPassword, newPassword (key-value json format)
+        - req.body: email, currentPassword, newPassword (key-value json format)
         - call logout route immediately after (if successful change)
         - ask user to log back in
 
 POST /user/change-email
         - pass in auth-token (see top of section)
-        - req.body: oldEmail, newEmail, password (key-value json format)
+        - req.body: currentEmail, newEmail, password (key-value json format)
         - call logout route immediately after (if successful change)
         - ask user to log back in
 
@@ -68,11 +68,27 @@ POST /posts/save-post/:pid
         - pass in auth-token (see top of section)
         - req.params: post id (pid) 
 
-GET /posts/search/:req.params
+GET /posts/search/:query
         - pass in auth-token (see top of section)
         - req.params: query (what to search by)
 
-        //front end shouldn't need to use this, it's for backend debugging
+     ------------------------------------------------------------------------------------------------------------------------------------------------------
+        MUST pass the query in as a variable to account for whitespace that user may have put in the query. See example below:
+
+        const my_headers = {
+                'Authentication': <the token you got>
+                };
+
+        const query = 'May 30';
+        axios.get(`http://localhost:${port}/posts/search/${query}`, {
+                headers: my_headers
+                })
+        .then(res => {
+                console.log(res.data);
+                })
+        .catch((err) => {});
+     ------------------------------------------------------------------------------------------------------------------------------------------------------
+
 GET /posts/get-post/:pid
         - pass in auth-token (see top of section)
         - req.params: post id (pid)
