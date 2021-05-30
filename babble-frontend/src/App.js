@@ -55,6 +55,14 @@ function App() {
         }
       });
       setLoginInfo(body);
+      localStorage.setItem(
+        "email",
+        body.email
+      );
+      localStorage.setItem(
+        "pswd",
+        body.password
+      );//not secure at all but im v lazy rn
       callback();
     } catch (err) {
       console.log(err);
@@ -86,8 +94,8 @@ function App() {
   const changePassword = useCallback( async (newP) => {
     try {
       const body = {
-        email: loginInfo.email,
-        oldPassword: loginInfo.password,
+        email: localStorage.getItem("email"),
+        oldPassword: localStorage.getItem("pswd"),
         newPassword: newP
       }
       const result = await authAxios.post(`/users/change-password`, body);
@@ -100,9 +108,9 @@ function App() {
   const changeEmail = useCallback( async (newE) => {
     try {
       const body = {
-        oldEmail: loginInfo.email,
+        oldEmail: localStorage.getItem("email"),
         newEmail: newE,
-        password: loginInfo.password,
+        password: localStorage.getItem("pswd"),
       }
       const result = await authAxios.post(`/users/change-email`, body);
       return logoutUser();
@@ -143,8 +151,6 @@ function App() {
   const getPost = useCallback( async ({set, pid}) => {
     try {
       const result = await authAxios.get(`/posts/get-post/${pid}`);
-      console.log("call");
-      console.log(result);
       set(result.data);
     } catch (err) {
       console.log(err);

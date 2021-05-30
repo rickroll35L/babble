@@ -5,9 +5,16 @@ import './UserPosts.css'
 
 const UserPosts = ({getMyPosts,deletePost}) => {
     const [userPosts, setUserPosts] = useState([]);
+    const [load, setLoad] = useState(false);
     useEffect(() => {
         getMyPosts(setUserPosts);
     },[]);
+
+    useEffect(()=>{
+        if(userPosts.length!==0){
+            setLoad(true);
+        }
+    },[userPosts]);
 
     const post3 = {
         id: 3,

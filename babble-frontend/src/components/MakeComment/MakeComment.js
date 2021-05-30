@@ -31,8 +31,8 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
       return;
     }
     const comment = {
-      name: title,
-      comment: description, 
+      poster: title,
+      body: description, 
     }
     const payload = {
       pid: postId,

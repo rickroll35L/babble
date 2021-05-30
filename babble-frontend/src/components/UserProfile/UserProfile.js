@@ -14,8 +14,8 @@ const UserProfile = (props) => {
     return (
         <div className="user-profile-container">
             <div>
-                <div>Email: {props.email}</div>
-                <div>Password: {props.password}</div>
+                <div>Email: {props.email ? props.email : localStorage.getItem("email")}</div>
+                <div>Password: {props.password ? props.password : localStorage.getItem("pswd")}</div>
             </div>
 
             <button onClick={goDelete}>Delete account</button>
