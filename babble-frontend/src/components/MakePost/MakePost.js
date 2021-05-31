@@ -8,16 +8,28 @@ import {
   TextField,
 } from "@material-ui/core";
 import styled from "styled-components";
-import "./MakePost.css";
+import styles from "./MakePost.css";
+
 
 const StyledDialog = styled.dialog`
   width: 900px;
-  height: 600px;
+  height: 400px;
   background: #FFFFFF;
   border: 1px solid #2176FF;
   box-sizing: border-box;
   border-radius: 30px;
 `;
+
+const StyledButton = styled.button`
+  width: 145px;
+  height: 70px;
+  font-size: 48px;
+  line-height: 51px;
+  background: #FDCA40;
+  border-radius: 30px;
+`;
+
+
 
 const MakePost = ({ open, handleclose, createPost }) => {
   const [title, setTitle] = useState("");
@@ -93,9 +105,9 @@ const MakePost = ({ open, handleclose, createPost }) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary">
+        <StyledButton onClick={handleSubmit} color="primary">
           Post
-        </Button>
+        </StyledButton>
       </DialogActions>
     </StyledDialog>
   );
