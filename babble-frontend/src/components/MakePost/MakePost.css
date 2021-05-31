@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
+@import url(//fonts.googleapis.com/css?family=Ropa+Sans);
 
 .TextFieldWrapper{
     font-family: 'Ropa Sans', sans-serif;
@@ -7,15 +7,19 @@
     gap: 10px;
     min-width: 450px;
     margin-top: 20px;
+    height: auto;
+    color: #56667A;
 }
 
-
 .title{
+    height: auto
+}
+
+.title-text{
     font-family: 'Ropa Sans', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 72px;
     line-height: 77px;
     text-align: left;
-    color: #000000;
 }
