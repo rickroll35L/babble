@@ -21,16 +21,16 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <div className="right-column">
-                Welcome to Babble!
-            </div>
-            <div className="left-column">
+            <div className="login-icon"></div>
+
+            <div className="login-form-container">
                 {signinBool? <LoginForm /> : <SignupForm />}
                 <button onClick = {setSignin}>{signinPhrase}</button>
-
-                <br></br>
-                <button onClick = {goHome}>Home</button>
             </div>
+
+            {/*<div className="old-stuff">
+                <button onClick = {goHome}>Home</button>
+            </div>*/}
         </div>
     );
 }

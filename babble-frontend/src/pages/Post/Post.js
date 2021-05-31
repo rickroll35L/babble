@@ -71,59 +71,58 @@ const Post = () => {
     }
 
     return (
-        <div id = "main">
-            <MakeComment open={makeComment} handleclose={handleClose}/>
-            <div id="titleheader">
-                <br></br>
-                <div id = "title">
-                    {currPost.title}
+        <div className="post-page-container">
+
+            {/*Navbar*/}
+
+            <div className="post-container">
+                <MakeComment open={makeComment} handleclose={handleClose}/>
+
+                <div className="content-container">
+                    <div className="date">Posted {currPost.date}</div>
+                    <div className="post-title">{currPost.title}</div>
+                    <div className="content">{currPost.content}</div>
                 </div>
-                <div id = "date">
-                    {currPost.date}
+
+                <div className = "tags-list">
+                    <ul id = "tags">
+                        {currPost.tags.map((t) => {
+                            return (
+                                <li key={t + "key"}>{t}</li>
+                            );
+                        })}
+                    </ul>
                 </div>
-                <br></br>
-            </div>
-            <div id = "content">
-                {currPost.content}
-            </div>
-            <div id = "metaInfo">
-                <ul id = "tags">
-                    {currPost.tags.map((t) => {
+
+                <div className="post-interactions">
+                    <button className="savePostButton" onClick={() => console.log("saved!")}>
+                        Save This Post
+                    </button>
+                    <button className="likeButton" onClick={() => console.log("liked!")}>
+                        Like This Post {currPost.likes}
+                    </button>
+                    <button className="commentButton" onClick={openDialog}>
+                        Make a Comment
+                    </button>
+                </div>
+                
+                <div className="comments">
+                    {currPost.comments.map((c) => {
                         return (
-                            <li key={t + "key"}>{t}</li>
+                            <div id = "comment" key={c.name + "key"}>
+                                <div className="commenter">{c.name}</div>
+                                <div className="comment-body">{c.comment}</div>
+                            </div>
                         );
                     })}
-                </ul>
-                <div id = "likes">
-                    liked by {currPost.likes} people
                 </div>
-                <button id = "likeButton" onClick={() => console.log("liked!")}>
-                    Like
-                </button>
-                <button id = "savePostButton" onClick={() => console.log("saved!")}>
-                    Save Post
-                </button>
+
+
+                <div className="old-stuff">
+                    <button onClick={goHome}>Home</button>
+                </div>
             </div>
-            <button onClick={openDialog}>
-                Make Comment
-            </button>
-            <div id = "comments">
-                {currPost.comments.map((c) => {
-                    return (
-                        <div id = "comment" key={c.name + "key"}>
-                            <div className="boldtext">
-                                {c.name}
-                            </div>
-                            <div>
-                                {c.comment}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-            <button onClick = {goHome}>
-                Home
-            </button>
+
         </div>
     );
 }

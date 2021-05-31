@@ -2,7 +2,7 @@ import PostThumbnail from '../PostThumbnail/PostThumbnail'
 
 const tProfile1 = {
     postId: 1,
-    title: "What's up1",
+    title: "100chars alghld;asjlgjdsaljf dsjalfkjdskl;ajf;ldsjalfjdskajlfdsjaf dsl;ajf;ljdsa;ljg;ldsajgsjl fjds",
     content: "Content1, content, content, content, content, content, content, content",
     likes: "20",
     comments: "10",
@@ -16,14 +16,13 @@ const tProfile2 = {
     comments: "10",
 }
 
+const feedPostsArray = [tProfile1, tProfile2];
+
+
 function Feed() {
     return (
         <div>
-            <div className="Navigation">
-
-            </div>
-            <PostThumbnail {...tProfile1}/>
-            <PostThumbnail {...tProfile2}/>
+            {feedPostsArray.map(post => <PostThumbnail {...post} />)}
         </div>
     )
 }

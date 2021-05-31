@@ -8,20 +8,22 @@ function PostThumbnail(props) {
     }
 
     return (
-        <div className="Thumbnail">
-            <div className="Title">
-                {props.title}
+        <div className="thumbnail">
+            <div className="post-content" onClick={() => goPost(props.postId)}>
+                <div className="post-title">
+                    {props.title}
+                </div>
+                <div className="post-description">
+                    {props.content}
+                </div>
             </div>
-            <div className="Content">
-                {props.content}
-            </div>
-            <div className="Numbers">
-                {props.likes} likes / {props.comments} comments
-            </div>
-            <div className="Button">
-                <button onClick = {() => goPost(props.postId)}>
-                    Post {props.postId}
-                </button>
+
+            <div className="line"></div>
+
+            <div className="stats">
+                <div>Saved</div>
+                <div className="post-likes">Likes {props.likes}</div>
+                <div>Comments {props.comments}</div>
             </div>
         </div>
     )

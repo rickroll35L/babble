@@ -1,17 +1,40 @@
-.Thumbnail {
-    margin: 10px;
-    background-color: rgb(240, 240, 240);
+.thumbnail {
+    margin: 15px;
+    background-color: white;
+    border: 1px solid #2176FF;
+    display: flex;
+    min-height: 100px;
+    padding: 10px;
 }
 
-.Title {
-    font-size: 28px;
+.post-content {
+    width: 85%;
+    height: 100%;
+    padding-right: 10px;
 }
 
-.Content {
+.post-title {
+    width: 100%;
+    font-size: 40px;
+}
+
+.post-description {
+    margin-top: 10px;
     font-size: 20px;
-    margin: 10px 0px 10px 0px;
+    color: #56667A;
 }
 
-.Numbers {
-    font-size: 16px;
+.line {
+    border-left: 1px solid #2176FF;
+}
+
+.stats {
+    width: 15%;
+    text-align: justify;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.post-likes {
+    text-align: justify;
 }

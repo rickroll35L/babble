@@ -1,16 +1,26 @@
 .login-container {
+    background: #2176FF url(login_background.svg) no-repeat right top;
+    background-size: contain;
+    width: 100%;
     height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px 50px;
 }
 
-.right-column {
+.login-icon {
+    background: url(login_icon.svg) no-repeat;
+    background-size: 70%;
+    background-position: 50% 70%;
     width: 50%;
-    font-size: 48px;
 }
 
-.left-column {
+.login-form-container {
+    background: url(login_form.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
     width: 50%;
+    margin: 7%;  
+}
+
+.old-stuff {
+    background-color: gray;
 }

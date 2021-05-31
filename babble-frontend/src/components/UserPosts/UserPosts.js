@@ -34,7 +34,7 @@ const UserPosts = () => {
 
     return (
         <div className="user-posts-container">
-            <div>User Posts</div>
+            <div className="user-posts-title">User Posts</div>
             {userPostsArray.map(post => <PostThumbnail {...post} />)}
         </div>
     );

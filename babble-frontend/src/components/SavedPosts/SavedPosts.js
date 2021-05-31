@@ -24,7 +24,7 @@ const SavedPosts = () => {
 
     return (
         <div className="saved-posts-container">
-            <div>Saved Posts</div>
+            <div className="saved-posts-title">Saved Posts</div>
             {savedPostsArray.map(post => <PostThumbnail {...post} />)}
         </div>
     );

@@ -28,17 +28,26 @@ const Profile = () => {
 
     return (
         <div className="profile-page-container">
+
+            {/*Navbar*/}
+
             <div className="profile-container">
-                <UserProfile {...userInfo}/>
+                <div className="profile-info-container">
+                    <UserProfile {...userInfo}/>
+                </div>
+
+                <div className="posts-container">
+                    <UserPosts />
+                    <SavedPosts />
+                </div>
+            </div>
+            
+
+            <div className="old-stuff">
                 <MakePost open={makePost} handleclose={() => setMakePost(false)} />
                 <button onClick={openDialog}>Make Post</button>
                 <button onClick={goHome}>Home</button>
                 <button onClick={goLogin}>Logout</button>
-            </div>
-
-            <div className="posts-container">
-                <UserPosts />
-                <SavedPosts />
             </div>
         </div>
     );

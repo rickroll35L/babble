@@ -2,6 +2,7 @@ import React,{ useState } from "react";
 import { useHistory } from "react-router-dom";
 import MakePost from "../../components/MakePost/MakePost.js";
 import Feed from "../../components/Feed/Feed.js";
+import './Home.css'
 
 const Home = () => {
     const history = useHistory();
@@ -22,25 +23,23 @@ const Home = () => {
 
     
     return (
-        <div>
-            <MakePost open={makePost} handleclose={() => setMakePost(false)} />
-            Home
-            <button onClick = {goProfile}>
-                Profile
-            </button>
-            <Feed/>
-            <button onClick = {() => goPost(1)}>
-                Post 1
-            </button>
-            <button onClick = {() => goPost(2)}>
-                Post 2
-            </button>
-            <button onClick = {goLogin}>
-                Logout
-            </button>
-            <button onClick={openDialog}>
-                Make Post
-            </button>
+        <div className="home-container">
+
+            {/*Navbar would go here probably*/}
+
+            <div>
+                <Feed />
+            </div>
+
+            <div className="old-stuff">
+                <MakePost open={makePost} handleclose={() => setMakePost(false)} />
+                <button onClick = {goProfile}>Profile</button>
+                <button onClick = {() => goPost(1)}>Post 1</button>
+                <button onClick = {() => goPost(2)}>Post 2</button>
+                <button onClick = {goLogin}>Logout</button>
+                <button onClick={openDialog}>Make Post</button>
+            </div>
+            
         </div>
         
     );
