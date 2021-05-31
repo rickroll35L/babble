@@ -1,30 +1,64 @@
 import PostThumbnail from '../PostThumbnail/PostThumbnail'
 
 const tProfile1 = {
-    postId: 1,
-    title: "100chars alghld;asjlgjdsaljf dsjalfkjdskl;ajf;ldsjalfjdskajlfdsjaf dsl;ajf;ljdsa;ljg;ldsajgsjl fjds",
-    content: "Content1, content, content, content, content, content, content, content",
+    id: 1,
+    title: "What's up1",
+    body: "Content1, content, content, content, content, content, content, content",
     likes: "20",
-    comments: "10",
+    comments: [
+        {
+            id: 0,
+            poster: "Anonboy",
+            comment: "omg i hate u so much"
+        },
+        {
+            id: 1,
+            poster: "Anongirl",
+            comment: "wow what an absolute girlboss"
+        },
+    ],
 }
 
 const tProfile2 = {
-    postId: 2,
+    id: 2,
     title: "What's up2",
-    content: "Content2, content, content, content, content, content, content, content",
+    body: "Content2, content, content, content, content, content, content, content",
     likes: "20000",
-    comments: "10",
+    comments: [
+        {
+            id: 0,
+            poster: "Anonboy",
+            comment: "omg i hate u so much"
+        },
+        {
+            id: 1,
+            poster: "Anongirl",
+            comment: "wow what an absolute girlboss"
+        },
+    ],
 }
 
-const feedPostsArray = [tProfile1, tProfile2];
+function Feed({ posts, searchPost, setPostList }) {
+    const search = () => {
+        const req = {
+            query: "hi again", //replace with search string
+            callback: setPostList
 
-
-function Feed() {
+        };
+        searchPost(req);
+    };
     return (
         <div>
-            {feedPostsArray.map(post => <PostThumbnail {...post} />)}
+            <div className="Navigation">
+                <button onClick={search}>search</button>
+            </div>
+            {posts.map((p) => 
+                <PostThumbnail {...p} key={p.id + "feedposts"}/>
+            )}
+            <PostThumbnail {...tProfile1}/>
+            <PostThumbnail {...tProfile2}/>
         </div>
-    )
+    );
 }
 
 export default Feed

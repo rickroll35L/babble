@@ -4,18 +4,14 @@ import { useHistory } from "react-router-dom";
 function PostThumbnail(props) {
     const history = useHistory();
     const goPost = (postId) => {
-        history.push(`/post/${postId}`);
+        history.push(`/post/${postId}`, props);
     }
 
     return (
         <div className="thumbnail">
-            <div className="post-content" onClick={() => goPost(props.postId)}>
-                <div className="post-title">
-                    {props.title}
-                </div>
-                <div className="post-description">
-                    {props.content}
-                </div>
+            <div className="post-content" onClick={() => goPost(props.id)}>
+                <div className="post-title">{props.title}</div>
+                <div className="post-description">{props.body}</div>
             </div>
 
             <div className="line"></div>
@@ -23,8 +19,9 @@ function PostThumbnail(props) {
             <div className="stats">
                 <div>Saved</div>
                 <div className="post-likes">Likes {props.likes}</div>
-                <div>Comments {props.comments}</div>
+                <div>Comments {props.comments.length}</div>
             </div>
+
         </div>
     )
 }

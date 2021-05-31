@@ -4,7 +4,7 @@ import LoginForm from '../../components/LoginForm/LoginForm'
 import SignupForm from '../../components/SignupForm/SignupForm'
 import './Login.css'
 
-const Login = () => {
+const Login = ({ createUser, loginUser }) => {
     const history = useHistory();
     const goHome = () => {
         history.push(`/home`);
@@ -24,7 +24,7 @@ const Login = () => {
             <div className="login-icon"></div>
 
             <div className="login-form-container">
-                {signinBool? <LoginForm /> : <SignupForm />}
+                {signinBool? <LoginForm loginUser={loginUser} goHome={goHome}/> : <SignupForm createUser={createUser}/>}
                 <button onClick = {setSignin}>{signinPhrase}</button>
             </div>
 

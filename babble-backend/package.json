@@ -2,9 +2,9 @@
   "name": "babble-backend",
   "version": "1.0.0",
   "description": "Backend for Babble app (CS 35L Spring 2020 Project)",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",

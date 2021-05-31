@@ -6,7 +6,8 @@ module.exports = {
     encryptEmail,
     encryptPassword,
     userWithEmail,
-    passwordMatchesUser
+    passwordMatchesUser,
+    isUCLAemail
 }
 
 async function encryptEmail(email) {
@@ -27,4 +28,10 @@ async function encryptPassword(password) {
 /* Assumes that the 'user' passed is a valid user in the database */
 async function passwordMatchesUser(user, password) {
     return await argon2.verify(user.password, password);
+}
+
+function isUCLAemail(email) {
+    const ucla_email_1 = /^[a-z]+@ucla\.edu$/;
+    const ucla_email_2 = /^[a-z]+@g\.ucla\.edu$/;
+    return ((ucla_email_1.test(email)) || (ucla_email_2.test(email)));
 }
