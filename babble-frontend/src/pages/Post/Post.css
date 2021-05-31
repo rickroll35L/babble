@@ -10,7 +10,7 @@
 .post-container{
     display: flex;
     flex-direction: column;
-    background-color: #33A1FD;
+    background-color: #FDCA40;
     margin: 30px;
 }
 
@@ -56,22 +56,40 @@ li{
 }
 
 .post-interactions {
-    background-color: red;
     margin: 15px;
     margin-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-button {
+    font-family: 'Ropa Sans', sans-serif;
     font-size: 24px;
+    border: none;
+    background-color: white;
+    padding: 3px;
+    width: 25%;
 }
 
-.savePostButton {
-
+.like-button {
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 24px;
+    border: none;
+    background-color: white;
+    padding: 7px;
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.likeButton {
-
-}
-
-.commentButton {
-
+.comment-button {
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 24px;
+    border: none;
+    background-color: white;
+    padding: 7px;
+    width: 25%;
 }
 
 .comments{

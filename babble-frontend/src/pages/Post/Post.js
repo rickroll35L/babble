@@ -108,13 +108,13 @@ const Post = ({getPost, savePost, createComment, likePost, post}) => {
                 </div>
 
                 <div className="post-interactions">
-                    <button className="savePostButton" onClick={() => savePost(postId)}>
+                    <button className="save-button" onClick={() => savePost(postId)}>
                         Save This Post
                     </button>
-                    <button className="likeButton" onClick={() => likePost(postId)}>
-                        Like This Post {currPost.likes}
+                    <button className="like-button" onClick={() => likePost(postId)}>
+                        Like This Post <div>{currPost.likes}</div>
                     </button>
-                    <button className="commentButton" onClick={openDialog}>
+                    <button className="comment-button" onClick={openDialog}>
                         Make a Comment
                     </button>
                 </div>
@@ -134,7 +134,7 @@ const Post = ({getPost, savePost, createComment, likePost, post}) => {
                 <div className="old-stuff">
                     <button onClick={goHome}>Home</button>
                 </div>
-                
+
             </div>
         </div>
     );
