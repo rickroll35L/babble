@@ -7,7 +7,17 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import styled from "styled-components";
 import "./MakePost.css";
+
+const StyledDialog = styled.dialog`
+  width: 900px;
+  height: 600px;
+  background: #FFFFFF;
+  border: 1px solid #2176FF;
+  box-sizing: border-box;
+  border-radius: 30px;
+`;
 
 const MakePost = ({ open, handleclose, createPost }) => {
   const [title, setTitle] = useState("");
@@ -44,7 +54,7 @@ const MakePost = ({ open, handleclose, createPost }) => {
   }
 
   return (
-    <Dialog open={open} onClose={clear}>
+    <StyledDialog open={open} onClose={clear}>
       <DialogTitle>
         <div className="title">Create a Post</div>
       </DialogTitle>
@@ -87,7 +97,7 @@ const MakePost = ({ open, handleclose, createPost }) => {
           Post
         </Button>
       </DialogActions>
-    </Dialog>
+    </StyledDialog>
   );
 };
 
