@@ -17,9 +17,8 @@ function PostThumbnail(props) {
             <div className="line"></div>
 
             <div className="stats">
-                <div>Saved</div>
                 <div className="post-likes">Likes {props.likes}</div>
-                <div>Comments {props.comments.length}</div>
+                <div className="post-comments">Comments {props.comments.length}</div>
             </div>
 
         </div>

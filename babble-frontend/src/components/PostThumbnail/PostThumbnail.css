@@ -4,7 +4,7 @@
     border: 1px solid #2176FF;
     display: flex;
     min-height: 100px;
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .post-content {
@@ -30,11 +30,17 @@
 
 .stats {
     width: 15%;
-    text-align: justify;
-    font-size: 20px;
+    font-size: 25px;
     padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .post-likes {
-    text-align: justify;
+    text-align-last: justify;
+}
+
+.post-comments {
+    text-align-last: justify;
 }
