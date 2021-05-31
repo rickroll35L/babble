@@ -27,8 +27,8 @@ const UserProfile = (props) => {
             </div>
 
             <div className="profile-buttons">
-                <button onClick={goDelete}>Delete account</button>
-                <button onClick={()=>setEditProfile(true)}>Edit Profile</button>
+                <button className="profile-button" onClick={goDelete}>Delete account</button>
+                <button className="profile-button" onClick={()=>setEditProfile(true)}>Edit Profile</button>
             </div>
         </div>
     );

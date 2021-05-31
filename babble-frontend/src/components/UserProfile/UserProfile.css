@@ -22,3 +22,14 @@
     justify-content: center;
     align-items: center;
 }
+
+.profile-button {
+    background-color: #FDCA40;
+    border: none;
+    border-radius: 30px;
+    height: 10vh;
+    margin: 10px;
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 5vh;
+    padding: 5px 15px;
+}

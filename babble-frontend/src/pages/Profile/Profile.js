@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserPosts from '../../components/UserPosts/UserPosts';
 import SavedPosts from '../../components/SavedPosts/SavedPosts';
+import './Profile.css';
 
 const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedPosts, getMyPosts, logoutUser, loginInfo}) => {
     const history = useHistory();

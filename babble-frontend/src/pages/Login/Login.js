@@ -30,7 +30,7 @@ const Login = ({ createUser, loginUser }) => {
 
             <div className="old-stuff">
                 <button onClick = {goHome}>Home</button>
-            </div>*
+            </div>
         </div>
     );
 }
