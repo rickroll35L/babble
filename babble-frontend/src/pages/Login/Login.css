@@ -1,8 +1,11 @@
+@import url(//fonts.googleapis.com/css?family=Ropa+Sans);
+
 .login-container {
     background: #2176FF url(login_background.svg) no-repeat right top;
     background-size: contain;
     width: 100%;
     height: 100vh;
+    font-family: 'Ropa Sans', sans-serif;
     display: flex;
 }
 
@@ -14,11 +17,22 @@
 }
 
 .login-form-container {
-    background: url(login_form.svg) no-repeat;
-    background-size: contain;
-    background-position: center;
-    width: 50%;
-    margin: 7%;  
+    background-color: #F4F4F4;
+    box-shadow: 20px 20px #FDCA40;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+    margin: 7%;
+}
+
+.set-signin-button {
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 16px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid black;
 }
 
 .old-stuff {
