@@ -38,7 +38,7 @@ const UserPosts = ({getMyPosts,deletePost}) => {
 
     return (
         <div className="user-posts-container">
-            <div>User Posts</div>
+            <div className="user-posts-title">User Posts</div>
             {userPostsArray.map(post => <PostThumbnail {...post} key={post.id + "usertest"}/>)}
             {userPosts ? userPosts.map((post) => {
                 return (<div key={post.id + "mypost"}>

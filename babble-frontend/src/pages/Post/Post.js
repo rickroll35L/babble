@@ -84,59 +84,58 @@ const Post = ({getPost, savePost, createComment, likePost, post}) => {
     }
 
     return (
-        <div id = "main">
-            <MakeComment open={makeComment} handleclose={handleClose} createComment={createComment} postId={postId}/>
-            <div id="titleheader">
-                <br></br>
-                <div id = "title">
-                    {currPost.title  ? currPost.title : ""}
+        <div className="post-page-container">
+
+            {/*Navbar*/}
+
+            <div className="post-container">
+                <MakeComment open={makeComment} handleclose={handleClose} createComment={createComment} postId={postId}/>
+
+                <div className="content-container">
+                    <div className="date">Posted {currPost.time}</div>
+                    <div className="post-title">{currPost.title ? currPost.title : ""}</div>
+                    <div className="content">{currPost.body}</div>
                 </div>
-                <div id = "date">
-                    {currPost.time}
+
+                <div className = "tags-list">
+                    <ul id = "tags">
+                        {currPost.tags ? currPost.tags.map((t) => {
+                            return (
+                                <li key={t + "key"}>{t}</li>
+                            );
+                        }) : <></>}
+                    </ul>
                 </div>
-                <br></br>
-            </div>
-            <div id = "content">
-                {currPost.body}
-            </div>
-            <div id = "metaInfo">
-                <ul id = "tags">
-                    {currPost.tags ? currPost.tags.map((t) => {
+
+                <div className="post-interactions">
+                    <button className="save-button" onClick={() => savePost(postId)}>
+                        Save This Post
+                    </button>
+                    <button className="like-button" onClick={() => likePost(postId)}>
+                        Like This Post <div>{currPost.likes}</div>
+                    </button>
+                    <button className="comment-button" onClick={openDialog}>
+                        Make a Comment
+                    </button>
+                </div>
+                
+                <div className="comments">
+                    {currPost.comments ? currPost.comments.map((c) => {
                         return (
-                            <li key={t + "key"}>{t}</li>
+                            <div id = "comment" key={c.id + "commentkey"}>
+                                <div className="commenter">{c.poster}</div>
+                                <div className="comment-body">{c.body}</div>
+                            </div>
                         );
                     }) : <></>}
-                </ul>
-                <div id = "likes">
-                    liked by {currPost.likes} people
                 </div>
-                <button id = "likeButton" onClick={() => likePost(postId)}>
-                    Like
-                </button>
-                <button id = "savePostButton" onClick={() => savePost(postId)}>
-                    Save Post
-                </button>
+
+
+                <div className="old-stuff">
+                    <button onClick={goHome}>Home</button>
+                </div>
+
             </div>
-            <button onClick={openDialog}>
-                Make Comment
-            </button>
-            <div id = "comments">
-                {currPost.comments ? currPost.comments.map((c) => {
-                    return (
-                        <div id = "comment" key={c.id + "commentkey"}>
-                            <div className="boldtext">
-                                {c.poster}
-                            </div>
-                            <div>
-                                {c.body}
-                            </div>
-                        </div>
-                    );
-                }) : <></>}
-            </div>
-            <button onClick = {goHome}>
-                Home
-            </button>
         </div>
     );
 }

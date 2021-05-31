@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserPosts from '../../components/UserPosts/UserPosts';
 import SavedPosts from '../../components/SavedPosts/SavedPosts';
+import './Profile.css';
 
 const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedPosts, getMyPosts, logoutUser, loginInfo}) => {
     const history = useHistory();
@@ -21,16 +22,24 @@ const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedP
 
     return (
         <div className="profile-page-container">
+
+            {/*Navbar*/}
+
             <div className="profile-container">
-                {/*<UserProfile {...userInfo} deleteUser={deleteUser} changeEmail={changeEmail} changePassword={changePassword}/>*/}
-                <UserProfile {...loginInfo} deleteUser={deleteUser} changeEmail={changeEmail} changePassword={changePassword}/>
-                <button onClick={goHome}>Home</button>
-                <button onClick={goLogin}>Logout</button>
+                <div className="profile-info-container">
+                    {/*<UserProfile {...userInfo} deleteUser={deleteUser} changeEmail={changeEmail} changePassword={changePassword}/>*/}
+                    <UserProfile {...loginInfo} deleteUser={deleteUser} changeEmail={changeEmail} changePassword={changePassword}/>
+                </div>
+
+                <div className="posts-container">
+                    <UserPosts getMyPosts={getMyPosts} deletePost={deletePost}/>
+                    <SavedPosts getSavedPosts={getSavedPosts}/>
+                </div>
             </div>
 
-            <div className="posts-container">
-                <UserPosts getMyPosts={getMyPosts} deletePost={deletePost}/>
-                <SavedPosts getSavedPosts={getSavedPosts}/>
+            <div className="old-stuff">
+                <button onClick={goHome}>Home</button>
+                <button onClick={goLogin}>Logout</button>
             </div>
         </div>
     );
