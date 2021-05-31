@@ -1,11 +1,12 @@
-import React,{ useState } from "react";
+import React,{ useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import MakePost from "../../components/MakePost/MakePost.js";
 import Feed from "../../components/Feed/Feed.js";
 
-const Home = () => {
+const Home = ({ createPost, getPosts, searchPost, logoutUser}) => {
     const history = useHistory();
     const [makePost, setMakePost] = useState(false);
+    const [postList, setPostList] = useState([]);
     const goProfile = () => {
         history.push(`/profile`);
     }
@@ -13,6 +14,7 @@ const Home = () => {
         history.push(`/post/${postId}`);
     }
     const goLogin = () => {
+        logoutUser();
         history.push(`/`);
     }
 
@@ -20,15 +22,19 @@ const Home = () => {
         setMakePost(true);
     }
 
+    useEffect(() => {
+        getPosts(setPostList);
+    }, []);
+
     
     return (
         <div>
-            <MakePost open={makePost} handleclose={() => setMakePost(false)} />
+            <MakePost open={makePost} handleclose={() => setMakePost(false)} createPost={createPost}/>
             Home
             <button onClick = {goProfile}>
                 Profile
             </button>
-            <Feed/>
+            <Feed posts={postList} searchPost={searchPost} setPostList={setPostList}/>
             <button onClick = {() => goPost(1)}>
                 Post 1
             </button>

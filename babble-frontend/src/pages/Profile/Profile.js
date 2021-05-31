@@ -1,44 +1,36 @@
-import React, {useState} from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserPosts from '../../components/UserPosts/UserPosts';
 import SavedPosts from '../../components/SavedPosts/SavedPosts';
-import MakePost from '../../components/MakePost/MakePost';
-import './Profile.css';
 
-const Profile = () => {
+const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedPosts, getMyPosts, logoutUser, loginInfo}) => {
     const history = useHistory();
     const goHome = () => {
         history.push(`/home`);
     }
     const goLogin = () => {
+        logoutUser();
         history.push(`/`);
     }
 
-    const [makePost, setMakePost] = useState(false);
-    const openDialog = () => {
-        setMakePost(true);
-    }
-
     const userInfo = {
-        userID: 'a1b2c3',
         email: 'joebruin@ucla.edu',
-        password: 'thisisagoodpassword'
+        password: 'stupidlonghashthatisunreadable'
     }
 
     return (
         <div className="profile-page-container">
             <div className="profile-container">
-                <UserProfile {...userInfo}/>
-                <MakePost open={makePost} handleclose={() => setMakePost(false)} />
-                <button onClick={openDialog}>Make Post</button>
+                {/*<UserProfile {...userInfo} deleteUser={deleteUser} changeEmail={changeEmail} changePassword={changePassword}/>*/}
+                <UserProfile {...loginInfo} deleteUser={deleteUser} changeEmail={changeEmail} changePassword={changePassword}/>
                 <button onClick={goHome}>Home</button>
                 <button onClick={goLogin}>Logout</button>
             </div>
 
             <div className="posts-container">
-                <UserPosts />
-                <SavedPosts />
+                <UserPosts getMyPosts={getMyPosts} deletePost={deletePost}/>
+                <SavedPosts getSavedPosts={getSavedPosts}/>
             </div>
         </div>
     );

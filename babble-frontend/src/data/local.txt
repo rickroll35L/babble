@@ -1,1 +1,0 @@
-I don't know if we need this. Haven't used local storage before, so this may be unnecessary.
