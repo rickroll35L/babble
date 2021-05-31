@@ -21,14 +21,14 @@ const Login = ({ createUser, loginUser }) => {
 
     return (
         <div className="login-container">
-            <div className="right-column">
-                Welcome to Babble!
-            </div>
-            <div className="left-column">
-                {signinBool? <LoginForm loginUser={loginUser} goHome={goHome}/> : <SignupForm createUser={createUser}/>}
-                <button onClick = {setSignin}>{signinPhrase}</button>
+            <div className="login-icon"></div>
 
-                <br></br>
+            <div className="login-form-container">
+                {signinBool? <LoginForm loginUser={loginUser} goHome={goHome}/> : <SignupForm createUser={createUser}/>}
+                <button className="set-signin-button" onClick = {setSignin}>{signinPhrase}</button>
+            </div>
+
+            <div className="old-stuff">
                 <button onClick = {goHome}>Home</button>
             </div>
         </div>

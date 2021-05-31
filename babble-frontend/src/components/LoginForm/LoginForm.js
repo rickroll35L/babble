@@ -30,21 +30,23 @@ const LoginForm = ({ loginUser, goHome }) => {
     }
 
     return (
-        <div className="form-container">
-            <form className="login-form" onSubmit={handleSubmit}>
+        <div className="signin-form-container">
+            <form className="signin-form" onSubmit={handleSubmit}>
                 <label for="email">Email</label>
-                <input type="text" 
+                <input className="signin-input"
+                    type="text" 
                     title="email"
                     value={email}
                     onChange={handleEmail}
                 />
                 <label for="password">Password</label>
-                <input type="password" 
+                <input className="signin-input"
+                    type="password" 
                     title="password"
                     value={password}
                     onChange={handlePassword}
                 />
-                <button type="submit">Log In</button>
+                <button className="signin-button" type="submit">Log In</button>
             </form>
         </div>
     );

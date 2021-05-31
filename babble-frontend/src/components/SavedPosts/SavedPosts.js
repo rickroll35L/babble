@@ -28,7 +28,7 @@ const SavedPosts = ({getSavedPosts}) => {
 
     return (
         <div className="saved-posts-container">
-            <div>Saved Posts</div>
+            <div className="saved-posts-title">Saved Posts</div>
             {savedPostsArray.map(post => <PostThumbnail {...post} key={post.id + "savetest"}/>)}
             {savedPosts ? savedPosts.map(post => <PostThumbnail {...post} key={post.id + "save"}/>) : <></>}
         </div>

@@ -21,13 +21,15 @@ const UserProfile = (props) => {
                 changeEmail={props.changeEmail} 
                 changePassword={props.changePassword}
             />
-            <div>
+            <div className="user-info-container">
                 <div>Email: {props.email ? props.email : localStorage.getItem("email")}</div>
                 <div>Password: {props.password ? props.password : localStorage.getItem("pswd")}</div>
             </div>
 
-            <button onClick={goDelete}>Delete account</button>
-            <button onClick={()=>setEditProfile(true)}>Edit Profile</button>
+            <div className="profile-buttons">
+                <button className="profile-button" onClick={goDelete}>Delete account</button>
+                <button className="profile-button" onClick={()=>setEditProfile(true)}>Edit Profile</button>
+            </div>
         </div>
     );
 }

@@ -37,26 +37,29 @@ const SignupForm = ({ createUser }) => {
     }
 
     return (
-        <div className="form-container">
+        <div className="signup-form-container">
             <form className="signup-form" onSubmit={handleSubmit}>
                 <label for="email">Email</label>
-                <input type="text"
+                <input className="signup-input"
+                    type="text"
                     title="email"
                     value={email}
                     onChange={handleEmail}
                 />
                 <label for="password">Password</label>
-                <input type="password"
+                <input className="signup-input"
+                    type="password"
                     title="password"
                     value={password}
                     onChange={handlePassword}
                 />
                 <label for="confirm">Confirm password</label>
-                <input type="password"
+                <input className="signup-input"
+                    type="password"
                     value={confirmPassword}
                     onChange={handleConfirmPassword}
                 />
-                <button type="submit">Sign Up</button>
+                <button className="signup-button" type="submit">Sign Up</button>
             </form>
         </div>
     );
