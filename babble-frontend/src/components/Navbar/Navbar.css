@@ -1,10 +1,51 @@
 .navbar {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #2176FF;
+    height: 100px;
+}
+
+.home {
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    border: 0;
+    background: #2176FF;
+    color: #000000;
+    text-shadow: 1px solid #FFFFFF;
 }
 
 .search {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    width: 820px;
+    height: 60px;
+    background: #FFFFFF;
+    border: 1px solid #33A1FD;
+    box-sizing: border-box;
+    border-radius: 30px;
+    align-content: center;
+}
+
+.search-text {
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 45px;
+    line-height: 45px;
+    border: 0;
+    width: 700px;
+}
+
+.tag {
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    border: 0;
+    background: #FFFFFF;
 }

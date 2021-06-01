@@ -8,16 +8,16 @@ import './Home.css';
 const Home = ({ createPost, getPosts, searchPost, logoutUser}) => {
     const params = useParams();
     const history = useHistory();
-    const [makePost, setMakePost] = useState(false);
+    // const [makePost, setMakePost] = useState(false);
     const [postList, setPostList] = useState([]);
 
     const goPost = (postId) => {
         history.push(`/post/${postId}`);
     }
 
-    const openDialog = () => {
-        setMakePost(true);
-    }
+    // const openDialog = () => {
+    //     setMakePost(true);
+    // }
     const search = (query) => {
         const req = {
             query: query,

@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
-import { Menu, MenuItem } from '@material-ui/core';
+import { Icon, Menu, MenuItem } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SearchIcon from '@material-ui/icons/Search';
 import MakePost from "../MakePost/MakePost.js"
+import './Navbar.css';
 
 const Navbar = ({ createPost, logoutUser, searchPost }) => {
     const [query, setQuery] = useState("")
@@ -39,27 +43,37 @@ const Navbar = ({ createPost, logoutUser, searchPost }) => {
 
     return (
         <div className="navbar">
-            <button onClick={goHome}>BABBLE</button>
-            <form className="search" type="submit">
-                <button onClick={goSearch}>Search</button>
+            <button className="home" onClick={goHome}>BABBLE!</button>
+            <form className="search" type="submit" onSubmit={goSearch}>
+                <IconButton onClick={goSearch}>
+                    <SearchIcon style={{ fontSize: 50}}/>
+                </IconButton>
                 <input className="search-text"
                     type="text"
                     title="Search"
+                    placeholder="Search"
                     value={query}
                     onChange={handleQuery}
                 />
             </form>
             <div className="menu">
-                <button aria-controls="menu" aria-haspopup="true" onClick={handleClick}>Icon</button>
-                <Menu id="menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick} style={{border: "1px solid #33A1FD"}}>
+                    <AccountCircleIcon style={{ color: "#FFFFFF", fontSize: 40 }}/>
+                </IconButton>
+                <Menu id="menu" 
+                    anchorEl={anchorEl} 
+                    open={Boolean(anchorEl)} 
+                    onClose={handleClose}     
+                    keepMounted
+                    >
                     <MenuItem>
-                        <button onClick={openDialog}>Make Post</button>
+                        <button className="tag" onClick={openDialog}>Make Post</button>
                     </MenuItem>
                     <MenuItem>
-                        <button onClick = {goProfile}>Profile</button>
+                        <button className="tag" onClick = {goProfile}>Profile</button>
                     </MenuItem>
                     <MenuItem>
-                        <button onClick = {goLogin}>Logout</button>
+                        <button className="tag" onClick = {goLogin}>Logout</button>
                     </MenuItem>
                 </Menu>
                 <MakePost open={makePost} handleclose={() => setMakePost(false)} createPost={createPost}/>
