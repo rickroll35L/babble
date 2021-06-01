@@ -41,13 +41,13 @@ const Home = ({ createPost, getPosts, searchPost, logoutUser}) => {
                 <Feed posts={postList} />
             </div>
 
-            <div className="old-stuff">
-                {/* <MakePost open={makePost} handleclose={() => setMakePost(false)} createPost={createPost}/>
-                Home */}
+            {/*<div className="old-stuff">
+                <MakePost open={makePost} handleclose={() => setMakePost(false)} createPost={createPost}/>
+                Home 
                 <button onClick = {() => goPost(1)}>Post 1</button>
                 <button onClick = {() => goPost(2)}>Post 2</button>
-                {/* <button onClick={openDialog}>Make Post</button> */}
-            </div>
+                <button onClick={openDialog}>Make Post</button>
+            </div>*/}
         </div>
         
     );

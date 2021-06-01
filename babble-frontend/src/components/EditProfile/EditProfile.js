@@ -59,7 +59,7 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
   return (
     <Dialog open={open} onClose={clear}>
       <DialogTitle>
-        <div className="title">Write a comment</div>
+        <div className="title">Change Email or Password</div>
       </DialogTitle>
 
       <DialogContent>

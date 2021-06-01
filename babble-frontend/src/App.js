@@ -72,10 +72,11 @@ function App() {
 
   const logoutUser = useCallback( async () => {
     try {
+      localStorage.clear();
       const result = await authAxios.post(`/user/logout`);
       return true;
     } catch (err) {
-      console.log(err);
+      console.log(err)
       return false;
     }
   });

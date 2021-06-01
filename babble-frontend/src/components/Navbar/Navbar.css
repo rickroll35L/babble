@@ -18,6 +18,17 @@
     text-shadow: 1px solid #FFFFFF;
 }
 
+.home:hover{
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    border: 0;
+    background: #2176FF;
+    color: #FDCA40;
+    text-shadow: 1px solid #000000;
+}
+
 .search {
     display: flex;
     flex-direction: row;

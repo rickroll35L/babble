@@ -38,10 +38,10 @@ const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedP
                 </div>
             </div>
 
-            <div className="old-stuff">
+            {/*<div className="old-stuff">
                 <button onClick={goHome}>Home</button>
                 <button onClick={goLogin}>Logout</button>
-            </div>
+            </div>*/}
         </div>
     );
 }

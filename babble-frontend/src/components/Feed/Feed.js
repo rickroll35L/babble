@@ -44,8 +44,8 @@ function Feed({ posts }) {
             {posts.map((p) => 
                 <PostThumbnail {...p} key={p.id + "feedposts"}/>
             )}
-            <PostThumbnail {...tProfile1}/>
-            <PostThumbnail {...tProfile2}/>
+            {/*<PostThumbnail {...tProfile1}/>
+            <PostThumbnail {...tProfile2}/>*/}
         </div>
     );
 }
