@@ -298,6 +298,7 @@ function App() {
                 getPost={getPost} 
                 savePost={savePost} 
                 likePost={likePost}
+                createPost={createPost}
               />
             )}
           />
@@ -313,6 +314,7 @@ function App() {
                 getSavedPosts={getSavedPosts}
                 getMyPosts={getMyPosts}
                 logoutUser={logoutUser}
+                createPost={createPost}
               />
             )}
           />
