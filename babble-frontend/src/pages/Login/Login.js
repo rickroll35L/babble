@@ -28,9 +28,9 @@ const Login = ({ createUser, loginUser }) => {
                 <button className="set-signin-button" onClick = {setSignin}>{signinPhrase}</button>
             </div>
 
-            <div className="old-stuff">
+            {/*<div className="old-stuff">
                 <button onClick = {goHome}>Home</button>
-            </div>
+            </div>*/}
         </div>
     );
 }

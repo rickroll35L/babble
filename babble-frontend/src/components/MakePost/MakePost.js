@@ -7,7 +7,31 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import styled from "styled-components";
 import "./MakePost.css";
+
+// const StyledDialog = styled("Dialog")`
+//   top: 150px;
+//   width: 900px;
+//   height: auto;
+//   background: #FFFFFF;
+//   background-color: '#F4F4F4';
+
+//   border: 1px solid #2176FF;
+//   box-sizing: border-box;
+//   border-radius: 30px;
+// `;
+
+const StyledButton = styled.button`
+  width: 145px;
+  height: 70px;
+  font-size: 48px;
+  line-height: 51px;
+  background: #FDCA40;
+  border-radius: 30px;
+  font-family: 'Ropa Sans', sans-serif;
+`;
+
 
 const MakePost = ({ open, handleclose, createPost }) => {
   const [title, setTitle] = useState("");
@@ -44,14 +68,18 @@ const MakePost = ({ open, handleclose, createPost }) => {
   }
 
   return (
-    <Dialog open={open} onClose={clear}>
-      <DialogTitle>
-        <div className="title">Create a Post</div>
+    <Dialog 
+      maxWidth="md" 
+      fullWidth
+      open={open} 
+      onClose={clear}>
+      <DialogTitle className="title">
+        <div className="title-text">Create a Post</div>
       </DialogTitle>
 
       <DialogContent>
         <div className="TextFieldWrapper">
-          <TextField
+          <TextField 
             autoFocus
             margin="dense"
             id="name"
@@ -61,8 +89,10 @@ const MakePost = ({ open, handleclose, createPost }) => {
             InputProps={{
               disableUnderline: true,
               style: {
-                fontSize: 16,
-                fontWeight: 600,
+                fontFamily: "'Ropa Sans', sans-serif",
+                fontSize: 44,
+                fontWeight: "normal",
+                color: "#56667A",
               },
             }}
             onChange={handleTitle}
@@ -75,7 +105,10 @@ const MakePost = ({ open, handleclose, createPost }) => {
             InputProps={{
               disableUnderline: true,
               style: {
-                fontSize: 16,
+                fontSize: 36,
+                fontFamily: "'Ropa Sans', sans-serif",
+                fontWeight: "normal",
+                color: "#56667A",
               },
             }}
             onChange={handleDescription}
@@ -83,9 +116,9 @@ const MakePost = ({ open, handleclose, createPost }) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary">
+        <StyledButton onClick={handleSubmit} color="primary">
           Post
-        </Button>
+        </StyledButton>
       </DialogActions>
     </Dialog>
   );

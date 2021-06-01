@@ -39,11 +39,11 @@ const UserPosts = ({getMyPosts,deletePost}) => {
     return (
         <div className="user-posts-container">
             <div className="user-posts-title">User Posts</div>
-            {userPostsArray.map(post => <PostThumbnail {...post} key={post.id + "usertest"}/>)}
+            {/*userPostsArray.map(post => <PostThumbnail {...post} key={post.id + "usertest"}/>)*/}
             {userPosts ? userPosts.map((post) => {
                 return (<div key={post.id + "mypost"}>
-                    <PostThumbnail {...post} />
-                    <button onClick={() => deletePost(post.id)}>Delete Post</button>
+                    
+                    <PostThumbnail {...post} deletePost={deletePost}/>
                 </div>);
             }) : <></>}
         </div>

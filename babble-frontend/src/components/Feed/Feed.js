@@ -38,25 +38,14 @@ const tProfile2 = {
     ],
 }
 
-function Feed({ posts, searchPost, setPostList }) {
-    const search = () => {
-        const req = {
-            query: "hi again", //replace with search string
-            callback: setPostList
-
-        };
-        searchPost(req);
-    };
+function Feed({ posts }) {
     return (
         <div>
-            <div className="Navigation">
-                <button onClick={search}>search</button>
-            </div>
             {posts.map((p) => 
                 <PostThumbnail {...p} key={p.id + "feedposts"}/>
             )}
-            <PostThumbnail {...tProfile1}/>
-            <PostThumbnail {...tProfile2}/>
+            {/*<PostThumbnail {...tProfile1}/>
+            <PostThumbnail {...tProfile2}/>*/}
         </div>
     );
 }

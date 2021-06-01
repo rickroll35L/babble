@@ -44,3 +44,11 @@
 .post-comments {
     text-align-last: justify;
 }
+
+.delete {
+    color: black;
+}
+
+.delete:hover {
+    color: #2176FF;
+}

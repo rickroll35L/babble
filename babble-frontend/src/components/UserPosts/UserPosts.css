@@ -12,3 +12,13 @@
     text-align: center;
     padding: 3px;
 }
+
+.individual-post {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    align-items: stretch;
+    border: 4px;
+    border-style: solid;
+}

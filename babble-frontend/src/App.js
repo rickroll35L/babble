@@ -72,10 +72,11 @@ function App() {
 
   const logoutUser = useCallback( async () => {
     try {
+      localStorage.clear();
       const result = await authAxios.post(`/user/logout`);
       return true;
     } catch (err) {
-      console.log(err);
+      console.log(err)
       return false;
     }
   });
@@ -266,10 +267,20 @@ function App() {
                 loginUser={loginUser}
               />
             )}
-          
           />
           <Route 
             exact path="/home"
+            render={(props) => (
+              <Home {...props} 
+                createPost={createPost} 
+                getPosts={getPosts} 
+                searchPost={searchPost}
+                logoutUser={logoutUser}
+              />
+            )}
+          />
+          <Route 
+            exact path="/home/:q"
             render={(props) => (
               <Home {...props} 
                 createPost={createPost} 

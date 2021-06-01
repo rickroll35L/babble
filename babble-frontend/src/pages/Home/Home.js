@@ -1,51 +1,53 @@
 import React,{ useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MakePost from "../../components/MakePost/MakePost.js";
 import Feed from "../../components/Feed/Feed.js";
-import './Home.css'
+import Navbar from "../../components/Navbar/Navbar.js"
+import './Home.css';
 
 const Home = ({ createPost, getPosts, searchPost, logoutUser}) => {
+    const params = useParams();
     const history = useHistory();
-    const [makePost, setMakePost] = useState(false);
+    // const [makePost, setMakePost] = useState(false);
     const [postList, setPostList] = useState([]);
-    const goProfile = () => {
-        history.push(`/profile`);
-    }
+
     const goPost = (postId) => {
         history.push(`/post/${postId}`);
     }
-    const goLogin = () => {
-        logoutUser();
-        history.push(`/`);
-    }
 
-    const openDialog = () => {
-        setMakePost(true);
-    }
-
+    // const openDialog = () => {
+    //     setMakePost(true);
+    // }
+    const search = (query) => {
+        const req = {
+            query: query,
+            callback: setPostList
+        };
+        searchPost(req);
+    };
     useEffect(() => {
         getPosts(setPostList);
+        if (params.q)
+            search(params.q);
     }, []);
-
+    
     
     return (
         <div className="home-container">
 
-            {/*Navbar would go here maybe*/}
+            <Navbar createPost={createPost} logoutUser={logoutUser} searchPost={searchPost}/>
 
             <div>
-                <Feed posts={postList} searchPost={searchPost} setPostList={setPostList}/>
+                <Feed posts={postList} />
             </div>
 
-            <div className="old-stuff">
+            {/*<div className="old-stuff">
                 <MakePost open={makePost} handleclose={() => setMakePost(false)} createPost={createPost}/>
-                Home
-                <button onClick = {goProfile}>Profile</button>
+                Home 
                 <button onClick = {() => goPost(1)}>Post 1</button>
                 <button onClick = {() => goPost(2)}>Post 2</button>
-                <button onClick = {goLogin}>Logout</button>
                 <button onClick={openDialog}>Make Post</button>
-            </div>
+            </div>*/}
         </div>
         
     );
