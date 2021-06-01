@@ -130,9 +130,9 @@ const Post = ({getPost, savePost, createComment, likePost, post, createPost, sea
                 </div>
 
 
-                <div className="old-stuff">
+                {/*<div className="old-stuff">
                     <button onClick={goHome}>Home</button>
-                </div>
+                </div>*/}
 
             </div>
         </div>

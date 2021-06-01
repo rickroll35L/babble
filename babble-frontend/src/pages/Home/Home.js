@@ -29,7 +29,7 @@ const Home = ({ createPost, getPosts, searchPost, logoutUser}) => {
         getPosts(setPostList);
         if (params.q)
             search(params.q);
-    }, []);
+    }, [params]);
     
     
     return (

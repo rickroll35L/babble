@@ -5,7 +5,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 function PostThumbnail(props) {
     const history = useHistory();
     const goPost = (postId) => {
-        history.push(`/post/${postId}`, props);
+        console.log(postId);
+        history.push(`/post/${postId}`);
     }
 
     return (
@@ -15,7 +16,7 @@ function PostThumbnail(props) {
                 <div className="post-description">{props.body}</div>
             </div>
 
-            {props.deletePost ? 
+            {/*props.deletePost ? 
                 (<div className="delete">
                     <DeleteIcon 
                     onClick={() => props.deletePost(props.id)}
@@ -25,7 +26,7 @@ function PostThumbnail(props) {
                     }}
                     />
                 </div>)
-            : <></>}
+                : <></>*/}
 
             <div className="line"></div>
 
