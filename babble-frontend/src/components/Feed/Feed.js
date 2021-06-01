@@ -39,7 +39,6 @@ const tProfile2 = {
 }
 
 function Feed({ posts }) {
-
     return (
         <div>
             {posts.map((p) => 

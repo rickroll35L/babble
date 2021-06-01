@@ -48,14 +48,18 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
   }
 
   return (
-    <Dialog open={open} onClose={clear}>
+    <Dialog 
+      maxWidth="md" 
+      fullWidth
+      open={open} 
+      onClose={clear}>
       <DialogTitle>
         <div className="title">Write a comment</div>
       </DialogTitle>
 
       <DialogContent>
         <div className="TextFieldWrapper">
-          <TextField
+          <TextField 
             autoFocus
             margin="dense"
             id="name"
@@ -65,8 +69,10 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
             InputProps={{
               disableUnderline: true,
               style: {
-                fontSize: 16,
-                fontWeight: 600,
+                fontFamily: "'Ropa Sans', sans-serif",
+                fontSize: 44,
+                fontWeight: "normal",
+                color: "#56667A",
               },
             }}
             onChange={handleTitle}
@@ -79,7 +85,10 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
             InputProps={{
               disableUnderline: true,
               style: {
-                fontSize: 16,
+                fontSize: 36,
+                fontFamily: "'Ropa Sans', sans-serif",
+                fontWeight: "normal",
+                color: "#56667A",
               },
             }}
             onChange={handleDescription}

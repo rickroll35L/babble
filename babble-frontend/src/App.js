@@ -266,10 +266,20 @@ function App() {
                 loginUser={loginUser}
               />
             )}
-          
           />
           <Route 
             exact path="/home"
+            render={(props) => (
+              <Home {...props} 
+                createPost={createPost} 
+                getPosts={getPosts} 
+                searchPost={searchPost}
+                logoutUser={logoutUser}
+              />
+            )}
+          />
+          <Route 
+            exact path="/home/:q"
             render={(props) => (
               <Home {...props} 
                 createPost={createPost} 

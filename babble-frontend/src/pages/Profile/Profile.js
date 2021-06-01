@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserPosts from '../../components/UserPosts/UserPosts';
 import SavedPosts from '../../components/SavedPosts/SavedPosts';
+import Navbar from "../../components/Navbar/Navbar.js"
 import './Profile.css';
 
-const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedPosts, getMyPosts, logoutUser, loginInfo}) => {
+const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedPosts, getMyPosts, logoutUser, loginInfo, createPost, searchPost}) => {
     const history = useHistory();
     const goHome = () => {
         history.push(`/home`);
@@ -23,7 +24,7 @@ const Profile = ({deletePost, deleteUser, changePassword, changeEmail, getSavedP
     return (
         <div className="profile-page-container">
 
-            {/*Navbar*/}
+            <Navbar createPost={createPost} logoutUser={logoutUser} searchPost={searchPost}/>
 
             <div className="profile-container">
                 <div className="profile-info-container">

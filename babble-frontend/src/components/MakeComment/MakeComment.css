@@ -1,12 +1,23 @@
 .TextFieldWrapper{
+    font-family: 'Ropa Sans', sans-serif;
     display: flex;
     flex-direction: column;
     gap: 10px;
     min-width: 450px;
     margin-top: 20px;
+    height: auto;
+    color: #56667A;
 }
 
 .title{
-    font-weight: bold;
-    font-size: 18px;
+    height: auto
+}
+
+.title-text{
+    font-family: 'Ropa Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 77px;
+    text-align: left;
 }

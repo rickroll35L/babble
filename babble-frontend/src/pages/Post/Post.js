@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useHistory, useParams } from "react-router-dom";
 import MakeComment from "../../components/MakeComment/MakeComment.js";
+import Navbar from "../../components/Navbar/Navbar.js"
 import "./Post.css"
 
 const tPost1 = {
@@ -56,7 +57,7 @@ const testPost = (postId) => {
     }
 }
 
-const Post = ({getPost, savePost, createComment, likePost, post}) => {
+const Post = ({getPost, savePost, createComment, likePost, post, createPost, searchPost, logoutUser}) => {
     const history = useHistory();
     const goHome = () => {
         history.push(`/home`);
@@ -85,9 +86,7 @@ const Post = ({getPost, savePost, createComment, likePost, post}) => {
 
     return (
         <div className="post-page-container">
-
-            {/*Navbar*/}
-
+            <Navbar createPost={createPost} logoutUser={logoutUser} searchPost={searchPost}/>
             <div className="post-container">
                 <MakeComment open={makeComment} handleclose={handleClose} createComment={createComment} postId={postId}/>
 
