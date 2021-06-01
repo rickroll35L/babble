@@ -31,7 +31,7 @@ async function passwordMatchesUser(user, password) {
 }
 
 function isUCLAemail(email) {
-    const ucla_email_1 = /^[a-z]+@ucla\.edu$/;
-    const ucla_email_2 = /^[a-z]+@g\.ucla\.edu$/;
+    const ucla_email_1 = /^[a-z0-9]+@ucla\.edu$/;
+    const ucla_email_2 = /^[a-z0-9]+@g\.ucla\.edu$/;
     return ((ucla_email_1.test(email)) || (ucla_email_2.test(email)));
 }
