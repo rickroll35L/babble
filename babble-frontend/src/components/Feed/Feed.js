@@ -42,7 +42,7 @@ function Feed({ posts }) {
     return (
         <div>
             {posts.map((p) => 
-                <PostThumbnail {...p} key={p.id + "feedposts"}/>
+                <PostThumbnail {...p} key={p.id + "feedposts"} postStats={true}/>
             )}
             {/*<PostThumbnail {...tProfile1}/>
             <PostThumbnail {...tProfile2}/>*/}

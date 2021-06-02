@@ -8,7 +8,19 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import styled from "styled-components";
 import "./EditProfile.css";
+
+const StyledButton = styled.button`
+  width: 110px;
+  height: 40px;
+  font-size: 24px;
+  background: #FDCA40;
+  border-radius: 30px;
+  font-family: 'Ropa Sans', sans-serif;
+  border: none;
+`;
+
 
 const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
   const [email, setEmail] = useState("");
@@ -62,9 +74,11 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
 }
 
   return (
-    <Dialog open={open} onClose={clear}>
-      <DialogTitle>
-        <div className="title">Change Email or Password</div>
+    <Dialog maxWidth="md"
+      open={open}
+      onClose={clear}>
+      <DialogTitle disableTypography={true} className="edit-profile-title">
+        <div>Change Email or Password</div>
       </DialogTitle>
 
       <DialogContent>
@@ -79,8 +93,10 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
             InputProps={{
               disableUnderline: true,
               style: {
-                fontSize: 16,
-                fontWeight: 600,
+                fontFamily: "'Ropa Sans', sans-serif",
+                fontSize: 24,
+                fontWeight: "normal",
+                color: "#56667A",
               },
             }}
             onChange={handleEmail}
@@ -95,8 +111,10 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
             InputProps={{
               disableUnderline: true,
               style: {
-                fontSize: 16,
-                fontWeight: 600,
+                fontFamily: "'Ropa Sans', sans-serif",
+                fontSize: 24,
+                fontWeight: "normal",
+                color: "#56667A",
               },
             }}
             onChange={handlePassword}
@@ -104,9 +122,9 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary">
-          Post
-        </Button>
+        <StyledButton onClick={handleSubmit} color="primary">
+          Confirm
+        </StyledButton>
       </DialogActions>
     </Dialog>
   );

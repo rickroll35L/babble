@@ -35,12 +35,16 @@ function PostThumbnail(props) {
                 </div>)
                 : <></>}
 
-            <div className="line"></div>
+            {props.postStats ?
+                <div className="post-stats">
+                    <div className="line"></div>
 
-            <div className="stats">
-                <div className="post-likes">Likes {props.likes}</div>
-                <div className="post-comments">Comments {props.comments.length}</div>
-            </div>
+                    <div className="stats">
+                        <div className="post-likes">Likes {props.likes}</div>
+                        <div className="post-comments">Comments {props.comments.length}</div>
+                    </div>
+                </div>
+                : <></>}
 
         </div>
     )

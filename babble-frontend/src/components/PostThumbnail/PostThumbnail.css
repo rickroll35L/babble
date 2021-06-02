@@ -24,17 +24,25 @@
     color: #56667A;
 }
 
+.post-stats {
+    width: 15%;
+    min-height: 100px;
+    padding-left: 10px;
+    display: flex;
+}
+
 .line {
     border-left: 1px solid #2176FF;
+    padding-left: 10px;
 }
 
 .stats {
-    width: 15%;
+    width: 100%;
+    height: 100%;
     font-size: 25px;
-    padding-left: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .post-likes {
@@ -47,6 +55,8 @@
 
 .delete {
     color: black;
+    display: flex;
+    align-self: center;
 }
 
 .delete:hover {
