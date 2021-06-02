@@ -64,7 +64,9 @@ const Navbar = ({ createPost, logoutUser, searchPost }) => {
                     anchorEl={anchorEl} 
                     open={Boolean(anchorEl)} 
                     onClose={handleClose}     
-                    keepMounted
+                    getContentAnchorEl={null}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                    transformOrigin={{vertical: 'top', horizontal: 'center'}}
                     >
                     <MenuItem>
                         <button className="tag" onClick={openDialog}>Make Post</button>
