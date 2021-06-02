@@ -56,6 +56,11 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
     handleclose();
   }
 
+  const setString = (str) => {
+    const res = "*";
+    return res.repeat(str.length);
+}
+
   return (
     <Dialog open={open} onClose={clear}>
       <DialogTitle>
@@ -84,7 +89,7 @@ const EditProfile = ({ open, handleclose, changeEmail, changePassword }) => {
             autoFocus
             margin="dense"
             id="pswd"
-            placeholder={localStorage.getItem("pswd")}
+            placeholder={setString(localStorage.getItem("pswd"))}
             type="email"
             fullWidth
             InputProps={{

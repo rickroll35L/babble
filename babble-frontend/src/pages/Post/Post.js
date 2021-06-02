@@ -84,6 +84,11 @@ const Post = ({getPost, savePost, createComment, likePost, post, createPost, sea
         setMakeComment(false);
     }
 
+    const doLike = (postId) => {
+        likePost(postId);
+        window.location.reload();
+    }
+
     return (
         <div className="post-page-container">
             <Navbar createPost={createPost} logoutUser={logoutUser} searchPost={searchPost}/>
@@ -110,7 +115,7 @@ const Post = ({getPost, savePost, createComment, likePost, post, createPost, sea
                     <button className="save-button" onClick={() => savePost(postId)}>
                         Save This Post
                     </button>
-                    <button className="like-button" onClick={() => likePost(postId)}>
+                    <button className="like-button" onClick={() => doLike(postId)}>
                         Like This Post <div>{currPost.likes}</div>
                     </button>
                     <button className="comment-button" onClick={openDialog}>

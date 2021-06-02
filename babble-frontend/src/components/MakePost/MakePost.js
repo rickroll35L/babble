@@ -60,6 +60,7 @@ const MakePost = ({ open, handleclose, createPost }) => {
       tags: []
     }
     createPost(post);
+    window.location.reload();
     clear();
   };
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './SignupForm.css'
 
-const SignupForm = ({ createUser }) => {
+const SignupForm = ({ createUser, successCallback }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ const SignupForm = ({ createUser }) => {
         setConfirmPassword(e.target.value);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(password !== confirmPassword) {
             alert("Passwords do not match");
@@ -29,10 +29,13 @@ const SignupForm = ({ createUser }) => {
                 email,
                 password
             };
-            createUser(body);
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
+            const res = await createUser(body);
+            if(res){
+                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
+                successCallback();
+            }
         }
     }
 
