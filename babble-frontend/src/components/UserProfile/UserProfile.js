@@ -8,9 +8,17 @@ const UserProfile = (props) => {
     const [editProfile, setEditProfile] = useState(false);
     const history = useHistory();
     const goDelete = () => {
-        props.deleteUser();
-        history.push("/");
-        
+        if(window.confirm("Are you sure you want to delete your account?")){
+            props.deleteUser();
+            history.push("/");
+        }
+        else {
+            alert("Delete account canceled");
+        }
+    }
+    const setString = (str) => {
+        const res = "*";
+        return res.repeat(str.length);
     }
     
     return (
@@ -23,7 +31,7 @@ const UserProfile = (props) => {
             />
             <div className="user-info-container">
                 <div>Email: {props.email ? props.email : localStorage.getItem("email")}</div>
-                <div>Password: {props.password ? props.password : localStorage.getItem("pswd")}</div>
+                <div>Password: {props.password ? setString(props.password) : setString(localStorage.getItem("pswd"))}</div>
             </div>
 
             <div className="profile-buttons">

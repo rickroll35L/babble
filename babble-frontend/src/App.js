@@ -33,7 +33,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -66,7 +66,7 @@ function App() {
       callback();
     } catch (err) {
       console.log(err);
-      alert("Invalid Login: " + err);
+      alert("Invalid Login: " + err.response.data);
     }
   });
 
@@ -106,6 +106,7 @@ function App() {
       return logoutUser();
     } catch (err) {
       console.log(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -122,7 +123,7 @@ function App() {
       return logoutUser();
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
     }
   });
 
@@ -137,7 +138,7 @@ function App() {
       return logoutUser();
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -147,7 +148,7 @@ function App() {
       const result = await authAxios.get(`/user/saved-posts`);
       callback(result.data);
     } catch (err) {
-      alert(err);
+      alert(err.response.data);
       console.log(err);
     }
   });
@@ -157,7 +158,7 @@ function App() {
       const result = await authAxios.get(`/user/my-posts`);
       callback(result.data);
     } catch (err) {
-      alert(err);
+      alert(err.response.data);
       console.log(err);
     }
   });
@@ -169,7 +170,7 @@ function App() {
       callback(result.data);
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
     }
   });
 
@@ -179,18 +180,18 @@ function App() {
       set(result.data);
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
     }
   });
 
   const createPost = useCallback( async (post) => {
     try {
       const result = await authAxios.post(`/posts/create-post`, post);
-      alert("Posted! Please reload page.")
+      alert("Posted! Please refresh if you do not see it.")
       return true;
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -198,11 +199,11 @@ function App() {
   const deletePost = useCallback( async (pid) => {
     try {
       const result = await authAxios.delete(`/user/delete-post/${pid}`);
-      alert("Post deleted! Please refresh to update.")
+      alert("Post deleted! Please refresh if you do not see it.")
       return true;
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -213,7 +214,7 @@ function App() {
       callback(result.data);
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
     }
   });
 
@@ -226,7 +227,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -238,7 +239,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });
@@ -250,7 +251,7 @@ function App() {
       return true;
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.response.data);
       return false;
     }
   });

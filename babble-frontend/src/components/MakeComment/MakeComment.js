@@ -39,6 +39,7 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
       body: comment,
     }
     console.log(payload);
+    window.location.reload();
     createComment(payload);
     clear();
   };

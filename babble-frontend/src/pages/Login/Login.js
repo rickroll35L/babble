@@ -24,7 +24,7 @@ const Login = ({ createUser, loginUser }) => {
             <div className="login-icon"></div>
 
             <div className="login-form-container">
-                {signinBool? <LoginForm loginUser={loginUser} goHome={goHome}/> : <SignupForm createUser={createUser}/>}
+                {signinBool? <LoginForm loginUser={loginUser} goHome={goHome}/> : <SignupForm createUser={createUser} successCallback={setSignin}/>}
                 <button className="set-signin-button" onClick = {setSignin}>{signinPhrase}</button>
             </div>
 

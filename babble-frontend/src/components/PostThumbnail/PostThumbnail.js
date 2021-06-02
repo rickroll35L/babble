@@ -9,6 +9,13 @@ function PostThumbnail(props) {
         history.push(`/post/${postId}`);
     }
 
+    const removePost = () => {
+        if(window.confirm("Are you sure you want to delete this post?")){
+            props.deletePost(props.id);
+            window.location.reload();
+        }
+    }
+
     return (
         <div className="thumbnail">
             <div className="post-content" onClick={() => goPost(props.id)}>
@@ -16,17 +23,17 @@ function PostThumbnail(props) {
                 <div className="post-description">{props.body}</div>
             </div>
 
-            {/*props.deletePost ? 
+            {props.deletePost ? 
                 (<div className="delete">
                     <DeleteIcon 
-                    onClick={() => props.deletePost(props.id)}
+                    onClick={removePost}
                     style={{ 
                         fontSize: 100
 
                     }}
                     />
                 </div>)
-                : <></>*/}
+                : <></>}
 
             <div className="line"></div>
 
