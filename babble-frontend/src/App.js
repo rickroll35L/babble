@@ -299,6 +299,7 @@ function App() {
                 getPost={getPost} 
                 savePost={savePost} 
                 likePost={likePost}
+                logoutUser={logoutUser}
                 createPost={createPost}
               />
             )}
