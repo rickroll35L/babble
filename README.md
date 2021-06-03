@@ -18,6 +18,8 @@ To start the app, you need to run both the frontend and the backend. Luckily, we
 ~/.../babble/babble-frontend$ yarn dev
 ```
 
+> Note: If you're running into problems with this command, make sure you're on a bash/zsh terminal.
+
 Now you're ready to start exploring the app!
 
 ## Contribution Workflow
