@@ -44,7 +44,16 @@ function PostThumbnail(props) {
                         <div className="post-comments">Comments {props.comments.length}</div>
                     </div>
                 </div>
-                : <></>}
+                : 
+                <div className="post-stats-conditional">
+                    <div className="line"></div>
+
+                    <div className="stats">
+                        <div className="post-likes">Likes {props.likes}</div>
+                        <div className="post-comments">Comments {props.comments.length}</div>
+                    </div>
+                </div>
+                }
 
         </div>
     )

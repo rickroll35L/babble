@@ -62,3 +62,16 @@
 .delete:hover {
     color: #2176FF;
 }
+
+.post-stats-conditional {
+    width: 15%;
+    min-height: 100px;
+    padding-left: 10px;
+    display: flex;
+}
+
+@media screen and (max-width: 1600px) {
+    .post-stats-conditional {
+        display: none !important;
+    }
+}
