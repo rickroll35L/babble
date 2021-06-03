@@ -5,24 +5,24 @@
     align-items: center;
     background: #2176FF;
     height: 100px;
+    padding: 0px 25px;
 }
 
 .home {
     font-family: Ropa Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 50px;
+    font-weight: bold;
+    font-size: 70px;
     border: 0;
     background: #2176FF;
     color: #000000;
-    text-shadow: 1px solid #FFFFFF;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
 }
 
 .home:hover{
     font-family: Ropa Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 50px;
+    font-size: 70px;
     border: 0;
     background: #2176FF;
     color: #FDCA40;
@@ -32,13 +32,14 @@
 .search {
     display: flex;
     flex-direction: row;
-    width: 820px;
+    width: 100%;
     height: 60px;
     background: #FFFFFF;
     border: 1px solid #33A1FD;
     box-sizing: border-box;
     border-radius: 30px;
     align-content: center;
+    margin: 0px 30px;
 }
 
 .search-text {
@@ -47,8 +48,10 @@
     font-weight: normal;
     font-size: 45px;
     line-height: 45px;
-    border: 0;
-    width: 700px;
+    border: none;
+    width: 85%;
+    border-radius: 30px;
+    outline: none;
 }
 
 .tag {

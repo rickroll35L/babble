@@ -7,7 +7,20 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import styled from "styled-components";
 import "./MakeComment.css";
+
+const StyledButton = styled.button`
+  width: 110px;
+  height: 60px;
+  font-size: 36px;
+  line-height: 51px;
+  background: #FDCA40;
+  border-radius: 30px;
+  font-family: 'Ropa Sans', sans-serif;
+  border: none;
+`;
+
 
 const MakeComment = ({ open, handleclose, createComment, postId }) => {
   const [title, setTitle] = useState("");
@@ -54,8 +67,8 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
       fullWidth
       open={open} 
       onClose={clear}>
-      <DialogTitle>
-        <div className="title">Write a comment</div>
+      <DialogTitle disableTypography={true} className="make-comment-title">
+        <div>Write a comment</div>
       </DialogTitle>
 
       <DialogContent>
@@ -97,9 +110,9 @@ const MakeComment = ({ open, handleclose, createComment, postId }) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary">
+        <StyledButton onClick={handleSubmit} color="primary">
           Post
-        </Button>
+        </StyledButton>
       </DialogActions>
     </Dialog>
   );

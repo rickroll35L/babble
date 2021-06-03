@@ -57,8 +57,8 @@ const Navbar = ({ createPost, logoutUser, searchPost }) => {
                 />
             </form>
             <div className="menu">
-                <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick} style={{border: "1px solid #33A1FD"}}>
-                    <AccountCircleIcon style={{ color: "#FFFFFF", fontSize: 40 }}/>
+                <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick} style={{border: "3px solid #33A1FD", backgroundColor: "#f4f4f4"}}>
+                    <AccountCircleIcon style={{ color: "#A4A4A4", fontSize: 40 }}/>
                 </IconButton>
                 <Menu id="menu" 
                     anchorEl={anchorEl} 

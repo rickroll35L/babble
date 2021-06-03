@@ -10,7 +10,7 @@
 .post-container{
     display: flex;
     flex-direction: column;
-    background-color: #FDCA40;
+    background-color: #33A1FD;
     margin: 30px;
 }
 
@@ -90,6 +90,18 @@ li{
     background-color: white;
     padding: 7px;
     width: 25%;
+}
+
+.save-button:hover {
+    background-color: #FDCA40;
+}
+
+.like-button:hover {
+    background-color: #FDCA40;
+}
+
+.comment-button:hover {
+    background-color: #FDCA40;
 }
 
 .comments{

@@ -23,7 +23,27 @@ function PostThumbnail(props) {
                 <div className="post-description">{props.body}</div>
             </div>
 
-            {props.deletePost ? 
+            {props.postStats ?
+                <div className="post-stats">
+                    <div className="line"></div>
+
+                    <div className="stats">
+                        <div className="post-likes">Likes {props.likes}</div>
+                        <div className="post-comments">Comments {props.comments.length}</div>
+                    </div>
+                </div>
+                : 
+                <div className="post-stats-conditional">
+                    <div className="line"></div>
+
+                    <div className="stats">
+                        <div className="post-likes">Likes {props.likes}</div>
+                        <div className="post-comments">Comments {props.comments.length}</div>
+                    </div>
+                </div>
+                }
+
+                {props.deletePost ? 
                 (<div className="delete">
                     <DeleteIcon 
                     onClick={removePost}
@@ -34,13 +54,6 @@ function PostThumbnail(props) {
                     />
                 </div>)
                 : <></>}
-
-            <div className="line"></div>
-
-            <div className="stats">
-                <div className="post-likes">Likes {props.likes}</div>
-                <div className="post-comments">Comments {props.comments.length}</div>
-            </div>
 
         </div>
     )

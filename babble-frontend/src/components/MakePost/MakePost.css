@@ -11,15 +11,7 @@
     color: #56667A;
 }
 
-.title{
-    height: auto
-}
-
-.title-text{
+.make-post-title {
     font-family: 'Ropa Sans', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 72px;
-    line-height: 77px;
-    text-align: left;
+    font-size: 64px;
 }

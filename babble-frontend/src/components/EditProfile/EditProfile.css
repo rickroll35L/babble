@@ -1,4 +1,7 @@
+@import url(//fonts.googleapis.com/css?family=Ropa+Sans);
+
 .TextFieldWrapper{
+    font-family: 'Ropa Sans', sans-serif;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -6,7 +9,7 @@
     margin-top: 20px;
 }
 
-.title{
-    font-weight: bold;
-    font-size: 18px;
+.edit-profile-title{
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 40px;
 }

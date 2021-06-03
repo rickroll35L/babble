@@ -23,13 +23,14 @@ import "./MakePost.css";
 // `;
 
 const StyledButton = styled.button`
-  width: 145px;
-  height: 70px;
-  font-size: 48px;
+  width: 110px;
+  height: 60px;
+  font-size: 36px;
   line-height: 51px;
   background: #FDCA40;
   border-radius: 30px;
   font-family: 'Ropa Sans', sans-serif;
+  border: none;
 `;
 
 
@@ -69,13 +70,13 @@ const MakePost = ({ open, handleclose, createPost }) => {
   }
 
   return (
-    <Dialog 
+    <Dialog
       maxWidth="md" 
       fullWidth
       open={open} 
       onClose={clear}>
-      <DialogTitle className="title">
-        <div className="title-text">Create a Post</div>
+      <DialogTitle disableTypography={true} className="make-post-title">
+        Create a Post
       </DialogTitle>
 
       <DialogContent>
