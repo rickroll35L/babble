@@ -33,7 +33,7 @@
 
 .line {
     border-left: 1px solid #2176FF;
-    padding-left: 10px;
+    padding-left: 15px;
 }
 
 .stats {
@@ -64,14 +64,8 @@
 }
 
 .post-stats-conditional {
-    width: 15%;
+    min-width: 30%;
     min-height: 100px;
-    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
-}
-
-@media screen and (max-width: 1600px) {
-    .post-stats-conditional {
-        display: none !important;
-    }
 }

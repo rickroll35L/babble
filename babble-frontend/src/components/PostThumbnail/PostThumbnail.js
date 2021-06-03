@@ -23,18 +23,6 @@ function PostThumbnail(props) {
                 <div className="post-description">{props.body}</div>
             </div>
 
-            {props.deletePost ? 
-                (<div className="delete">
-                    <DeleteIcon 
-                    onClick={removePost}
-                    style={{ 
-                        fontSize: 100
-
-                    }}
-                    />
-                </div>)
-                : <></>}
-
             {props.postStats ?
                 <div className="post-stats">
                     <div className="line"></div>
@@ -54,6 +42,18 @@ function PostThumbnail(props) {
                     </div>
                 </div>
                 }
+
+                {props.deletePost ? 
+                (<div className="delete">
+                    <DeleteIcon 
+                    onClick={removePost}
+                    style={{ 
+                        fontSize: 100
+
+                    }}
+                    />
+                </div>)
+                : <></>}
 
         </div>
     )
